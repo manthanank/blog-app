@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 // Import routes
 const blogRoutes = require('./routes/blogRoutes');
 const userRoutes = require('./routes/userRoutes');
+const auth = require('./middlewares/auth');
 
 require("dotenv").config();
 
@@ -37,8 +38,8 @@ app.use(express.static("public"));
 app.use(express.json());
 
 // Routes
-app.use('/api', blogRoutes);
 app.use('/api', userRoutes);
+app.use('/api', auth , blogRoutes);
 
 // Define routes
 app.get('/', (req, res) => {
