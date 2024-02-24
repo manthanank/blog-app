@@ -43,3 +43,19 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+.register-message {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center; /* Center align the text */
+}
+
+.register-message a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.register-message a:hover {
+    text-decoration: underline;
+}
