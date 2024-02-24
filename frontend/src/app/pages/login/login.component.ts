@@ -41,7 +41,7 @@ export class LoginComponent {
       .subscribe((data: any) => {
         if (data.message) {
           this.router.navigate(['/home']);
-          localStorage.setItem('token', data.token);
+          // localStorage.setItem('token', data.token);
         }
       });
   }
