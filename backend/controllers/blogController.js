@@ -31,6 +31,26 @@ exports.getAllPosts = async (req, res) => {
     }
 };
 
+// get featured blog posts
+exports.getFeaturedPosts = async (req, res) => {
+    try {
+        const posts = await BlogPost.find({ isFeatured: true });
+        res.json(posts);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+// Get recent blog posts
+exports.getRecentPosts = async (req, res) => {
+    try {
+        const posts = await BlogPost.find().sort({ createdAt: -1 }).limit(3);
+        res.json(posts);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
 // Get a blog post by ID
 exports.getPostById = async (req, res) => {
     try {
@@ -62,6 +82,7 @@ exports.createPost = async (req, res) => {
         author: req.body.author,
         tags: req.body.tags,
         createdAt: req.body.createdAt,
+        featured: req.body.featured
     });
     try {
         const newPost = await post.save();
