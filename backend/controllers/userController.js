@@ -23,6 +23,16 @@ exports.login = async (req, res) => {
     }
 }
 
+// simple logout function
+exports.logout = async (req, res) => {
+    try {
+        res.set('Authorization', '');
+        res.status(200).json({ message: 'Logout successful' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
 // simple register function
 exports.register = async (req, res) => {
     try {
