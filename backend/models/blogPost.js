@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
 const blogSchema = new mongoose.Schema({
+  // add slug field
+  slug: {
+    type: String,
+    required: true,
+    unique: true
+  },
   title: {
     type: String,
     required: true

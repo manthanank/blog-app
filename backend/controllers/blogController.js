@@ -34,7 +34,7 @@ exports.getAllPosts = async (req, res) => {
 // get featured blog posts
 exports.getFeaturedPosts = async (req, res) => {
     try {
-        const posts = await BlogPost.find({ isFeatured: true });
+        const posts = await BlogPost.find({ featured: true });
         res.json(posts);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -77,6 +77,7 @@ exports.getPostsByTag = async (req, res) => {
 // Create a new blog post
 exports.createPost = async (req, res) => {
     const post = new BlogPost({
+        slug: req.body.title.toLowerCase().split(' ').join('-'),
         title: req.body.title,
         content: req.body.content,
         author: req.body.author,
