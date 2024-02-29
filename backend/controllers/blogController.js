@@ -100,6 +100,7 @@ exports.updatePost = async (req, res) => {
         if (!post) {
             return res.status(404).json({ message: 'Blog post not found' });
         }
+        post.slug = req.body.title.toLowerCase().split(' ').join('-');
         post.title = req.body.title;
         post.content = req.body.content;
         post.author = req.body.author;
