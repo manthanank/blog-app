@@ -119,7 +119,7 @@ exports.deletePost = async (req, res) => {
         if (!post) {
             return res.status(404).json({ message: 'Blog post not found' });
         }
-        await post.remove();
+        await BlogPost.deleteOne({ _id: req.params.id }); // Use deleteOne method to delete the blog post
         res.json({ message: 'Blog post deleted' });
     } catch (err) {
         res.status(500).json({ message: err.message });
