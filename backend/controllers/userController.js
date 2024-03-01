@@ -46,7 +46,7 @@ exports.login = async (req, res) => {
 // simple logout function
 exports.logout = async (req, res) => {
     try {
-        res.set('Authorization', '');
+        res.cookie('token', '', { httpOnly: true, expires: new Date(0) });
         res.status(200).json({ message: 'Logout successful' });
     } catch (err) {
         res.status(500).json({ message: err.message });
