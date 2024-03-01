@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { LoginService } from '../../services/login.service';
+import { AuthService } from '../../services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 
@@ -16,12 +16,12 @@ import { Router, RouterLink } from '@angular/router';
   imports: [FormsModule, ReactiveFormsModule, HttpClientModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  providers: [LoginService],
+  providers: [AuthService],
 })
 export class LoginComponent {
   loginForm: FormGroup;
 
-  authService = inject(LoginService);
+  authService = inject(AuthService);
   router = inject(Router);
 
   constructor() {
@@ -37,12 +37,6 @@ export class LoginComponent {
     }
 
     this.authService
-      .login(this.loginForm.value.email, this.loginForm.value.password)
-      .subscribe((data: any) => {
-        if (data.message) {
-          this.router.navigate(['/home']);
-          // localStorage.setItem('token', data.token);
-        }
-      });
+      .login(this.loginForm.value.email, this.loginForm.value.password);
   }
 }

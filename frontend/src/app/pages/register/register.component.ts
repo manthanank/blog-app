@@ -6,9 +6,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RegisterService } from '../../services/register.service';
 import { Router, RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -16,12 +16,12 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [FormsModule, ReactiveFormsModule, HttpClientModule, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
-  providers: [RegisterService],
+  providers: [AuthService],
 })
 export class RegisterComponent {
   registerForm: FormGroup;
 
-  authService = inject(RegisterService);
+  authService = inject(AuthService);
   router = inject(Router);
 
   constructor() {
@@ -37,12 +37,6 @@ export class RegisterComponent {
     }
 
     this.authService
-      .register(this.registerForm.value.email, this.registerForm.value.password)
-      .subscribe((data: any) => {
-        if (data.message) {
-          this.router.navigate(['/home']);
-          // localStorage.setItem('token', data.token);
-        }
-      });
+      .register(this.registerForm.value.email, this.registerForm.value.password);
   }
 }

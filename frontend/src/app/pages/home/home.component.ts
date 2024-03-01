@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { BlogsService } from '../../services/blogs.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Blogs, FeaturedBlogs, RecentBlogs } from '../../models/blog.model';
 
 @Component({
   selector: 'app-home',
@@ -10,13 +11,28 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './home.component.scss',
   providers: [BlogsService]
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
 
-  blogs = inject(BlogsService);
+  blogs: Blogs[] = [];
+  featuredBlogs: FeaturedBlogs[] = [];
+  recentBlogs: RecentBlogs[] = [];
 
-  constructor() {
-    this.blogs.getBlogs().subscribe((res: any) => {
-      this.blogs = res;
+  blogsService = inject(BlogsService);
+
+  constructor() {}
+
+  ngOnInit() {
+    this.blogsService.getBlogs().subscribe((data: any) => {
+      this.blogs = data;
+      console.log(this.blogs);
+    });
+    this.blogsService.getFeaturedBlogs().subscribe((data: any) => {
+      this.featuredBlogs = data;
+      console.log(this.featuredBlogs);
+    });
+    this.blogsService.getRecentBlogs().subscribe((data: any) => {
+      this.recentBlogs = data;
+      console.log(this.recentBlogs);
     });
   }
   
