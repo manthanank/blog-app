@@ -1,14 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { BlogsService } from '../../../services/blogs.service';
-import { HttpClientModule } from '@angular/common/http';
-
 @Component({
   selector: 'app-blog-list',
   standalone: true,
-  imports: [HttpClientModule],
+  imports: [],
   templateUrl: './blog-list.component.html',
-  styleUrl: './blog-list.component.scss',
-  providers: [BlogsService],
+  styleUrl: './blog-list.component.scss'
 })
 export class BlogListComponent implements OnInit{
 

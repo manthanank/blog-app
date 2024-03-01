@@ -7,17 +7,15 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { HttpClientModule } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, HttpClientModule, RouterLink, NgIf],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  providers: [AuthService],
 })
 export class LoginComponent {
   loginForm: FormGroup;

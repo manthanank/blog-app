@@ -6,10 +6,9 @@ import { Blogs, FeaturedBlogs, RecentBlogs } from '../../models/blog.model';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HttpClientModule],
+  imports: [],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
-  providers: [BlogsService]
+  styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit{
 

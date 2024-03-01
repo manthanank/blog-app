@@ -11,7 +11,7 @@ const apiUrl = environment.apiUrl;
 })
 export class AuthService {
   private isAuthenticated = false;
-  public token: string = '';
+  private token: string = '';
   private tokenTimer: any;
   private userId: string = ''; // Initialize userId property
   private authStatusListener = new Subject<boolean>();

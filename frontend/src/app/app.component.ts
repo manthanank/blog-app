@@ -1,7 +1,6 @@
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AuthInterceptor } from './auth-interceptor';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +8,7 @@ import { AuthInterceptor } from './auth-interceptor';
   imports: [RouterOutlet, HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  ],
+  providers: []
 })
 export class AppComponent {
   title = 'frontend';
