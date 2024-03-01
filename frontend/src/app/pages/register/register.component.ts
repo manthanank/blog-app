@@ -9,11 +9,12 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, HttpClientModule, RouterLink],
+  imports: [FormsModule, ReactiveFormsModule, HttpClientModule, RouterLink, NgIf],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   providers: [AuthService],
