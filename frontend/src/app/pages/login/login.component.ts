@@ -9,11 +9,12 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, HttpClientModule, RouterLink],
+  imports: [FormsModule, ReactiveFormsModule, HttpClientModule, RouterLink, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   providers: [AuthService],
