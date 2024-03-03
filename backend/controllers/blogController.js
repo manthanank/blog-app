@@ -85,6 +85,17 @@ exports.getPostsByTag = async (req, res) => {
     }
 };
 
+// Add search route
+exports.searchPosts = async (req, res) => {
+    try {
+        const query = req.params.query;
+        const posts = await BlogPost.find({ $text: { $search: query } });
+        res.json(posts);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
 // Create a new blog post
 exports.createPost = async (req, res) => {
     const post = new BlogPost({

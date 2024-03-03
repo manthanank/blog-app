@@ -9,6 +9,8 @@ router.get('/blogs/recent', blogController.getRecentPosts);
 router.get('/blogs/tags', blogController.getAllTags);
 router.get('/blogs/:id', blogController.getPostById);
 router.get('/blogs/tags/:tag', blogController.getPostsByTag);
+// add search route
+router.get('/blogs/search/:query', blogController.searchPosts);
 router.post('/blogs', auth, blogController.createPost);
 router.put('/blogs/:id', auth, blogController.updatePost);
 router.delete('/blogs/:id', auth, blogController.deletePost);
