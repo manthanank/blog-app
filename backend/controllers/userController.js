@@ -57,7 +57,7 @@ exports.logout = async (req, res) => {
 // simple register function
 exports.register = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, firstName, lastName, password } = req.body;
 
         // Check if user already exists
         const user = await User.findOne({ email });
@@ -72,6 +72,8 @@ exports.register = async (req, res) => {
         // Create a new user
         const newUser = new User({
             email,
+            firstName,
+            lastName,
             password: hashedPassword
         });
 

@@ -3,19 +3,29 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
     // replace username with email
-    email : {
+    email: {
         type: String,
         required: true,
         unique: true, // Ensure that the email is unique
         trim: true, // Remove whitespace from the beginning and end of the string
         minlength: 3 // Set the minimum length of the email
     },
+    firstName: {
+        type: String,
+        required: true,
+        minlength: 3 // Set the minimum length of the first name
+    },
+    lastName: {
+        type: String,
+        required: true,
+        minlength: 3 // Set the minimum length of the last name
+    },
     password: {
         type: String,
         required: true,
         minlength: 5 // Set the minimum length of the password
     }
-    });
+});
 
 const User = mongoose.model('User', userSchema);
 
