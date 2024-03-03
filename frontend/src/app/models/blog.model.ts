@@ -4,6 +4,8 @@ export interface Blogs {
   posts: Blog[];
 }
 
+export type Tags = string[]
+
 export interface Blog {
   _id: string;
   title: string;

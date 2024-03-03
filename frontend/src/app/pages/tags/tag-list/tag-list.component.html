@@ -1,0 +1,8 @@
+<div class="container">
+    <h2>Tags</h2>
+    <div class="tags">
+        <div class="tag" *ngFor="let tag of tags; let i = index">
+            <a [routerLink]="[tag]">{{ tag }}</a>
+        </div>
+    </div>
+</div>

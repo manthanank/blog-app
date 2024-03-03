@@ -29,7 +29,12 @@ export const routes: Routes = [
   {
     path: 'tags',
     loadComponent: () =>
-      import('./pages/tags/tags.component').then((m) => m.TagsComponent), 
+      import('./pages/tags/tag-list/tag-list.component').then((m) => m.TagListComponent), 
+  },
+  {
+    path: 'tags/:tag',
+    loadComponent: () =>
+      import('./pages/tags/tag-details/tag-details.component').then((m) => m.TagDetailsComponent),
   },
   { path: '**', redirectTo: 'login' },
 ];

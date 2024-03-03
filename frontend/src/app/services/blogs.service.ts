@@ -28,9 +28,19 @@ export class BlogsService {
     return this.http.get<RecentBlogs>(`${apiUrl}/blogs/recent`);
   }
 
+  // get all tags
+  getTags() {
+    return this.http.get(`${apiUrl}/blogs/tags`);
+  }
+
   // get blog by id
   getBlog(id: string) {
     return this.http.get(`${apiUrl}/blogs/${id}`);
+  }
+
+  // get blog by tag
+  getBlogByTag(tag: string) {
+    return this.http.get(`${apiUrl}/blogs/tags/${tag}`);
   }
 
   // add blog
