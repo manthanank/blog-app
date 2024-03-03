@@ -123,12 +123,18 @@ exports.updatePost = async (req, res) => {
         if (!post) {
             return res.status(404).json({ message: 'Blog post not found' });
         }
+        
+        // Check if the current user is the creator of the post
+        if (post._id !== req.params.id) {
+            return res.status(403).json({ message: 'You are not authorized to update this post' });
+        }
+        
         post.slug = req.body.title.toLowerCase().split(' ').join('-');
         post.title = req.body.title;
         post.desc = req.body.desc;
         post.content = req.body.content;
-        post.author = req.body.author;
         post.tags = req.body.tags;
+        
         const updatedPost = await post.save();
         res.json(updatedPost);
     } catch (err) {
