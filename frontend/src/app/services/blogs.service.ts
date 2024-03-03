@@ -50,9 +50,8 @@ export class BlogsService {
   }
 
   // update blog
-  updateBlog(id: string, title: string, content: string) {
-    const blog = { title, content };
-    return this.http.put(`${apiUrl}/blogs/${id}`, blog);
+  updateBlog(id: string, data: any) {
+    return this.http.put(`${apiUrl}/blogs/${id}`, data);
   }
 
   deleteBlog(id: string) {

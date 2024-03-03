@@ -21,8 +21,8 @@ export class BlogAddComponent {
     this.blogForm = new FormGroup({
       title: new FormControl('', Validators.required),
       desc: new FormControl('', Validators.required),
-      content: new FormControl('', Validators.required),
       tags: new FormControl('', Validators.required),
+      content: new FormControl('', Validators.required),
     });
   }
 
