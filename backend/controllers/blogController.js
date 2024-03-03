@@ -124,6 +124,7 @@ exports.updatePost = async (req, res) => {
         }
         post.slug = req.body.title.toLowerCase().split(' ').join('-');
         post.title = req.body.title;
+        post.desc = req.body.desc;
         post.content = req.body.content;
         post.author = req.body.author;
         post.tags = req.body.tags;
