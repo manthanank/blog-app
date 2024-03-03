@@ -101,6 +101,7 @@ exports.createPost = async (req, res) => {
     const post = new BlogPost({
         slug: req.body.title.toLowerCase().split(' ').join('-'),
         title: req.body.title,
+        desc: req.body.desc,
         content: req.body.content,
         author: req.body.author,
         tags: req.body.tags,
