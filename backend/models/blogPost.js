@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
+// Define the blog schema
 const blogSchema = new mongoose.Schema({
-  // add slug field
+  // Add slug field
   slug: {
     type: String,
     required: true,
@@ -37,6 +38,8 @@ const blogSchema = new mongoose.Schema({
   }
 });
 
+// Create the Blog model using the blog schema
 const Blog = mongoose.model('Blog', blogSchema);
 
+// Export the Blog model
 module.exports = Blog;
