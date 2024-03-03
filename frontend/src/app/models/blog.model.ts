@@ -7,6 +7,7 @@ export interface Blogs {
 export interface Blog {
   _id: string;
   title: string;
+  desc: string;
   content: string;
   author: string;
   createdAt: string;
@@ -19,6 +20,7 @@ export interface Blog {
 export interface FeaturedBlogs {
   _id: string;
   title: string;
+  desc: string;
   content: string;
   author: string;
   tags: string[];
@@ -33,6 +35,7 @@ export interface RecentBlogs {
   slug?: string;
   title: string;
   content: string;
+  desc: string;
   author: string;
   tags: string[];
   createdAt: string;

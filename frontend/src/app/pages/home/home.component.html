@@ -1,1 +1,50 @@
-<p>home works!</p>
+<div class="container">
+    <div class="featured-blogs">
+        <h2>Featured</h2>
+        <div class="blog" *ngFor="let blog of featuredBlogs">
+            <h3><a [routerLink]="['blogs', blog._id]">{{blog.title}}</a></h3>
+
+            <div class="blog-meta">
+                <span>Author: {{blog.author}}</span> |
+                <span>Published: {{blog.createdAt | date:'medium'}}</span>
+
+                <div class="blog-desc">
+                    <p>{{blog.desc}}</p>
+                </div>
+
+                <div class="tags">
+                    <span *ngFor="let tag of blog.tags">{{tag}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="recent-blogs">
+        <h2>Recent</h2>
+        <div class="blog" *ngFor="let blog of recentBlogs">
+            <h3><a [routerLink]="['blogs', blog._id]">{{blog.title}}</a></h3>
+
+            <div class="blog-meta">
+                <span>Author: {{blog.author}}</span> |
+                <span>Published: {{blog.createdAt | date:'medium'}}</span>
+
+                <div class="blog-desc">
+                    <p>{{blog.desc}}</p>
+                </div>
+
+                <div class="tags">
+                    <span *ngFor="let tag of blog.tags">{{tag}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Button to go all blogs page -->
+    <div class="all-blogs">
+        <a routerLink="blogs">All Blogs</a>
+    </div>
+</div>

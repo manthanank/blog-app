@@ -2,11 +2,13 @@ import { Component, OnInit, inject } from '@angular/core';
 import { BlogsService } from '../../services/blogs.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Blogs, FeaturedBlogs, RecentBlogs } from '../../models/blog.model';
+import { DatePipe, NgFor } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [NgFor, DatePipe, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
