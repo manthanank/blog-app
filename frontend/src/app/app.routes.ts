@@ -36,5 +36,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/tags/tag-details/tag-details.component').then((m) => m.TagDetailsComponent),
   },
-  { path: '**', redirectTo: 'login' },
+  {
+    path: 'tags/:tag/:tag',
+    loadComponent: () =>
+    import('./pages/blogs/blog-details/blog-details.component').then((m) => m.BlogDetailsComponent),
+  },
+  { path: '**', redirectTo: '' },
 ];
