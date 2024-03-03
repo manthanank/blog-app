@@ -77,7 +77,8 @@ exports.getAllTags = async (req, res) => {
 // Get blog posts by tag
 exports.getPostsByTag = async (req, res) => {
     try {
-        const posts = await BlogPost.find({ tags: req.params.tag });
+        const tag = req.params.tag;
+        const posts = await BlogPost.find({ tags: tag });
         res.json(posts);
     } catch (err) {
         res.status(500).json({ message: err.message });
