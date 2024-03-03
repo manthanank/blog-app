@@ -27,6 +27,16 @@ export const routes: Routes = [
       import('./pages/blogs/blog-details/blog-details.component').then((m) => m.BlogDetailsComponent),
   },
   {
+    path: 'add',
+    loadComponent: () =>
+      import('./pages/blogs/blog-add/blog-add.component').then((m) => m.BlogAddComponent),
+  },
+  {
+    path: 'edit/:id',
+    loadComponent: () =>
+      import('./pages/blogs/blog-edit/blog-edit.component').then((m) => m.BlogEditComponent),
+  },
+  {
     path: 'tags',
     loadComponent: () =>
       import('./pages/tags/tag-list/tag-list.component').then((m) => m.TagListComponent), 

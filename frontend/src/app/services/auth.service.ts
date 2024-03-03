@@ -15,6 +15,7 @@ export class AuthService {
   private tokenTimer: any;
   private userId: string = ''; // Initialize userId property
   private authStatusListener = new Subject<boolean>();
+  errorMsg: any;
 
   http = inject(HttpClient);
   router = inject(Router);
@@ -57,7 +58,8 @@ export class AuthService {
         }
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
+        this.errorMsg = error.error.message;
         this.authStatusListener.next(false);
       }
     );
@@ -70,7 +72,8 @@ export class AuthService {
         this.router.navigate(['/home']);
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
+        this.errorMsg = error.error.message;
         this.authStatusListener.next(false);
       }
     );

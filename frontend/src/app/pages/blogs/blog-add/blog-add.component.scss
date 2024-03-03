@@ -1,0 +1,23 @@
+.container {
+    width: 60%;
+    margin: 0 auto;
+    padding: 2px 16px;
+    // background-color: #f5f5f5;
+}
+
+h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding: 5px;
+}
+
+.blogs {
+    margin-bottom: 20px;
+
+    .blog {
+        background-color: #f5f5f5;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+}
