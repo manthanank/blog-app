@@ -1,4 +1,3 @@
-// const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -59,17 +58,26 @@ exports.logout = async (req, res) => {
 exports.register = async (req, res) => {
     try {
         const { email, password } = req.body;
+
+        // Check if user already exists
         const user = await User.findOne({ email });
         if (user) {
             return res.status(400).json({ message: 'User already exists' });
         }
+
+        // Generate salt and hash the password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Create a new user
         const newUser = new User({
             email,
             password: hashedPassword
         });
+
+        // Save the new user
         await newUser.save();
+
         res.status(200).json({ message: 'Registration successful' });
     }
     catch (err) {
