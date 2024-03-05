@@ -44,8 +44,7 @@ export class BlogsService {
   }
 
   // add blog
-  addBlog(title: string, content: string) {
-    const blog = { title, content };
+  addBlog(blog: any) {
     return this.http.post(`${apiUrl}/blogs`, blog);
   }
 
