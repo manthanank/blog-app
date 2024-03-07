@@ -10,17 +10,20 @@ import {
 import { BlogsService } from '../../../services/blogs.service';
 import { ActivatedRoute } from '@angular/router';
 import { Blog } from '../../../models/blog.model';
+import { AuthService } from '../../../services/auth.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-blog-edit',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, NgIf],
   templateUrl: './blog-edit.component.html',
   styleUrl: './blog-edit.component.scss',
 })
 export class BlogEditComponent implements OnInit{
   blogForm: FormGroup;
   blogsService = inject(BlogsService);
+  auth = inject(AuthService);
   route = inject(ActivatedRoute);
   id: string = '';
   blog: Blog = {
@@ -50,6 +53,12 @@ export class BlogEditComponent implements OnInit{
     this.id = this.route.snapshot.url[1].path;
     this.blogsService.getBlog(this.id).subscribe((data: any) => {
       this.blog = data;
+      this.blogForm = this.form.group({
+        title: [this.blog.title, Validators.required],
+        desc: [this.blog.desc, Validators.required],
+        tags: [this.blog.tags, Validators.required],
+        content: [this.blog.content, Validators.required],
+      });
       console.log(this.blog);
     });
   }
@@ -60,6 +69,7 @@ export class BlogEditComponent implements OnInit{
       desc: this.blogForm.value.desc,
       tags: this.blogForm.value.tags,
       content: this.blogForm.value.content,
+      author: this.auth.getUserId(),
     };
 
     this.blogsService.updateBlog(this.id, data).subscribe((data: any) => {

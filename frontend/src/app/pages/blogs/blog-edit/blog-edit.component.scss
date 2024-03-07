@@ -32,6 +32,15 @@ textarea {
     border-radius: 4px;
 }
 
+.alert {
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-danger {
+    color: #721c24;
+}
+
 button {
     padding: 10px 20px;
     background-color: #007bff;

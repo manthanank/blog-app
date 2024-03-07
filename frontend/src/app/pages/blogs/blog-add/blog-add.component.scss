@@ -33,6 +33,9 @@ textarea {
 }
 
 button {
+    display: block;
+    margin: 20px auto;
+    /* Center the button horizontally */
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
@@ -43,4 +46,9 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }

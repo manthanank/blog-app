@@ -15,7 +15,7 @@ import { NgIf } from '@angular/common';
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, RouterLink, NgIf],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   registerForm: FormGroup;
@@ -37,7 +37,6 @@ export class RegisterComponent {
       return;
     }
 
-    this.authService
-      .register(this.registerForm.value.email, this.registerForm.value.password);
+    this.authService.register(this.registerForm.value);
   }
 }

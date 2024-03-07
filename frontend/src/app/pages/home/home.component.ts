@@ -2,31 +2,37 @@ import { Component, OnInit, inject } from '@angular/core';
 import { BlogsService } from '../../services/blogs.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Blogs, FeaturedBlogs, RecentBlogs } from '../../models/blog.model';
-import { DatePipe, NgFor } from '@angular/common';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor, DatePipe, RouterLink],
+  imports: [NgFor, DatePipe, RouterLink, NgIf],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
 
-  blogs: Blogs[] = [];
+  private authStatusSubscription: Subscription = new Subscription();
   featuredBlogs: FeaturedBlogs[] = [];
   recentBlogs: RecentBlogs[] = [];
-
+  isLoggedIn: boolean = false;
+  auth = inject(AuthService);
   blogsService = inject(BlogsService);
 
   constructor() {}
 
   ngOnInit() {
-    this.blogsService.getBlogs().subscribe((data: any) => {
-      this.blogs = data;
-      console.log(this.blogs);
-    });
+    this.authStatusSubscription = this.auth
+      .getAuthStatusListener()
+      .subscribe((isAuthenticated) => {
+        this.isLoggedIn = isAuthenticated;
+      });
+    // Check authentication status on component initialization
+    this.isLoggedIn = this.auth.getIsAuth();
     this.blogsService.getFeaturedBlogs().subscribe((data: any) => {
       this.featuredBlogs = data;
       console.log(this.featuredBlogs);
@@ -36,5 +42,8 @@ export class HomeComponent implements OnInit{
       console.log(this.recentBlogs);
     });
   }
-  
+
+  ngOnDestroy(): void {
+    this.authStatusSubscription.unsubscribe();
+  }
 }

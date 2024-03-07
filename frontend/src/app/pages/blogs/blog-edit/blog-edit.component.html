@@ -6,24 +6,38 @@
                 <label for="title">Title</label>
                 <div class="form-group">
                     <input type="text" class="form-control" id="title" formControlName="title">
+                    <div *ngIf="blogForm.get('title')?.invalid && blogForm.get('title')?.touched" class="alert alert-danger">
+                        <div *ngIf="blogForm.get('title')?.errors?.['required']">Title is required</div>
+                    </div>
                 </div>
 
                 <label for="desc">Description</label>
                 <div class="form-group">
                     <input type="text" class="form-control" id="desc" formControlName="desc">
+                    <div *ngIf="blogForm.get('desc')?.invalid && blogForm.get('desc')?.touched" class="alert alert-danger">
+                        <div *ngIf="blogForm.get('desc')?.errors?.['required']">Description is required</div>
+                    </div>
                 </div>
 
                 <label for="tags">Tags</label>
                 <div class="form-group">
                     <input type="text" class="form-control" id="tags" formControlName="tags">
+                    <div *ngIf="blogForm.get('tags')?.invalid && blogForm.get('tags')?.touched" class="alert alert-danger">
+                        <div *ngIf="blogForm.get('tags')?.errors?.['required']">Tags is required</div>
+                    </div>
                 </div>
 
                 <label for="content">Content</label>
                 <div class="form-group">
                     <textarea class="form-control" id="content" formControlName="content"></textarea>
+                    <div *ngIf="blogForm.get('content')?.invalid && blogForm.get('content')?.touched" class="alert alert-danger">
+                        <div *ngIf="blogForm.get('content')?.errors?.['required']">Content is required</div>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Update</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" [disabled]="blogForm.invalid">Update</button>
+                </div>
             </form>
         </div>
     </div>
