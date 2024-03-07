@@ -12,6 +12,7 @@ export interface Blog {
   desc: string;
   content: string;
   author: string;
+  authorId: string;
   createdAt: string;
   __v: number;
   featured: boolean;
@@ -25,6 +26,7 @@ export interface FeaturedBlogs {
   desc: string;
   content: string;
   author: string;
+  authorId: string;
   tags: string[];
   createdAt: string;
   featured: boolean;
@@ -39,6 +41,7 @@ export interface RecentBlogs {
   content: string;
   desc: string;
   author: string;
+  authorId: string;
   tags: string[];
   createdAt: string;
   featured: boolean;

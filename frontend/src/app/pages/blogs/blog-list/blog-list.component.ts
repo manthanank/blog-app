@@ -17,9 +17,11 @@ export class BlogListComponent implements OnInit {
   blogs: Blog[] = [];
   isLoggedIn: boolean = false;
   auth = inject(AuthService);
+  currentUserId: string = '';
   blogsService = inject(BlogsService);
 
   ngOnInit() {
+    this.currentUserId = this.auth.getUserId();
     this.authStatusSubscription = this.auth
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {

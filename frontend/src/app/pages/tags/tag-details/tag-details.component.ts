@@ -20,10 +20,12 @@ export class TagDetailsComponent {
   blogsService = inject(BlogsService);
   route = inject(ActivatedRoute);
   id: string = '';
+  currentUserId: string = '';
   isLoggedIn: boolean = false;
   auth = inject(AuthService);
 
   ngOnInit() {
+    this.currentUserId = this.auth.getUserId();
     this.authStatusSubscription = this.auth
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {

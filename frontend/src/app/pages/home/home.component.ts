@@ -21,11 +21,13 @@ export class HomeComponent implements OnInit {
   recentBlogs: RecentBlogs[] = [];
   isLoggedIn: boolean = false;
   auth = inject(AuthService);
+  currentUserId: string = '';
   blogsService = inject(BlogsService);
 
   constructor() {}
 
   ngOnInit() {
+    this.currentUserId = this.auth.getUserId();
     this.authStatusSubscription = this.auth
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {

@@ -19,6 +19,7 @@ export class BlogDetailsComponent {
     desc: '',
     content: '',
     author: '',
+    authorId: '',
     createdAt: '',
     __v: 0,
     featured: false,

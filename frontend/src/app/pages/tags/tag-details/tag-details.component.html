@@ -16,7 +16,7 @@
                     <span *ngFor="let tag of blog.tags">{{tag}}</span>
                 </div>
             </div>
-            <div class="edit-blog-container" *ngIf="isLoggedIn">
+            <div class="edit-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
                 <a [routerLink]="['/edit', blog._id]">Edit Blog</a>
             </div>
         </div>

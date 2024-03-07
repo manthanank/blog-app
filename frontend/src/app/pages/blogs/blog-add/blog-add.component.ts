@@ -33,6 +33,7 @@ export class BlogAddComponent {
       content: new FormControl('', Validators.required),
       featured: new FormControl(false),
       author: new FormControl(this.auth.getUserName()),
+      authorId: new FormControl(this.auth.getUserId()),
     });
   }
 

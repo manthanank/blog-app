@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { BlogsService } from '../../../services/blogs.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Blog } from '../../../models/blog.model';
 import { AuthService } from '../../../services/auth.service';
 import { NgIf } from '@angular/common';
@@ -20,10 +20,11 @@ import { NgIf } from '@angular/common';
   templateUrl: './blog-edit.component.html',
   styleUrl: './blog-edit.component.scss',
 })
-export class BlogEditComponent implements OnInit{
+export class BlogEditComponent implements OnInit {
   blogForm: FormGroup;
   blogsService = inject(BlogsService);
   auth = inject(AuthService);
+  router = inject(Router);
   route = inject(ActivatedRoute);
   id: string = '';
   blog: Blog = {
@@ -32,15 +33,14 @@ export class BlogEditComponent implements OnInit{
     desc: '',
     content: '',
     author: '',
+    authorId: '',
     createdAt: '',
     __v: 0,
     featured: false,
-    tags: []
+    tags: [],
   };
 
-  constructor(
-    private form: FormBuilder,
-  ) {
+  constructor(private form: FormBuilder) {
     this.blogForm = this.form.group({
       title: [this.blog.title, Validators.required],
       desc: [this.blog.desc, Validators.required],
@@ -53,6 +53,11 @@ export class BlogEditComponent implements OnInit{
     this.id = this.route.snapshot.url[1].path;
     this.blogsService.getBlog(this.id).subscribe((data: any) => {
       this.blog = data;
+      // Check if the current user is the author of the blog
+      if (this.blog.author !== this.auth.getUserId()) {
+        this.router.navigate(['/']); // Redirect to home page
+        // Or show an error message
+      }
       this.blogForm = this.form.group({
         title: [this.blog.title, Validators.required],
         desc: [this.blog.desc, Validators.required],
