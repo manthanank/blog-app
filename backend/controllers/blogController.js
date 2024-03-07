@@ -24,7 +24,7 @@ exports.getAllPosts = async (req, res) => {
             };
         }
 
-        results.posts = await BlogPost.find().limit(limit).skip(startIndex).exec();
+        results.posts = await BlogPost.find().sort({ createdAt: -1 }).limit(limit).skip(startIndex).exec();
         res.json(results);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -106,7 +106,8 @@ exports.createPost = async (req, res) => {
         author: req.body.author,
         tags: req.body.tags,
         createdAt: req.body.createdAt,
-        featured: req.body.featured
+        featured: req.body.featured,
+        authorId: req.body.authorId
     });
     try {
         const newPost = await post.save();
