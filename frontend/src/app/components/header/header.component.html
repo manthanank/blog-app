@@ -3,9 +3,7 @@
         <li><a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]={exact:true}>Home</a></li>
         <li><a routerLink="/blogs" routerLinkActive="active-link">Blogs</a></li>
         <li><a routerLink="/tags" routerLinkActive="active-link">Tags</a></li>
-        <li><a routerLink="/login" routerLinkActive="active-link">Login</a></li>
-        <li><a routerLink="" (click)="logout()">Logout</a></li>
-        <!-- <li *ngIf="!isLoggedIn"><a routerLink="/login" routerLinkActive="active-link">Login</a></li>
-        <li *ngIf="isLoggedIn"><a routerLink="" (click)="logout()">Logout</a></li> -->
+        <li *ngIf="!isLoggedIn"><a routerLink="/login" routerLinkActive="active-link">Login</a></li>
+        <li *ngIf="isLoggedIn"><a routerLink="" (click)="logout()">Logout</a></li>
     </ul>
 </nav>

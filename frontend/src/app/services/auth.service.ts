@@ -13,12 +13,16 @@ export class AuthService {
   private isAuthenticated = false;
   private token: string = '';
   private tokenTimer: any;
-  private userId: string = ''; // Initialize userId property
+  private userId: string = '';
   private authStatusListener = new Subject<boolean>();
   errorMsg: any;
 
   http = inject(HttpClient);
   router = inject(Router);
+
+  constructor() {
+    this.autoAuthUser(); // Check if user is already authenticated on initialization
+  }
 
   getToken() {
     return this.token;
@@ -54,11 +58,11 @@ export class AuthService {
           );
           console.log(expirationDate);
           this.saveAuthData(token, expirationDate, this.userId, res.name, res.email);
+          localStorage.setItem('isLoggedIn', 'true'); // Save authentication status to localStorage
           this.router.navigate(['/home']);
         }
       },
       (error) => {
-        // console.log(error);
         this.errorMsg = error.error.message;
         this.authStatusListener.next(false);
       }
@@ -72,7 +76,6 @@ export class AuthService {
         this.router.navigate(['/home']);
       },
       (error) => {
-        // console.log(error);
         this.errorMsg = error.error.message;
         this.authStatusListener.next(false);
       }
@@ -92,8 +95,11 @@ export class AuthService {
       this.userId = authInformation.userId ? authInformation.userId : '';
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
+    } else {
+      this.logout(); // Token expired, logout the user
     }
   }
+  
 
   logout() {
     this.token = '';
@@ -102,34 +108,37 @@ export class AuthService {
     this.userId = '';
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
-    this.router.navigate(["/login"]);
+    localStorage.removeItem('isLoggedIn'); // Remove authentication status from localStorage
+    this.router.navigate(['/login']);
   }
 
   private setAuthTimer(duration: number) {
-    console.log("Setting timer: " + duration);
+    console.log('Setting timer: ' + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);
   }
 
   private saveAuthData(token: string, expirationDate: Date, userId: string, name: string, email: string) {
-    localStorage.setItem("token", token);
-    localStorage.setItem("expiration", expirationDate.toISOString());
-    localStorage.setItem("userId", userId);
-    localStorage.setItem("name", name);
-    localStorage.setItem("email", email);
+    localStorage.setItem('token', token);
+    localStorage.setItem('expiration', expirationDate.toISOString());
+    localStorage.setItem('userId', userId);
+    localStorage.setItem('name', name);
+    localStorage.setItem('email', email);
   }
 
   private clearAuthData() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("expiration");
-    localStorage.removeItem("userId");
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiration');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('name');
+    localStorage.removeItem('email');
   }
 
   private getAuthData() {
-    const token = localStorage.getItem("token");
-    const expirationDate = localStorage.getItem("expiration");
-    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem('token');
+    const expirationDate = localStorage.getItem('expiration');
+    const userId = localStorage.getItem('userId');
     if (!token || !expirationDate) {
       return;
     }
