@@ -45,6 +45,14 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  deleteBlog(id: string) {
+    this.blogsService.deleteBlog(id).subscribe((data: any) => {
+      this.blogsService.getFeaturedBlogs().subscribe((data: any) => {
+        this.featuredBlogs = data;
+      });
+    });
+  }
+  
   ngOnDestroy(): void {
     this.authStatusSubscription.unsubscribe();
   }

@@ -25,6 +25,9 @@
             <div class="edit-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
                 <a [routerLink]="['edit', blog._id]">Edit Blog</a>
             </div>
+            <div class="delete-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
+                <button (click)="deleteBlog(blog._id)">Delete Blog</button>
+            </div>
         </div>
     </div>
 </div>
@@ -49,6 +52,9 @@
             </div>
             <div class="edit-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
                 <a [routerLink]="['edit', blog._id]">Edit Blog</a>
+            </div>
+            <div class="delete-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
+                <button (click)="deleteBlog(blog._id)">Delete Blog</button>
             </div>
         </div>
     </div>

@@ -35,6 +35,14 @@ export class BlogListComponent implements OnInit {
     });
   }
 
+  deleteBlog(id: string) {
+    this.blogsService.deleteBlog(id).subscribe((data: any) => {
+      this.blogsService.getBlogs().subscribe((data: any) => {
+        this.blogs = data.posts;
+      });
+    });
+  }
+
   ngOnDestroy(): void {
     this.authStatusSubscription.unsubscribe();
   }

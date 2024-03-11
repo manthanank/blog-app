@@ -40,6 +40,14 @@ export class TagDetailsComponent {
     });
   }
 
+  deleteBlog(id: string) {
+    this.blogsService.deleteBlog(id).subscribe((data: any) => {
+      this.blogsService.getBlogByTag(this.id).subscribe((data: any) => {
+        this.blogs = data;
+      });
+    });
+  }
+
   ngOnDestroy(): void {
     this.authStatusSubscription.unsubscribe();
   }
