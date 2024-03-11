@@ -22,7 +22,7 @@ export class TagListComponent {
   ngOnInit() {
     this.blogsService.getTags().subscribe((data: any) => {
       this.tags = data;
-      console.log(this.tags);
+      // console.log(this.tags);
     });
   }
 }

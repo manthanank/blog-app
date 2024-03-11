@@ -34,7 +34,7 @@ export class BlogDetailsComponent {
     this.id = this.route.snapshot.url[1].path;
     this.blogsService.getBlog(this.id).subscribe((data: any) => {
       this.blog = data;
-      console.log(this.blog);
+      // console.log(this.blog);
     });
   }
 }

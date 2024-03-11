@@ -31,7 +31,7 @@ export class BlogListComponent implements OnInit {
     this.isLoggedIn = this.auth.getIsAuth();
     this.blogsService.getBlogs().subscribe((data: any) => {
       this.blogs = data.posts;
-      console.log(this.blogs);
+      // console.log(this.blogs);
     });
   }
 

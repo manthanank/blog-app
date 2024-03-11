@@ -64,7 +64,7 @@ export class BlogEditComponent implements OnInit {
         tags: [this.blog.tags, Validators.required],
         content: [this.blog.content, Validators.required],
       });
-      console.log(this.blog);
+      // console.log(this.blog);
     });
   }
 

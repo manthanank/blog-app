@@ -36,7 +36,7 @@ export class TagDetailsComponent {
     this.id = this.route.snapshot.params['tag'];
     this.blogsService.getBlogByTag(this.id).subscribe((data: any) => {
       this.blogs = data;
-      console.log(this.blogs);
+      // console.log(this.blogs);
     });
   }
 

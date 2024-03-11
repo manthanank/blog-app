@@ -40,7 +40,7 @@ export class BlogAddComponent {
   ngOnInit(): void {}
 
   onSubmit() {
-    console.log(this.blogForm.value);
+    // console.log(this.blogForm.value);
     this.blogService.addBlog(this.blogForm.value).subscribe((res) => {
       console.log('Blog added successfully!');
       this.route.navigate(['']);
