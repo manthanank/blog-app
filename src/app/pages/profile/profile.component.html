@@ -1,4 +1,10 @@
 <div class="container">
+    <div class="profile-details">
+        <h2>Profile Details</h2>
+        <p>Name: {{ profile.firstName }} {{ profile.lastName }}</p>
+        <p>Email: {{ profile.email }}</p>
+        <!-- Add more profile details here -->
+    </div>
     <div class="blogs">
         <h2>All Blogs</h2>
         <div class="blog" *ngFor="let blog of blogs">
@@ -16,12 +22,12 @@
                     <span *ngFor="let tag of blog.tags">{{tag}}</span>
                 </div>
             </div>
-            <div class="edit-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
+            <!-- <div class="edit-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
                 <a [routerLink]="['/edit', blog._id]">Edit Blog</a>
             </div>
             <div class="delete-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
-                <button (click)="deleteBlog(blog._id)">Delete Blog</button>
-            </div>
+                <a (click)="deleteBlog(blog._id)">Delete Blog</a>
+            </div> -->
         </div>
     </div>
 </div>

@@ -6,27 +6,27 @@ import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 export interface Profile {
-  _id: string
-  email: string
-  firstName: string
-  lastName: string
-  __v: number
+  _id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  __v: number;
 }
 
-export type Blogs = Blog[]
+export type Blogs = Blog[];
 
 export interface Blog {
-  _id: string
-  slug: string
-  title: string
-  desc: string
-  content: string
-  author: string
-  authorId: string
-  tags: string[]
-  createdAt: string
-  featured: boolean
-  __v: number
+  _id: string;
+  slug: string;
+  title: string;
+  desc: string;
+  content: string;
+  author: string;
+  authorId: string;
+  tags: string[];
+  createdAt: string;
+  featured: boolean;
+  __v: number;
 }
 
 @Component({
@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
     email: '',
     firstName: '',
     lastName: '',
-    __v: 0
+    __v: 0,
   };
   blogs: Blogs = [];
 
@@ -60,14 +60,18 @@ export class ProfileComponent implements OnInit {
       .subscribe((isAuthenticated) => {
         this.isLoggedIn = isAuthenticated;
       });
+    // Check authentication status on component initialization
+    this.isLoggedIn = this.auth.getIsAuth();
     this.auth.getUserDetails().subscribe((data: any) => {
       // console.log(data);
       this.profile = data;
     });
-    this.blogsService.getBlogByAuthor(this.currentUserId).subscribe((data: any) => {
-      // console.log(data);
-      this.blogs = data;
-    });
+    this.blogsService
+      .getBlogByAuthor(this.currentUserId)
+      .subscribe((data: any) => {
+        // console.log(data);
+        this.blogs = data;
+      });
   }
 
   deleteBlog(id: string) {
@@ -77,7 +81,7 @@ export class ProfileComponent implements OnInit {
       });
     });
   }
-  
+
   ngOnDestroy(): void {
     this.authStatusSubscription.unsubscribe();
   }
