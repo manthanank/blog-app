@@ -82,7 +82,20 @@ exports.register = async (req, res) => {
         // Save the new user
         await newUser.save();
 
-        res.status(200).json({ message: 'Registration successful' });
+        const token = jwt.sign({ id: newUser._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+
+        res.cookie('token', token, { httpOnly: true, secure: true });
+
+        res.status(201).json(
+            {
+                message: 'User created',
+                token: token,
+                expiresIn: 3600,
+                userId: newUser._id,
+                name: newUser.firstName + ' ' + newUser.lastName,
+                email: newUser.email
+            }
+        );
     }
     catch (err) {
         res.status(500).json({ message: err.message });
@@ -92,7 +105,7 @@ exports.register = async (req, res) => {
 // simple get profile function
 exports.getProfile = async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).select('-password');
+        const user = await User.findById(req.params.id).select('-password');
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
