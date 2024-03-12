@@ -88,3 +88,34 @@ exports.register = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 }
+
+// simple get profile function
+exports.getProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
+// simple update profile function
+exports.updateProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        user.firstName = req.body.firstName;
+        user.lastName = req.body.lastName;
+        await user.save();
+        res.json(user);
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
