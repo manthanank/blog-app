@@ -1,8 +1,8 @@
 <div class="container">
-    <div class="featured-blogs">
-        <h2>Tag: {{id}}</h2>
+    <div class="blogs">
+        <h2>All Blogs</h2>
         <div class="blog" *ngFor="let blog of blogs">
-            <h3><a [routerLink]="['/blogs', blog._id]">{{blog.title}}</a></h3>
+            <h3><a [routerLink]="[blog._id]">{{blog.title}}</a></h3>
 
             <div class="blog-meta">
                 <span>Author: {{blog.author}}</span> |
@@ -16,12 +16,12 @@
                     <span *ngFor="let tag of blog.tags">{{tag}}</span>
                 </div>
             </div>
-            <!-- <div class="edit-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
+            <div class="edit-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
                 <a [routerLink]="['/edit', blog._id]">Edit Blog</a>
             </div>
             <div class="delete-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
                 <button (click)="deleteBlog(blog._id)">Delete Blog</button>
-            </div> -->
+            </div>
         </div>
     </div>
 </div>

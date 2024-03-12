@@ -38,6 +38,11 @@ export class BlogsService {
     return this.http.get(`${apiUrl}/blogs/${id}`);
   }
 
+  // get blog by author
+  getBlogByAuthor(author: string) {
+    return this.http.get(`${apiUrl}/blogs/author/${author}`);
+  }
+
   // get blog by tag
   getBlogByTag(tag: string) {
     return this.http.get(`${apiUrl}/blogs/tags/${tag}`);

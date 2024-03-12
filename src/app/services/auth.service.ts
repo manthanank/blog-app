@@ -75,11 +75,31 @@ export class AuthService {
     );
   }
 
+  getUserDetails() {
+    return this.http.get(`${apiUrl}/profile/${this.userId}`);
+  }
+
   register(user: Auth) {
     this.http.post(`${apiUrl}/register`, user).subscribe(
       (res: any) => {
-        this.router.navigate(['/home']);
-        this.authStatusListener.next(true);
+        const token = res.token;
+        this.token = token;
+        if (token) {
+          const expiresInDuration = res.expiresIn;
+          this.setAuthTimer(expiresInDuration);
+          this.isAuthenticated = true;
+          this.userId = res.userId;
+          this.userName = res.name;
+          this.authStatusListener.next(true);
+          const now = new Date();
+          const expirationDate = new Date(
+            now.getTime() + expiresInDuration * 1000
+          );
+          console.log(expirationDate);
+          this.saveAuthData(token, expirationDate, this.userId, this.userName);
+          localStorage.setItem('isLoggedIn', 'true');
+          this.router.navigate(['/home']);
+        }
       },
       (error) => {
         this.errorMsg = error.error.message;
@@ -106,7 +126,6 @@ export class AuthService {
       this.logout(); // Token expired, logout the user
     }
   }
-  
 
   logout() {
     this.token = '';
@@ -127,7 +146,12 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string, userName: string) {
+  private saveAuthData(
+    token: string,
+    expirationDate: Date,
+    userId: string,
+    userName: string
+  ) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('userId', userId);
@@ -153,7 +177,7 @@ export class AuthService {
       token: token,
       expirationDate: new Date(expirationDate),
       userId: userId,
-      userName: userName
+      userName: userName,
     };
   }
 }
