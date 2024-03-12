@@ -46,11 +46,11 @@ router.get('/blogs/:id', blogController.getPostById);
 router.get('/blogs/tags/:tag', blogController.getPostsByTag);
 
 /**
- * @route GET /blogs/search/:query
- * @desc Search posts by query
+ * @route GET /blogs/author/:authorId
+ * @desc Get posts by author ID
  * @access Public
  */
-router.get('/blogs/search/:query', blogController.searchPosts);
+router.get('/blogs/author/:authorId', blogController.getPostsByAuthor);
 
 /**
  * @route POST /blogs

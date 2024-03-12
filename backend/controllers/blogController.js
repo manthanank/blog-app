@@ -64,6 +64,18 @@ exports.getPostById = async (req, res) => {
     }
 };
 
+// Get blog posts by author ID
+exports.getPostsByAuthor = async (req, res) => {
+    try {
+        const authorId = req.params.authorId;
+        const posts = await BlogPost.find({ authorId: authorId });
+        res.json(posts);
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
 // Get all tags
 exports.getAllTags = async (req, res) => {
     try {
