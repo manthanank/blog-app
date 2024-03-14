@@ -8,7 +8,7 @@
     <div class="blogs">
         <h2>All Blogs</h2>
         <div class="blog" *ngFor="let blog of blogs">
-            <h3><a [routerLink]="[blog._id]">{{blog.title}}</a></h3>
+            <h3><a [routerLink]="['/blogs',blog._id]">{{blog.title}}</a></h3>
 
             <div class="blog-meta">
                 <span>Author: {{blog.author}}</span> |
