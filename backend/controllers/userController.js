@@ -139,12 +139,13 @@ exports.forgotPassword = async (req, res) => {
         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
         await user.save();
         const subject = 'Password Reset';
+        const endPoint = req.headers.host === 'localhost:3000' ? 'http://localhost:4200' : 'https://blog-app-manthanank.vercel.app/';
         const content = 
         `You are receiving this because you (or someone else) have requested the reset of the password for your account.
         
         Please click on the following link, or paste this into your browser to complete the process:
         
-        http://${req.headers.host}/reset-password/${token}
+        ${endPoint}/reset-password/${token}
         
         If you did not request this, please ignore this email and your password will remain unchanged.`;
         sendEmail(email, subject, content);
