@@ -145,7 +145,7 @@ exports.forgotPassword = async (req, res) => {
         
         Please click on the following link, or paste this into your browser to complete the process:
         
-        ${endPoint}/reset-password/${token}
+        ${endPoint}/reset-password/${token}/${email}
         
         If you did not request this, please ignore this email and your password will remain unchanged.`;
         sendEmail(email, subject, content);
@@ -158,6 +158,7 @@ exports.forgotPassword = async (req, res) => {
 
 // simple reset password function
 exports.resetPassword = async (req, res) => {
+    // console.log(req.body);
     const email = req.body.email;
     const token = req.body.token;
     const password = req.body.password;
