@@ -1,6 +1,8 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const { sendEmail } = require('../utils/email');
 
 // simple login function
 exports.login = async (req, res) => {
@@ -116,14 +118,36 @@ exports.getProfile = async (req, res) => {
     }
 }
 
+// Function to generate a random token
+const generateToken = () => {
+    return crypto.randomBytes(20).toString('hex');
+};
+
 // simple forgot password function
 exports.forgotPassword = async (req, res) => {
+    const email = req.body.email;
+    if (!email) {
+        return res.status(400).json({ message: 'Email is required' });
+    }
     try {
-        const user = await User.findOne({ email: req.body.email });
+        const user = await User.findOne({ email });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        // send email with reset link
+        const token = generateToken();
+        user.resetPasswordToken = token;
+        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+        await user.save();
+        const subject = 'Password Reset';
+        const content = 
+        `You are receiving this because you (or someone else) have requested the reset of the password for your account.
+        
+        Please click on the following link, or paste this into your browser to complete the process:
+        
+        http://${req.headers.host}/reset-password/${token}
+        
+        If you did not request this, please ignore this email and your password will remain unchanged.`;
+        sendEmail(email, subject, content);
         res.json({ message: 'Email sent' });
     }
     catch (err) {
@@ -133,12 +157,29 @@ exports.forgotPassword = async (req, res) => {
 
 // simple reset password function
 exports.resetPassword = async (req, res) => {
+    const email = req.body.email;
+    const token = req.body.token;
+    const password = req.body.password;
+    if (!email || !token || !password) {
+        return res.status(400).json({ message: 'Email, token, and password are required' });
+    }
     try {
-        const user = await User.findOne({ email: req.body.email });
+        const user = await User.findOne({ email });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        // reset password
+        if (user.resetPasswordToken !== token) {
+            return res.status(400).json({ message: 'Invalid token' });
+        }
+        if (user.resetPasswordExpires < Date.now()) {
+            return res.status(400).json({ message: 'Token expired' });
+        }
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        user.password = hashedPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+        await user.save();
         res.json({ message: 'Password reset' });
     }
     catch (err) {
