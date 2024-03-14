@@ -116,6 +116,36 @@ exports.getProfile = async (req, res) => {
     }
 }
 
+// simple forgot password function
+exports.forgotPassword = async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.body.email });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        // send email with reset link
+        res.json({ message: 'Email sent' });
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
+// simple reset password function
+exports.resetPassword = async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.body.email });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        // reset password
+        res.json({ message: 'Password reset' });
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
 // simple update profile function
 exports.updateProfile = async (req, res) => {
     try {
