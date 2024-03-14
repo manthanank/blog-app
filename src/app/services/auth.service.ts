@@ -112,6 +112,14 @@ export class AuthService {
     return this.http.post(`${apiUrl}/forgot-password`, { email: email });
   }
 
+  resetPassword(email: string,token: string, password: string) {
+    return this.http.put(`${apiUrl}/reset-password`, {
+      email: email,
+      token: token,
+      password: password,
+    });
+  }
+
   autoAuthUser() {
     const authInformation = this.getAuthData();
     if (!authInformation) {
