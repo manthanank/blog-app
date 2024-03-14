@@ -108,6 +108,10 @@ export class AuthService {
     );
   }
 
+  forgorPassword(email: string) {
+    return this.http.post(`${apiUrl}/forgot-password`, { email: email });
+  }
+
   autoAuthUser() {
     const authInformation = this.getAuthData();
     if (!authInformation) {
