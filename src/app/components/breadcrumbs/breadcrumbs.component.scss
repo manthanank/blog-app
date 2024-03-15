@@ -6,10 +6,12 @@ nav {
         border-radius: 0.25rem;
         display: flex;
         flex-wrap: wrap;
-        // padding: 0.75rem 1rem;
 
         .breadcrumb-item {
             display: inline-block;
+            margin-bottom: 0;
+            font-weight: bold;
+            font-size: 1.2rem;
 
             a {
                 text-decoration: none;
