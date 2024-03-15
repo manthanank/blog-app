@@ -5,12 +5,13 @@ import { RouterLink } from '@angular/router';
 import { Blog } from '../../../models/blog.model';
 import { AuthService } from '../../../services/auth.service';
 import { Subscription } from 'rxjs';
+import { BreadcrumbsComponent } from "../../../components/breadcrumbs/breadcrumbs.component";
 @Component({
-  selector: 'app-blog-list',
-  standalone: true,
-  imports: [NgFor, RouterLink, DatePipe, NgIf],
-  templateUrl: './blog-list.component.html',
-  styleUrl: './blog-list.component.scss',
+    selector: 'app-blog-list',
+    standalone: true,
+    templateUrl: './blog-list.component.html',
+    styleUrl: './blog-list.component.scss',
+    imports: [NgFor, RouterLink, DatePipe, NgIf, BreadcrumbsComponent]
 })
 export class BlogListComponent implements OnInit {
   private authStatusSubscription: Subscription = new Subscription();

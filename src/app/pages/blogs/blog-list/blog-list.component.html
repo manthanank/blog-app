@@ -1,4 +1,5 @@
 <div class="container">
+    <app-breadcrumbs [breadcrumbs]="[{name: 'Home', url: '/'}]" [active]="'Blogs'"></app-breadcrumbs>
     <div class="blogs">
         <h2>All Blogs</h2>
         <div class="blog" *ngFor="let blog of blogs">

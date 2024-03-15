@@ -4,6 +4,7 @@ import { BlogsService } from '../../services/blogs.service';
 import { Subscription } from 'rxjs';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { BreadcrumbsComponent } from "../../components/breadcrumbs/breadcrumbs.component";
 
 export interface Profile {
   _id: string;
@@ -30,11 +31,11 @@ export interface Blog {
 }
 
 @Component({
-  selector: 'app-profile',
-  standalone: true,
-  imports: [NgFor, RouterLink, DatePipe, NgIf],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss',
+    selector: 'app-profile',
+    standalone: true,
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.scss',
+    imports: [NgFor, RouterLink, DatePipe, NgIf, BreadcrumbsComponent]
 })
 export class ProfileComponent implements OnInit {
   private authStatusSubscription: Subscription = new Subscription();

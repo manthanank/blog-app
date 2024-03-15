@@ -3,13 +3,14 @@ import { BlogsService } from '../../../services/blogs.service';
 import { Tags } from '../../../models/blog.model';
 import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { BreadcrumbsComponent } from "../../../components/breadcrumbs/breadcrumbs.component";
 
 @Component({
-  selector: 'app-tag-list',
-  standalone: true,
-  imports: [NgFor, RouterLink],
-  templateUrl: './tag-list.component.html',
-  styleUrl: './tag-list.component.scss'
+    selector: 'app-tag-list',
+    standalone: true,
+    templateUrl: './tag-list.component.html',
+    styleUrl: './tag-list.component.scss',
+    imports: [NgFor, RouterLink, BreadcrumbsComponent]
 })
 export class TagListComponent {
   
