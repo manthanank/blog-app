@@ -5,13 +5,14 @@ import { BlogsService } from '../../../services/blogs.service';
 import { Blog } from '../../../models/blog.model';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
+import { BreadcrumbsComponent } from "../../../components/breadcrumbs/breadcrumbs.component";
 
 @Component({
-  selector: 'app-tag-details',
-  standalone: true,
-  imports: [NgFor, DatePipe, RouterLink, NgIf],
-  templateUrl: './tag-details.component.html',
-  styleUrl: './tag-details.component.scss',
+    selector: 'app-tag-details',
+    standalone: true,
+    templateUrl: './tag-details.component.html',
+    styleUrl: './tag-details.component.scss',
+    imports: [NgFor, DatePipe, RouterLink, NgIf, BreadcrumbsComponent]
 })
 export class TagDetailsComponent {
   private authStatusSubscription: Subscription = new Subscription();

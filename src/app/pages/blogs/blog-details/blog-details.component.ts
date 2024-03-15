@@ -3,13 +3,14 @@ import { BlogsService } from '../../../services/blogs.service';
 import { ActivatedRoute } from '@angular/router';
 import { Blog } from '../../../models/blog.model';
 import { DatePipe, NgFor } from '@angular/common';
+import { BreadcrumbsComponent } from "../../../components/breadcrumbs/breadcrumbs.component";
 
 @Component({
-  selector: 'app-blog-details',
-  standalone: true,
-  imports: [NgFor, DatePipe],
-  templateUrl: './blog-details.component.html',
-  styleUrl: './blog-details.component.scss'
+    selector: 'app-blog-details',
+    standalone: true,
+    templateUrl: './blog-details.component.html',
+    styleUrl: './blog-details.component.scss',
+    imports: [NgFor, DatePipe, BreadcrumbsComponent]
 })
 export class BlogDetailsComponent {
   

@@ -1,4 +1,5 @@
 <div class="container">
+    <app-breadcrumbs [breadcrumbs]="[{name: 'Home', url: '/'}, {name: 'Blogs', url: '/blogs'}]" [active]="blog.title"></app-breadcrumbs>
     <div class="blog">
         <h3>{{blog.title}}</h3>
         <div class="blog-meta">

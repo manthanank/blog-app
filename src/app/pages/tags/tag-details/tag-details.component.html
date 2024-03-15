@@ -1,4 +1,5 @@
 <div class="container">
+    <app-breadcrumbs [breadcrumbs]="[{name: 'Home', url: '/'}, {name: 'Tags', url: '/tags'}]" [active]="id"></app-breadcrumbs>
     <div class="featured-blogs">
         <h2>Tag: {{id}}</h2>
         <div class="blog" *ngFor="let blog of blogs">
