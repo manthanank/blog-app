@@ -4,8 +4,9 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import * as BlogsActions from './blogs.actions';
+import { environment } from '../../../environments/environment.development';
 
-const apiUrl = 'http://localhost:3000/api';
+const apiUrl = environment.apiUrl;
 
 @Injectable()
 export class BlogsEffects {

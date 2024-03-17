@@ -1,11 +1,12 @@
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { BlogsService } from '../../../services/blogs.service';
+import { BlogsService } from '../../blogs/blogs.service';
 import { Blog } from '../../../models/blog.model';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { BreadcrumbsComponent } from "../../../components/breadcrumbs/breadcrumbs.component";
+import { TagsService } from '../tags.service';
 
 @Component({
     selector: 'app-tag-details',
@@ -19,6 +20,7 @@ export class TagDetailsComponent {
   blogs: Blog[] = [];
 
   blogsService = inject(BlogsService);
+  tagsService = inject(TagsService);
   route = inject(ActivatedRoute);
   id: string = '';
   currentUserId: string = '';
@@ -35,7 +37,7 @@ export class TagDetailsComponent {
     // Check authentication status on component initialization
     this.isLoggedIn = this.auth.getIsAuth();
     this.id = this.route.snapshot.params['tag'];
-    this.blogsService.getBlogByTag(this.id).subscribe((data: any) => {
+    this.tagsService.getBlogByTag(this.id).subscribe((data: any) => {
       this.blogs = data;
       // console.log(this.blogs);
     });
@@ -43,7 +45,7 @@ export class TagDetailsComponent {
 
   deleteBlog(id: string) {
     this.blogsService.deleteBlog(id).subscribe((data: any) => {
-      this.blogsService.getBlogByTag(this.id).subscribe((data: any) => {
+      this.tagsService.getBlogByTag(this.id).subscribe((data: any) => {
         this.blogs = data;
       });
     });

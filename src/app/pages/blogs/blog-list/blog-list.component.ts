@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { BlogsService } from '../../../services/blogs.service';
+import { BlogsService } from '../blogs.service';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Blog } from '../../../models/blog.model';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { BreadcrumbsComponent } from "../../../components/breadcrumbs/breadcrumbs.component";
 import { Store } from '@ngrx/store';

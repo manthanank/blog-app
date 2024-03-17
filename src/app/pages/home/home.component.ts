@@ -1,10 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { BlogsService } from '../../services/blogs.service';
+import { BlogsService } from '../blogs/blogs.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Blogs, FeaturedBlogs, RecentBlogs } from '../../models/blog.model';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { BlogsService } from '../../services/blogs.service';
+import { AuthService } from '../auth/auth.service';
+import { BlogsService } from '../blogs/blogs.service';
 import { Subscription } from 'rxjs';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
