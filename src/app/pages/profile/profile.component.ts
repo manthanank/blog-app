@@ -77,8 +77,11 @@ export class ProfileComponent implements OnInit {
 
   deleteBlog(id: string) {
     this.blogsService.deleteBlog(id).subscribe((data: any) => {
-      this.blogsService.getBlogs().subscribe((data: any) => {
-        this.blogs = data.posts;
+      this.blogsService
+      .getBlogByAuthor(this.currentUserId)
+      .subscribe((data: any) => {
+        // console.log(data);
+        this.blogs = data;
       });
     });
   }

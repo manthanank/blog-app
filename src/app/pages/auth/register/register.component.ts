@@ -6,36 +6,37 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, RouterLink, NgIf],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss',
 })
-export class LoginComponent {
-  loginForm: FormGroup;
+export class RegisterComponent {
+  registerForm: FormGroup;
 
   authService = inject(AuthService);
   router = inject(Router);
 
   constructor() {
-    this.loginForm = new FormGroup({
+    this.registerForm = new FormGroup({
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
     });
   }
 
   onSubmit() {
-    if (this.loginForm.invalid) {
+    if (this.registerForm.invalid) {
       return;
     }
 
-    this.authService
-      .login(this.loginForm.value.email, this.loginForm.value.password);
+    this.authService.register(this.registerForm.value);
   }
 }

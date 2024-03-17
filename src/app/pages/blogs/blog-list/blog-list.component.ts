@@ -6,6 +6,8 @@ import { Blog } from '../../../models/blog.model';
 import { AuthService } from '../../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { BreadcrumbsComponent } from "../../../components/breadcrumbs/breadcrumbs.component";
+import { Store } from '@ngrx/store';
+import * as BlogsActions from '../blogs.actions';
 @Component({
     selector: 'app-blog-list',
     standalone: true,
@@ -20,6 +22,9 @@ export class BlogListComponent implements OnInit {
   auth = inject(AuthService);
   currentUserId: string = '';
   blogsService = inject(BlogsService);
+  store = inject(Store);
+  loading: boolean = false;
+  error: any = null;
 
   ngOnInit() {
     this.currentUserId = this.auth.getUserId();
@@ -30,17 +35,12 @@ export class BlogListComponent implements OnInit {
       });
     // Check authentication status on component initialization
     this.isLoggedIn = this.auth.getIsAuth();
-    this.blogsService.getBlogs().subscribe((data: any) => {
-      this.blogs = data.posts;
-      // console.log(this.blogs);
-    });
-  }
-
-  deleteBlog(id: string) {
-    this.blogsService.deleteBlog(id).subscribe((data: any) => {
-      this.blogsService.getBlogs().subscribe((data: any) => {
-        this.blogs = data.posts;
-      });
+    this.store.dispatch(BlogsActions.loadBlogs());
+    this.store.select('blogs').subscribe((data: any) => {
+      // console.log(data);
+      this.blogs = data.blogs.posts;
+      this.loading = data.loading;
+      this.error = data.error;
     });
   }
 

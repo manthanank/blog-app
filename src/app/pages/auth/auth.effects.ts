@@ -4,7 +4,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import * as AuthActions from './auth.actions';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../../environments/environment.development';
 
 const apiUrl = environment.apiUrl;
 

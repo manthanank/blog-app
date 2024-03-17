@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import * as BlogsActions from './blogs.actions';
 
-const apiUrl = 'http://localhost:3000';
+const apiUrl = 'http://localhost:3000/api';
 
 @Injectable()
 export class BlogsEffects {

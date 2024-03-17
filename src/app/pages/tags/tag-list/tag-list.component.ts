@@ -4,7 +4,8 @@ import { Tags } from '../../../models/blog.model';
 import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BreadcrumbsComponent } from "../../../components/breadcrumbs/breadcrumbs.component";
-
+import { Store } from '@ngrx/store';
+import * as BlogsActions from '../../blogs/blogs.actions';
 @Component({
     selector: 'app-tag-list',
     standalone: true,
@@ -17,6 +18,7 @@ export class TagListComponent {
   tags: Tags = [];
 
   blogsService = inject(BlogsService);
+  store = inject(Store);
 
   constructor() {}
 

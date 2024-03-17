@@ -1,5 +1,5 @@
-<app-breadcrumbs [breadcrumbs]="[{name: 'Home', url: '/'}]" [active]="'Profile'"></app-breadcrumbs>
 <div class="container">
+    <app-breadcrumbs [breadcrumbs]="[{name: 'Home', url: '/'}]" [active]="'Profile'"></app-breadcrumbs>
     <div class="profile-details">
         <h2>Profile Details</h2>
         <p>Name: {{ profile.firstName }} {{ profile.lastName }}</p>
@@ -25,10 +25,10 @@
             </div>
             <!-- <div class="edit-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
                 <a [routerLink]="['/edit', blog._id]">Edit Blog</a>
-            </div>
+            </div> -->
             <div class="delete-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
                 <a (click)="deleteBlog(blog._id)">Delete Blog</a>
-            </div> -->
+            </div>
         </div>
     </div>
 </div>

@@ -12,11 +12,6 @@ const apiUrl = environment.apiUrl;
 export class BlogsService {
 
   http = inject(HttpClient);
-  
-  // get all blogs
-  getBlogs() {
-    return this.http.get(`${apiUrl}/blogs`);
-  }
 
   // get featured blogs
   getFeaturedBlogs() {
