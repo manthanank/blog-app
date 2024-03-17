@@ -3,13 +3,10 @@
     <div class="blog">
         <h3>{{blog.title}}</h3>
         <div class="blog-meta">
+            <p>{{blog.desc}}</p>
             <span>Author: {{blog.author}}</span> |
             <span>Published: {{blog.createdAt | date:'medium'}}</span>
 
-            <div class="blog-desc">
-                <p>{{blog.desc}}</p>
-            </div>
-            
             <div class="tags">
                 <span *ngFor="let tag of blog.tags">{{tag}}</span>
             </div>
