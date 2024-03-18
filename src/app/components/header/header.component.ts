@@ -1,8 +1,8 @@
 import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../pages/auth/auth.service';
 
 @Component({
   selector: 'app-header',

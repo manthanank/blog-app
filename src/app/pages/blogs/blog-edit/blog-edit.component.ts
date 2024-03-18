@@ -7,11 +7,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { BlogsService } from '../../../services/blogs.service';
+import { BlogsService } from '../blogs.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Blog } from '../../../models/blog.model';
-import { AuthService } from '../../../services/auth.service';
 import { NgIf } from '@angular/common';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-blog-edit',
