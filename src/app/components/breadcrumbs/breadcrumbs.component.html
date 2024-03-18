@@ -1,8 +1,9 @@
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb flex space-x-2">
-        <li class="breadcrumb-item" *ngFor="let breadcrumb of breadcrumbs">
-            <a [href]="breadcrumb.url" class="text-blue-500 hover:underline">{{breadcrumb.name}}</a>
+    <ol class="list-none p-3 flex space-x-2">
+        <li class="inline-block mb-0 font-bold text-lg" *ngFor="let breadcrumb of breadcrumbs">
+            <a [href]="breadcrumb.url" class="text-black no-underline hover:underline">{{breadcrumb.name}}</a>
+            <span class="text-gray-500"> > </span>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">{{active}}</li>
+        <li class="inline-block mb-0 font-bold text-lg" aria-current="page">{{active}}</li>
     </ol>
 </nav>
