@@ -1,26 +1,26 @@
 <div class="container">
     <app-breadcrumbs [breadcrumbs]="[{name: 'Home', url: '/'}]" [active]="'Profile'"></app-breadcrumbs>
     <div class="profile-details">
-        <h2>Profile Details</h2>
-        <p>Name: {{ profile.firstName }} {{ profile.lastName }}</p>
-        <p>Email: {{ profile.email }}</p>
+        <h2 class="text-2xl font-bold">Profile Details</h2>
+        <p class="mb-2">Name: {{ profile.firstName }} {{ profile.lastName }}</p>
+        <p class="mb-2">Email: {{ profile.email }}</p>
         <!-- Add more profile details here -->
     </div>
     <div class="blogs">
-        <h2>All Blogs</h2>
+        <h2 class="text-2xl font-bold">All Blogs</h2>
         <div class="blog" *ngFor="let blog of blogs">
-            <h3><a [routerLink]="['/blogs',blog._id]">{{blog.title}}</a></h3>
+            <h3 class="text-xl font-bold mb-2"><a [routerLink]="['/blogs',blog._id]">{{blog.title}}</a></h3>
 
             <div class="blog-meta">
-                <span>Author: {{blog.author}}</span> |
-                <span>Published: {{blog.createdAt | date:'medium'}}</span>
+                <span class="mr-2">Author: {{blog.author}}</span> |
+                <span class="mr-2">Published: {{blog.createdAt | date:'medium'}}</span>
 
                 <div class="blog-desc">
                     <p>{{blog.desc}}</p>
                 </div>
 
                 <div class="tags">
-                    <span *ngFor="let tag of blog.tags">{{tag}}</span>
+                    <span class="mr-2" *ngFor="let tag of blog.tags">{{tag}}</span>
                 </div>
             </div>
             <!-- <div class="edit-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">

@@ -1,7 +1,7 @@
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
+    <ol class="breadcrumb flex space-x-2">
         <li class="breadcrumb-item" *ngFor="let breadcrumb of breadcrumbs">
-            <a [href]="breadcrumb.url">{{breadcrumb.name}}</a>
+            <a [href]="breadcrumb.url" class="text-blue-500 hover:underline">{{breadcrumb.name}}</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">{{active}}</li>
     </ol>
