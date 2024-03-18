@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container mx-auto px-8 sm:px-8 lg:px-60">
     <app-breadcrumbs [breadcrumbs]="[{name: 'Home', url: '/'}]" [active]="'Tags'"></app-breadcrumbs>
     <h2 class="text-2xl font-bold">Tags</h2>
-    <div class="tags">
+    <div class="tags flex flex-wrap mt-3">
         <div class="tag" *ngFor="let tag of tags; let i = index">
             <a [routerLink]="[tag]" class="inline-block px-3 py-1 mr-2 mb-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full hover:bg-gray-300">{{ tag }}</a>
         </div>
