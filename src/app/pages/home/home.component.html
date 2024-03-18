@@ -4,52 +4,57 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container mx-auto px-8 sm:px-8 lg:px-60">
     <div class="featured-blogs">
-        <h2>Featured</h2>
-        <div class="blog" *ngFor="let blog of featuredBlogs">
-            <h3><a [routerLink]="['blogs', blog._id]">{{blog.title}}</a></h3>
+        <h2 class="text-2xl font-bold mb-4">Featured</h2>
+        <div class="blog grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-white rounded-lg shadow-md p-4" *ngFor="let blog of featuredBlogs">
+                <h3 class="text-xl font-semibold mb-2"><a [routerLink]="['blogs', blog._id]">{{blog.title}}</a></h3>
 
-            <div class="blog-meta">
-                <span>Author: {{blog.author}}</span> |
-                <span>Published: {{blog.createdAt | date:'medium'}}</span>
+                <div class="blog-meta text-gray-500 text-sm mb-2">
+                    <span>Author: {{blog.author}}</span> |
+                    <span>Published: {{blog.createdAt | date:'medium'}}</span>
+                </div>
 
-                <div class="blog-desc">
+                <div class="blog-desc mb-2">
                     <p>{{blog.desc}}</p>
                 </div>
 
                 <div class="tags">
-                    <span *ngFor="let tag of blog.tags">{{tag}}</span>
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" *ngFor="let tag of blog.tags">{{tag}}</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container">
+<div class="container mx-auto px-8 sm:px-8 lg:px-60 mt-2">
     <div class="recent-blogs">
-        <h2>Recent</h2>
-        <div class="blog" *ngFor="let blog of recentBlogs">
-            <h3><a [routerLink]="['blogs', blog._id]">{{blog.title}}</a></h3>
+        <h2 class="text-2xl font-bold mb-4">Recent</h2>
+        <div class="blog grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-white rounded-lg shadow-md p-4" *ngFor="let blog of recentBlogs">
+                <h3 class="text-xl font-semibold mb-2"><a [routerLink]="['blogs', blog._id]">{{blog.title}}</a></h3>
 
-            <div class="blog-meta">
-                <span>Author: {{blog.author}}</span> |
-                <span>Published: {{blog.createdAt | date:'medium'}}</span>
+                <div class="blog-meta text-gray-500 text-sm mb-2">
+                    <span>Author: {{blog.author}}</span> |
+                    <span>Published: {{blog.createdAt | date:'medium'}}</span>
+                </div>
 
-                <div class="blog-desc">
+                <div class="blog-desc mb-2">
                     <p>{{blog.desc}}</p>
                 </div>
 
                 <div class="tags">
-                    <span *ngFor="let tag of blog.tags">{{tag}}</span>
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" *ngFor="let tag of blog.tags">{{tag}}</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container">
+
+<div class="container mx-auto px-8 sm:px-8 lg:px-60 m-4 text-center">
     <div class="all-blogs">
-        <a routerLink="blogs">All Blogs</a>
+        <button class="text-blue-500 hover:text-blue-700" routerLink="blogs">All Blogs</button>
     </div>
 </div>
