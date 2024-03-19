@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
   featuredBlogs: FeaturedBlogs[] = [];
   recentBlogs: RecentBlogs[] = [];
   isLoggedIn: boolean = false;
-  isLoading: boolean = false;
+  isLoadingFeaturedBlogs: boolean = false;
+  isLoadingRecentBlogs: boolean = false;
   auth = inject(AuthService);
   currentUserId: string = '';
   blogsService = inject(BlogsService);
@@ -37,16 +38,17 @@ export class HomeComponent implements OnInit {
     // Check authentication status on component initialization
     this.isLoggedIn = this.auth.getIsAuth();
 
-    this.isLoading = true;
+    this.isLoadingFeaturedBlogs = true;
+    this.isLoadingRecentBlogs = true;
     this.blogsService.getFeaturedBlogs().subscribe((data: any) => {
       this.featuredBlogs = data;
       // console.log(this.featuredBlogs);
-      this.isLoading = false;
+      this.isLoadingFeaturedBlogs = false;
     });
     this.blogsService.getRecentBlogs().subscribe((data: any) => {
       this.recentBlogs = data;
       // console.log(this.recentBlogs);
-      this.isLoading = false;
+      this.isLoadingRecentBlogs = false;
     });
   }
 
