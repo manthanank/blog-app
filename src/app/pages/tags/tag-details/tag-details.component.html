@@ -1,20 +1,22 @@
-<div class="container mx-auto px-8 sm:px-8 lg:px-60 mt-2">
+<div class="container mx-auto px-8 sm:px-8 lg:px-60 m-2">
     <app-breadcrumbs [breadcrumbs]="[{name: 'Home', url: '/'}, {name: 'Tags', url: '/tags'}]" [active]="id"></app-breadcrumbs>
     <div class="featured-blogs">
         <h2 class="text-2xl font-bold mb-4">Tag: {{id}}</h2>
-        <div class="blog" *ngFor="let blog of blogs">
-            <h3 class="text-xl font-semibold mb-2"><a [routerLink]="['/blogs', blog._id]" class="hover:text-blue-500">{{blog.title}}</a></h3>
+        <div class="blog grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
+            <div class="bg-white rounded-lg shadow-md p-4" *ngFor="let blog of blogs">
+                <h3 class="text-xl font-semibold mb-2"><a [routerLink]="['/blogs', blog._id]">{{blog.title}}</a></h3>
 
-            <div class="blog-meta">
-                <span class="text-gray-600">Author: {{blog.author}}</span> |
-                <span class="text-gray-600">Published: {{blog.createdAt | date:'medium'}}</span>
+                <div class="blog-meta text-gray-500 text-sm mb-2">
+                    <span>Author: {{blog.author}}</span> |
+                    <span>Published: {{blog.createdAt | date:'medium'}}</span>
+                </div>
 
-                <div class="blog-desc">
+                <div class="blog-desc mb-2">
                     <p>{{blog.desc}}</p>
                 </div>
 
-                <div class="tags mt-2">
-                    <span class="inline-block bg-gray-200 text-gray-800 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2 hover:bg-gray-300 hover:text-gray-900" *ngFor="let tag of blog.tags">{{tag}}</span>
+                <div class="tags">
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" *ngFor="let tag of blog.tags">{{tag}}</span>
                 </div>
             </div>
         </div>

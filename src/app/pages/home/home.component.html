@@ -1,4 +1,4 @@
-<div class="container mx-auto" *ngIf="isLoggedIn">
+<div class="container mx-auto px-8 sm:px-8 lg:px-60 mt-2 text-right" *ngIf="isLoggedIn">
     <div class="add-blog">
         <a class="text-blue-500" routerLink="add">Add Blog</a>
     </div>
@@ -7,7 +7,7 @@
 <div class="container mx-auto px-8 sm:px-8 lg:px-60 mt-2">
     <div class="featured-blogs">
         <h2 class="text-2xl font-bold mb-4">Featured</h2>
-        <div class="blog grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="blog grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
             <div class="bg-white rounded-lg shadow-md p-4" *ngFor="let blog of featuredBlogs">
                 <h3 class="text-xl font-semibold mb-2"><a [routerLink]="['blogs', blog._id]">{{blog.title}}</a></h3>
 
@@ -31,7 +31,7 @@
 <div class="container mx-auto px-8 sm:px-8 lg:px-60 mt-2">
     <div class="recent-blogs">
         <h2 class="text-2xl font-bold mb-4">Recent</h2>
-        <div class="blog grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="blog grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
             <div class="bg-white rounded-lg shadow-md p-4" *ngFor="let blog of recentBlogs">
                 <h3 class="text-xl font-semibold mb-2"><a [routerLink]="['blogs', blog._id]">{{blog.title}}</a></h3>
 

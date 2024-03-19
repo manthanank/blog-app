@@ -1,33 +1,42 @@
-<div class="container">
+<div class="container mx-auto px-8 sm:px-8 lg:px-60 m-2">
     <app-breadcrumbs [breadcrumbs]="[{name: 'Home', url: '/'}]" [active]="'Profile'"></app-breadcrumbs>
     <div class="profile-details">
         <h2 class="text-2xl font-bold">Profile Details</h2>
         <p class="mb-2">Name: {{ profile.firstName }} {{ profile.lastName }}</p>
         <p class="mb-2">Email: {{ profile.email }}</p>
-        <!-- Add more profile details here -->
     </div>
-    <div class="blogs">
-        <h2 class="text-2xl font-bold">All Blogs</h2>
-        <div class="blog" *ngFor="let blog of blogs">
-            <h3 class="text-xl font-bold mb-2"><a [routerLink]="['/blogs',blog._id]">{{blog.title}}</a></h3>
+    <div class="featured-blogs">
+        <h2 class="text-2xl font-bold mb-4">All Blogs</h2>
+        <div class="blog grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
+            <div class="bg-white rounded-lg shadow-md p-4" *ngFor="let blog of blogs">
+                <h3 class="text-xl font-semibold mb-2"><a [routerLink]="['/blogs',blog._id]">{{blog.title}}</a></h3>
 
-            <div class="blog-meta">
-                <span class="mr-2">Author: {{blog.author}}</span> |
-                <span class="mr-2">Published: {{blog.createdAt | date:'medium'}}</span>
+                <div class="blog-meta text-gray-500 text-sm mb-2">
+                    <span>Author: {{blog.author}}</span> |
+                    <span>Published: {{blog.createdAt | date:'medium'}}</span>
+                </div>
 
-                <div class="blog-desc">
+                <div class="blog-desc mb-2">
                     <p>{{blog.desc}}</p>
                 </div>
 
                 <div class="tags">
-                    <span class="mr-2" *ngFor="let tag of blog.tags">{{tag}}</span>
+                    <span
+                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                        *ngFor="let tag of blog.tags">{{tag}}</span>
                 </div>
-            </div>
-            <!-- <div class="edit-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
-                <a [routerLink]="['/edit', blog._id]">Edit Blog</a>
-            </div> -->
-            <div class="delete-blog-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
-                <a (click)="deleteBlog(blog._id)">Delete Blog</a>
+                <!-- <div class="edit-delete-container" *ngIf="isLoggedIn && blog.authorId === currentUserId">
+                    <div class="edit-blog-container">
+                        <button [routerLink]="['/edit', blog._id]" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Edit Blog
+                        </button>
+                    </div>
+                    <div class="delete-blog-container">
+                        <button (click)="deleteBlog(blog._id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                            Delete Blog
+                        </button>
+                    </div>
+                </div> -->
             </div>
         </div>
     </div>
