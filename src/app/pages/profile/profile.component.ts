@@ -51,10 +51,14 @@ export class ProfileComponent implements OnInit {
     __v: 0,
   };
   blogs: Blogs = [];
+  isLoading: boolean = false;
+  isLoadingProfile: boolean = false;
 
   constructor() {}
 
   ngOnInit() {
+    this.isLoading = true;
+    this.isLoadingProfile = true;
     this.currentUserId = this.auth.getUserId();
     this.authStatusSubscription = this.auth
       .getAuthStatusListener()
@@ -66,12 +70,14 @@ export class ProfileComponent implements OnInit {
     this.auth.getUserDetails().subscribe((data: any) => {
       // console.log(data);
       this.profile = data;
+      this.isLoadingProfile = false;
     });
     this.blogsService
       .getBlogByAuthor(this.currentUserId)
       .subscribe((data: any) => {
         // console.log(data);
         this.blogs = data;
+        this.isLoading = false;
       });
   }
 
