@@ -27,6 +27,14 @@
                     </div>
                 </div>
 
+                <label for="featured" class="block mt-4">Featured</label>
+                <div class="mt-1 relative rounded-md">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" id="featured" formControlName="featured">
+                    <div *ngIf="blogForm.get('featured')?.invalid && blogForm.get('featured')?.touched" class="mt-2 text-sm text-red-600">
+                        <div *ngIf="blogForm.get('featured')?.errors?.['required']" class="text-red-500">Featured is required</div>
+                    </div>
+                </div>
+
                 <label for="content" class="block mt-4">Content</label>
                 <div class="form-group">
                     <textarea class="form-control border border-gray-300 rounded-md p-2 w-full" id="content" formControlName="content"></textarea>
