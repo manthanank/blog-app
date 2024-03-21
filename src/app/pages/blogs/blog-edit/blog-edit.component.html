@@ -26,6 +26,14 @@
                         <div *ngIf="blogForm.get('tags')?.errors?.['required']">Tags is required</div>
                     </div>
                 </div>
+                
+                <label for="featured" class="block text-sm font-medium text-gray-700">Featured</label>
+                <div class="mt-1 relative rounded-md">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" id="featured" formControlName="featured">
+                    <div *ngIf="blogForm.get('featured')?.invalid && blogForm.get('featured')?.touched" class="mt-2 text-sm text-red-600">
+                        <div *ngIf="blogForm.get('featured')?.errors?.['required']">Featured is required</div>
+                    </div>
+                </div>
 
                 <label for="content">Content</label>
                 <div class="form-group">

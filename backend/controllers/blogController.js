@@ -138,7 +138,7 @@ exports.updatePost = async (req, res) => {
         }
         
         // Check if the current user is the creator of the post
-        if (post._id !== req.params.id) {
+        if (post.authorId !== req.user.id) {
             return res.status(403).json({ message: 'You are not authorized to update this post' });
         }
         
@@ -147,6 +147,7 @@ exports.updatePost = async (req, res) => {
         post.desc = req.body.desc;
         post.content = req.body.content;
         post.tags = req.body.tags;
+        post.featured = req.body.featured;
         
         const updatedPost = await post.save();
         res.json(updatedPost);

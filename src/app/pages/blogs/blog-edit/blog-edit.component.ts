@@ -46,6 +46,7 @@ export class BlogEditComponent implements OnInit {
       desc: [this.blog.desc, Validators.required],
       tags: [this.blog.tags, Validators.required],
       content: [this.blog.content, Validators.required],
+      featured: [this.blog.featured],
     });
   }
 
@@ -54,7 +55,7 @@ export class BlogEditComponent implements OnInit {
     this.blogsService.getBlog(this.id).subscribe((data: any) => {
       this.blog = data;
       // Check if the current user is the author of the blog
-      if (this.blog.author !== this.auth.getUserId()) {
+      if (this.blog.authorId !== this.auth.getUserId()) {
         this.router.navigate(['/']); // Redirect to home page
         // Or show an error message
       }
@@ -63,6 +64,7 @@ export class BlogEditComponent implements OnInit {
         desc: [this.blog.desc, Validators.required],
         tags: [this.blog.tags, Validators.required],
         content: [this.blog.content, Validators.required],
+        featured: [this.blog.featured],
       });
       // console.log(this.blog);
     });
@@ -74,8 +76,10 @@ export class BlogEditComponent implements OnInit {
       desc: this.blogForm.value.desc,
       tags: this.blogForm.value.tags,
       content: this.blogForm.value.content,
-      author: this.auth.getUserId(),
+      author: this.blog.author,
+      featured: this.blogForm.value.featured,
     };
+    // console.log(data);
 
     this.blogsService.updateBlog(this.id, data).subscribe((data: any) => {
       console.log(data);
