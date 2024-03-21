@@ -45,6 +45,7 @@ export const routes: Routes = [
   },
   {
     path: 'add',
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('./pages/blogs/blog-add/blog-add.component').then((m) => m.BlogAddComponent),
   },
