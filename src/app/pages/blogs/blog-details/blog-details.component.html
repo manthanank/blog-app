@@ -1,17 +1,18 @@
-<div class="container">
-    <app-breadcrumbs [breadcrumbs]="[{name: 'Home', url: '/'}, {name: 'Blogs', url: '/blogs'}]" [active]="blog.title"></app-breadcrumbs>
-    <div class="blog">
-        <h3>{{blog.title}}</h3>
-        <div class="blog-meta">
-            <p>{{blog.desc}}</p>
-            <span>Author: {{blog.author}}</span> |
-            <span>Published: {{blog.createdAt | date:'medium'}}</span>
+<div class="container mx-auto">
+    <a class="text-black" (click)="goBack()">&lt; Go Back</a>
+    <div class="blog mt-4">
+        <h3 class="text-2xl font-bold">{{blog.title}}</h3>
+        <div class="blog-meta mt-2">
+            <p class="text-gray-700">{{blog.desc}}</p>
+            <span class="text-gray-500">Author: {{blog.author}}</span> |
+            <span class="text-gray-500">Published: {{blog.createdAt | date:'medium'}}</span>
 
-            <div class="tags">
-                <span *ngFor="let tag of blog.tags">{{tag}}</span>
+            <div class="tags mt-2">
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
+                    *ngFor="let tag of blog.tags">{{tag}}</span>
             </div>
 
-            <div class="blog-content">
+            <div class="blog-content mt-4">
                 <p>{{blog.content}}</p>
             </div>
         </div>

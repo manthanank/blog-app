@@ -3,14 +3,13 @@ import { BlogsService } from '../blogs.service';
 import { ActivatedRoute } from '@angular/router';
 import { Blog } from '../../../models/blog.model';
 import { DatePipe, NgFor } from '@angular/common';
-import { BreadcrumbsComponent } from "../../../components/breadcrumbs/breadcrumbs.component";
-
+import { Location } from '@angular/common';
 @Component({
     selector: 'app-blog-details',
     standalone: true,
     templateUrl: './blog-details.component.html',
     styleUrl: './blog-details.component.scss',
-    imports: [NgFor, DatePipe, BreadcrumbsComponent]
+    imports: [NgFor, DatePipe]
 })
 export class BlogDetailsComponent {
   
@@ -30,6 +29,7 @@ export class BlogDetailsComponent {
 
   blogsService = inject(BlogsService);
   route = inject(ActivatedRoute);
+  location = inject(Location);
 
   ngOnInit() {
     this.id = this.route.snapshot.url[1].path;
@@ -37,5 +37,9 @@ export class BlogDetailsComponent {
       this.blog = data;
       // console.log(this.blog);
     });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
