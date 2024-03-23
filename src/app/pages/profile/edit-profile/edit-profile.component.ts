@@ -44,7 +44,7 @@ export class EditProfileComponent {
   }
 
   onSubmit() {
-    console.log(this.editProfileForm.value);
+    // console.log(this.editProfileForm.value);
     if (this.editProfileForm.invalid) {
       return;
     }

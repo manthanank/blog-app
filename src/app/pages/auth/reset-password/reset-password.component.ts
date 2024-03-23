@@ -30,7 +30,7 @@ export class ResetPasswordComponent {
 
   constructor(private formBuilder: FormBuilder) {
     this.router.params.subscribe((params: any) => {
-      console.log(params);
+      // console.log(params);
       this.token = params.token;
       this.email = params.email;
     });

@@ -83,6 +83,7 @@ export class BlogEditComponent implements OnInit {
 
     this.blogsService.updateBlog(this.id, data).subscribe((data: any) => {
       console.log(data);
+      this.router.navigate(['/']);
     });
   }
 }
