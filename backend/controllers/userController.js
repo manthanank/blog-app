@@ -7,15 +7,15 @@ const { sendEmail } = require('../utils/email');
 // simple login function
 exports.login = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { emailOrUsername, password } = req.body;
 
-        // Check if email and password are provided
-        if (!email || !password) {
-            return res.status(400).json({ message: 'Email and password are required' });
+        // Check if email/username and password are provided
+        if (!emailOrUsername || !password) {
+            return res.status(400).json({ message: 'Email/username and password are required' });
         }
 
-        // Find user by email
-        const user = await User.findOne({ email });
+        // Find user by email or username
+        const user = await User.findOne({ $or: [{ email: emailOrUsername }, { username: emailOrUsername }] });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -23,7 +23,7 @@ exports.login = async (req, res) => {
         // Check if the password is correct
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
-            return res.status(401).json({ message: 'Invalid email or password' });
+            return res.status(401).json({ message: 'Invalid email/username or password' });
         }
 
         // Generate JWT token
@@ -75,6 +75,7 @@ exports.register = async (req, res) => {
 
         // Create a new user
         const newUser = new User({
+            username,
             email,
             firstName,
             lastName,
@@ -94,8 +95,9 @@ exports.register = async (req, res) => {
                 token: token,
                 expiresIn: 3600,
                 userId: newUser._id,
-                name: newUser.firstName + ' ' + newUser.lastName,
-                email: newUser.email
+                username: newUser.username,
+                email: newUser.email,
+                name: newUser.firstName + ' ' + newUser.lastName
             }
         );
     }
@@ -192,12 +194,14 @@ exports.resetPassword = async (req, res) => {
 // simple update profile function
 exports.updateProfile = async (req, res) => {
     try {
-        const user = await User.findById(req.user.id);
+        const user = await User.findById(req.params.id);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
         user.firstName = req.body.firstName;
         user.lastName = req.body.lastName;
+        user.email = req.body.email;
+        user.username = req.body.username;
         await user.save();
         res.json(user);
     }

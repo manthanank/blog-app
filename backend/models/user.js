@@ -1,8 +1,15 @@
-// user model schema
 const mongoose = require('mongoose');
 
+// user model schema
+
 const userSchema = new mongoose.Schema({
-    // replace username with email
+    username: {
+        type: String,
+        required: true,
+        unique: true, // Ensure that the username is unique
+        trim: true, // Remove whitespace from the beginning and end of the string
+        minlength: 3 // Set the minimum length of the username
+    },
     email: {
         type: String,
         required: true,
