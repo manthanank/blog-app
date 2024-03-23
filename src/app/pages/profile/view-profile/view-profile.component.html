@@ -2,7 +2,12 @@
     <app-breadcrumbs [breadcrumbs]="[{name: 'Home', url: '/'}]" [active]="'Profile'"></app-breadcrumbs>
     <h2 class="text-2xl font-bold">Profile Details</h2>
 
+    <div class="add-blog-container flex justify-end">
+        <a [routerLink]="'/edit-profile/' + currentUserId" class="bg-black-500 hover:underline font-bold p-2 rounded">Edit Profile</a>
+    </div>
+
     <div class="profile-details" *ngIf="!isLoadingProfile">
+        <p class="mb-2">UserName: {{ profile.username }}</p>
         <p class="mb-2">Name: {{ profile.firstName }} {{ profile.lastName }}</p>
         <p class="mb-2">Email: {{ profile.email }}</p>
     </div>

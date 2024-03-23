@@ -1,13 +1,14 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
-import { BlogsService } from '../blogs/blogs.service';
 import { Subscription } from 'rxjs';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { AuthService } from '../../auth/auth.service';
+import { BlogsService } from '../../blogs/blogs.service';
+import { NgFor, DatePipe, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs.component';
+import { BreadcrumbsComponent } from '../../../components/breadcrumbs/breadcrumbs.component';
 
 export interface Profile {
   _id: string;
+  username: string;
   email: string;
   firstName: string;
   lastName: string;
@@ -31,13 +32,13 @@ export interface Blog {
 }
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-view-profile',
   standalone: true,
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss',
   imports: [NgFor, RouterLink, DatePipe, NgIf, BreadcrumbsComponent],
+  templateUrl: './view-profile.component.html',
+  styleUrl: './view-profile.component.scss'
 })
-export class ProfileComponent implements OnInit {
+export class ViewProfileComponent implements OnInit {
   private authStatusSubscription: Subscription = new Subscription();
   isLoggedIn: boolean = false;
   auth = inject(AuthService);
@@ -45,6 +46,7 @@ export class ProfileComponent implements OnInit {
   blogsService = inject(BlogsService);
   profile: Profile = {
     _id: '',
+    username: '',
     email: '',
     firstName: '',
     lastName: '',

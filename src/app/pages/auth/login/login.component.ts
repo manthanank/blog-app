@@ -25,7 +25,7 @@ export class LoginComponent {
 
   constructor() {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      emailOrUsername: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
   }
@@ -36,6 +36,6 @@ export class LoginComponent {
     }
 
     this.authService
-      .login(this.loginForm.value.email, this.loginForm.value.password);
+      .login(this.loginForm.value.emailOrUsername, this.loginForm.value.password);
   }
 }

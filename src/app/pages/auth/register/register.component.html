@@ -13,6 +13,11 @@
             <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" class="error-message">Last Name is required</div>
         </div>
         <div class="mb-4">
+            <label for="username" class="block">Username</label>
+            <input type="text" class="form-control border border-gray-300 rounded-md p-2 w-full" id="username" formControlName="username" />
+            <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched" class="error-message">Username is required</div>
+        </div>
+        <div class="mb-4">
             <label for="email" class="block">E-mail</label>
             <input type="text" class="form-control border border-gray-300 rounded-md p-2 w-full" id="email" formControlName="email" />
             <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error-message">E-mail is required</div>
