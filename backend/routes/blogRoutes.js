@@ -25,11 +25,11 @@ router.get('/blogs/latest', blogController.getLatestPosts);
 router.get('/blogs/featured', blogController.getFeaturedPosts);
 
 /**
- * @route GET /blogs/featured/user/:userId
+ * @route GET /blogs/featured/:userId
  * @desc Get featured posts of a user
  * @access Public
  */
-router.get('/blogs/featured/user/:userId', blogController.getFeaturedPostsByUser);
+router.get('/blogs/featured/:userId', blogController.getFeaturedPostsByUser);
 
 /**
  * @route GET /blogs/recent
@@ -39,11 +39,11 @@ router.get('/blogs/featured/user/:userId', blogController.getFeaturedPostsByUser
 router.get('/blogs/recent', blogController.getRecentPosts);
 
 /**
- * @route GET /blogs/recent/user/:userId
+ * @route GET /blogs/recent/:userId
  * @desc Get recent posts of a user
  * @access Public
  */
-router.get('/blogs/recent/user/:userId', blogController.getRecentPostsByUser);
+router.get('/blogs/recent/:userId', blogController.getRecentPostsByUser);
 
 /**
  * @route GET /blogs/tags
