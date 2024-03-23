@@ -18,9 +18,24 @@ export class BlogsService {
     return this.http.get<FeaturedBlogs>(`${apiUrl}/blogs/featured`);
   }
 
+  // get featured blogs by author
+  getFeaturedBlogsByAuthor(author: string) {
+    return this.http.get<FeaturedBlogs>(`${apiUrl}/blogs/featured/${author}`);
+  }
+
+  // get latest blogs
+  getLatestBlogs() {
+    return this.http.get<FeaturedBlogs>(`${apiUrl}/blogs/latest`);
+  }
+
   // get recent blogs
   getRecentBlogs() {
     return this.http.get<RecentBlogs>(`${apiUrl}/blogs/recent`);
+  }
+
+  // get recent blogs by author
+  getRecentBlogsByAuthor(author: string) {
+    return this.http.get<RecentBlogs>(`${apiUrl}/blogs/recent/${author}`);
   }
 
   // get blog by id

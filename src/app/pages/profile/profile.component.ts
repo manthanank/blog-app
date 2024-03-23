@@ -4,7 +4,7 @@ import { BlogsService } from '../blogs/blogs.service';
 import { Subscription } from 'rxjs';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { BreadcrumbsComponent } from "../../components/breadcrumbs/breadcrumbs.component";
+import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs.component';
 
 export interface Profile {
   _id: string;
@@ -31,11 +31,11 @@ export interface Blog {
 }
 
 @Component({
-    selector: 'app-profile',
-    standalone: true,
-    templateUrl: './profile.component.html',
-    styleUrl: './profile.component.scss',
-    imports: [NgFor, RouterLink, DatePipe, NgIf, BreadcrumbsComponent]
+  selector: 'app-profile',
+  standalone: true,
+  templateUrl: './profile.component.html',
+  styleUrl: './profile.component.scss',
+  imports: [NgFor, RouterLink, DatePipe, NgIf, BreadcrumbsComponent],
 })
 export class ProfileComponent implements OnInit {
   private authStatusSubscription: Subscription = new Subscription();
@@ -53,6 +53,10 @@ export class ProfileComponent implements OnInit {
   blogs: Blogs = [];
   isLoading: boolean = false;
   isLoadingProfile: boolean = false;
+  isLoadingFeaturedBlogs: boolean = false;
+  isLoadingRecentBlogs: boolean = false;
+  featuredBlogs: Blogs = [];
+  recentBlogs: Blogs = [];
 
   constructor() {}
 
@@ -79,16 +83,15 @@ export class ProfileComponent implements OnInit {
         this.blogs = data;
         this.isLoading = false;
       });
-  }
-
-  deleteBlog(id: string) {
-    this.blogsService.deleteBlog(id).subscribe((data: any) => {
-      this.blogsService
-      .getBlogByAuthor(this.currentUserId)
-      .subscribe((data: any) => {
-        // console.log(data);
-        this.blogs = data;
-      });
+    this.blogsService.getFeaturedBlogsByAuthor(this.currentUserId).subscribe((data: any) => {
+      this.featuredBlogs = data;
+      // console.log(this.featuredBlogs);
+      this.isLoadingFeaturedBlogs = false;
+    });
+    this.blogsService.getRecentBlogsByAuthor(this.currentUserId).subscribe((data: any) => {
+      this.recentBlogs = data;
+      // console.log(this.recentBlogs);
+      this.isLoadingRecentBlogs = false;
     });
   }
 

@@ -1,7 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { BlogsService } from '../blogs/blogs.service';
-import { HttpClientModule } from '@angular/common/http';
-import { Blogs, FeaturedBlogs, RecentBlogs } from '../../models/blog.model';
+import { LatestBlogs } from '../../models/blog.model';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
@@ -17,10 +16,9 @@ import { Subscription } from 'rxjs';
 export class HomeComponent implements OnInit {
 
   private authStatusSubscription: Subscription = new Subscription();
-  featuredBlogs: FeaturedBlogs[] = [];
-  recentBlogs: RecentBlogs[] = [];
+  latestBlogs: LatestBlogs[] = [];
   isLoggedIn: boolean = false;
-  isLoadingFeaturedBlogs: boolean = false;
+  isLoadingLatestBlogs: boolean = false;
   isLoadingRecentBlogs: boolean = false;
   auth = inject(AuthService);
   currentUserId: string = '';
@@ -38,25 +36,12 @@ export class HomeComponent implements OnInit {
     // Check authentication status on component initialization
     this.isLoggedIn = this.auth.getIsAuth();
 
-    this.isLoadingFeaturedBlogs = true;
+    this.isLoadingLatestBlogs = true;
     this.isLoadingRecentBlogs = true;
-    this.blogsService.getFeaturedBlogs().subscribe((data: any) => {
-      this.featuredBlogs = data;
-      // console.log(this.featuredBlogs);
-      this.isLoadingFeaturedBlogs = false;
-    });
-    this.blogsService.getRecentBlogs().subscribe((data: any) => {
-      this.recentBlogs = data;
-      // console.log(this.recentBlogs);
-      this.isLoadingRecentBlogs = false;
-    });
-  }
-
-  deleteBlog(id: string) {
-    this.blogsService.deleteBlog(id).subscribe((data: any) => {
-      this.blogsService.getFeaturedBlogs().subscribe((data: any) => {
-        this.featuredBlogs = data;
-      });
+    this.blogsService.getLatestBlogs().subscribe((data: any) => {
+      this.latestBlogs = data;
+      // console.log(this.latestBlogs);
+      this.isLoadingLatestBlogs = false;
     });
   }
 
