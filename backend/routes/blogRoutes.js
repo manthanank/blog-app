@@ -11,6 +11,13 @@ const auth = require('../middlewares/auth');
 router.get('/blogs', blogController.getAllPosts);
 
 /**
+ * @route GET /blogs/latest
+ * @desc Get all latest posts in descending order
+ * @access Public
+ */
+router.get('/blogs/latest', blogController.getLatestPosts);
+
+/**
  * @route GET /blogs/featured
  * @desc Get featured posts
  * @access Public
@@ -18,11 +25,25 @@ router.get('/blogs', blogController.getAllPosts);
 router.get('/blogs/featured', blogController.getFeaturedPosts);
 
 /**
+ * @route GET /blogs/featured/user/:userId
+ * @desc Get featured posts of a user
+ * @access Public
+ */
+router.get('/blogs/featured/user/:userId', blogController.getFeaturedPostsByUser);
+
+/**
  * @route GET /blogs/recent
  * @desc Get recent posts
  * @access Public
  */
 router.get('/blogs/recent', blogController.getRecentPosts);
+
+/**
+ * @route GET /blogs/recent/user/:userId
+ * @desc Get recent posts of a user
+ * @access Public
+ */
+router.get('/blogs/recent/user/:userId', blogController.getRecentPostsByUser);
 
 /**
  * @route GET /blogs/tags

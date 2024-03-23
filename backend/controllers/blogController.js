@@ -31,10 +31,42 @@ exports.getAllPosts = async (req, res) => {
     }
 };
 
+// Get latest blog posts
+exports.getLatestPosts = async (req, res) => {
+    try {
+        const posts = await BlogPost.find().sort({ createdAt: -1 });
+        res.json(posts);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
 // get featured blog posts
 exports.getFeaturedPosts = async (req, res) => {
     try {
         const posts = await BlogPost.find({ featured: true });
+        res.json(posts);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+// get featured blog posts by user
+exports.getFeaturedPostsByUser = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const posts = await BlogPost.find({ authorId: userId, featured: true });
+        res.json(posts);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+// Get recent blog posts by user
+exports.getRecentPostsByUser = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const posts = await BlogPost.find({ authorId: userId }).sort({ createdAt: -1 }).limit(3);
         res.json(posts);
     } catch (err) {
         res.status(500).json({ message: err.message });
