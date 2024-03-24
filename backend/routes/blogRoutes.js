@@ -81,6 +81,13 @@ router.get('/blogs/author/:authorId', blogController.getPostsByAuthor);
 router.post('/blogs', auth, blogController.createPost);
 
 /**
+ * @route GET /blogs/search
+ * @desc Search posts by title or content
+ * @access Public
+ */
+router.get('/blogs/search', blogController.searchPosts);
+
+/**
  * @route PUT /blogs/:id
  * @desc Update a post by ID
  * @access Private
