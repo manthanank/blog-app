@@ -19,6 +19,7 @@ import { NgIf } from '@angular/common';
 })
 export class EditProfileComponent {
   editProfileForm: FormGroup;
+  usernameTaken: any;
 
   authService = inject(AuthService);
   router = inject(Router);
@@ -40,6 +41,23 @@ export class EditProfileComponent {
         email: new FormControl(profile.email, [Validators.required, Validators.email]),
         username: new FormControl(profile.username, Validators.required),
       });
+    });
+  }
+
+  
+  checkUsername() {
+    const username = this.editProfileForm.get('username')?.value;
+
+    this.authService.checkUsername(username).subscribe({
+      next: (response: any) => {
+        // Handle the response here
+        console.log(response);
+        this.usernameTaken = response.message;
+      },
+      error: (error) => {
+        // Handle the error here
+        console.error(error);
+      },
     });
   }
 
