@@ -8,12 +8,13 @@ import { Subscription } from 'rxjs';
 import { BreadcrumbsComponent } from "../../../components/breadcrumbs/breadcrumbs.component";
 import { Store } from '@ngrx/store';
 import * as BlogsActions from '../blogs.actions';
+import { PaginationComponent } from "../../../components/pagination/pagination.component";
 @Component({
     selector: 'app-blog-list',
     standalone: true,
     templateUrl: './blog-list.component.html',
     styleUrl: './blog-list.component.scss',
-    imports: [NgFor, RouterLink, DatePipe, NgIf, BreadcrumbsComponent]
+    imports: [NgFor, RouterLink, DatePipe, NgIf, BreadcrumbsComponent, PaginationComponent]
 })
 export class BlogListComponent implements OnInit {
   private authStatusSubscription: Subscription = new Subscription();
@@ -25,6 +26,7 @@ export class BlogListComponent implements OnInit {
   store = inject(Store);
   loading: boolean = false;
   error: any = null;
+  totalBlogPosts: number = 100;
 
   ngOnInit() {
     this.currentUserId = this.auth.getUserId();
@@ -42,6 +44,10 @@ export class BlogListComponent implements OnInit {
       this.loading = data.loading;
       this.error = data.error;
     });
+  }
+
+  loadBlogPosts(page: number): void {
+    // Load blog posts for the given page
   }
 
   ngOnDestroy(): void {
