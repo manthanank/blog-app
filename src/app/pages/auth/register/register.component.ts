@@ -20,6 +20,8 @@ import { NgIf } from '@angular/common';
 export class RegisterComponent {
   registerForm: FormGroup;
 
+  usernameTaken: any;
+
   authService = inject(AuthService);
   router = inject(Router);
 
@@ -30,6 +32,22 @@ export class RegisterComponent {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
       username: new FormControl('', Validators.required),
+    });
+  }
+
+  checkUsername() {
+    const username = this.registerForm.get('username')?.value;
+
+    this.authService.checkUsername(username).subscribe({
+      next: (response: any) => {
+        // Handle the response here
+        console.log(response);
+        this.usernameTaken = response.message;
+      },
+      error: (error) => {
+        // Handle the error here
+        console.error(error);
+      },
     });
   }
 

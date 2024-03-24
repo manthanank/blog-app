@@ -148,6 +148,10 @@ export class AuthService {
     });
   }
 
+  checkUsername(username: string) {
+    return this.http.get(`${apiUrl}/check-username/${username}`);
+  }
+
   autoAuthUser() {
     const authInformation = this.getAuthData();
     if (!authInformation) {
