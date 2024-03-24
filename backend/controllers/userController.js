@@ -209,3 +209,18 @@ exports.updateProfile = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 }
+
+// simple check username availability function
+exports.checkUsernameAvailability = async (req, res) => {
+    try {
+        const username = req.params.username;
+        const user = await User.findOne({ username });
+        if (user) {
+            return res.json({ message: 'Username not available' });
+        }
+        res.json({ message: 'Username available' });
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
