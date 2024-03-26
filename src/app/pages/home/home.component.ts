@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { BlogsService } from '../blogs/blogs.service';
-import { LatestBlogs } from '../../models/blog.model';
+import { BlogsService } from '../../core/services/blogs.service';
+import { LatestBlogs } from '../../core/models/blog.model';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Subscription } from 'rxjs';
 
 @Component({

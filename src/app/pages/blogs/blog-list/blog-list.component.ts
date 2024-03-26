@@ -1,14 +1,14 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { BlogsService } from '../blogs.service';
+import { BlogsService } from '../../../core/services/blogs.service';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { Blog } from '../../../models/blog.model';
-import { AuthService } from '../../auth/auth.service';
+import { Blog } from '../../../core/models/blog.model';
+import { AuthService } from '../../../core/services/auth.service';
 import { Subscription } from 'rxjs';
-import { BreadcrumbsComponent } from "../../../components/breadcrumbs/breadcrumbs.component";
+import { BreadcrumbsComponent } from "../../../shared/breadcrumbs/breadcrumbs.component";
 import { Store } from '@ngrx/store';
-import * as BlogsActions from '../blogs.actions';
-import { PaginationComponent } from "../../../components/pagination/pagination.component";
+import * as BlogsActions from '../../../core/store/blogs.actions';
+import { PaginationComponent } from "../../../shared/pagination/pagination.component";
 @Component({
     selector: 'app-blog-list',
     standalone: true,

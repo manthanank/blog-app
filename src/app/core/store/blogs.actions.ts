@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Blog } from '../../models/blog.model';
+import { Blog } from '../models/blog.model';
 
 export const loadBlogs = createAction('[Blogs] Load Blogs');
 

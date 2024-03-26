@@ -6,10 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { BlogsService } from '../blogs.service';
+import { BlogsService } from '../../../core/services/blogs.service';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-blog-add',

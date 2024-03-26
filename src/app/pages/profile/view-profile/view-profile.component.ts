@@ -1,10 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../auth/auth.service';
-import { BlogsService } from '../../blogs/blogs.service';
+import { AuthService } from '../../../core/services/auth.service';
+import { BlogsService } from '../../../core/services/blogs.service';
 import { NgFor, DatePipe, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { BreadcrumbsComponent } from '../../../components/breadcrumbs/breadcrumbs.component';
+import { BreadcrumbsComponent } from '../../../shared/breadcrumbs/breadcrumbs.component';
 
 export interface Profile {
   _id: string;

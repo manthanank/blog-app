@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as BlogsActions from './blogs.actions';
-import { Blog } from '../../models/blog.model';
+import { Blog } from '../models/blog.model';
 
 export interface State {
     blogs: Blog[];

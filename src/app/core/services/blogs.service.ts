@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { FeaturedBlogs, RecentBlogs } from '../../models/blog.model';
+import { FeaturedBlogs, RecentBlogs } from '../models/blog.model';
 
 const apiUrl = environment.apiUrl;
 

@@ -7,12 +7,12 @@ import {
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
-import { authInterceptor } from './auth.interceptor';
-import { errorInterceptor } from './error.interceptor';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { errorInterceptor } from './core/interceptors/error.interceptor';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import { BlogsEffects } from './pages/blogs/blogs.effects';
-import { blogsReducer } from './pages/blogs/blogs.reducer';
+import { BlogsEffects } from './core/store/blogs.effects';
+import { blogsReducer } from './core/store/blogs.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [

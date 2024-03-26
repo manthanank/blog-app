@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { BlogsService } from '../blogs.service';
+import { BlogsService } from '../../../core/services/blogs.service';
 import { ActivatedRoute } from '@angular/router';
-import { Blog } from '../../../models/blog.model';
+import { Blog } from '../../../core/models/blog.model';
 import { DatePipe, NgFor } from '@angular/common';
 import { Location } from '@angular/common';
 @Component({

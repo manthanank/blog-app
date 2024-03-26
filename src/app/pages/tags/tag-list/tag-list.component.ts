@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { Tags } from '../../../models/blog.model';
+import { Tags } from '../../../core/models/blog.model';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { BreadcrumbsComponent } from "../../../components/breadcrumbs/breadcrumbs.component";
+import { BreadcrumbsComponent } from "../../../shared/breadcrumbs/breadcrumbs.component";
 import { Store } from '@ngrx/store';
 import { TagsService } from '../tags.service';
 @Component({
