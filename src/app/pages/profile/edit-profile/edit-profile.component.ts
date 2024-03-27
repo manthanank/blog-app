@@ -34,17 +34,25 @@ export class EditProfileComponent {
   }
 
   ngOnInit() {
-    this.authService.getUserDetails().subscribe((profile: any) => {
-      this.editProfileForm = new FormGroup({
-        firstName: new FormControl(profile.firstName, Validators.required),
-        lastName: new FormControl(profile.lastName, Validators.required),
-        email: new FormControl(profile.email, [Validators.required, Validators.email]),
-        username: new FormControl(profile.username, Validators.required),
-      });
+    this.authService.getUserDetails().subscribe({
+      next: (profile: any) => {
+        this.editProfileForm = new FormGroup({
+          firstName: new FormControl(profile.firstName, Validators.required),
+          lastName: new FormControl(profile.lastName, Validators.required),
+          email: new FormControl(profile.email, [
+            Validators.required,
+            Validators.email,
+          ]),
+          username: new FormControl(profile.username, Validators.required),
+        });
+      },
+      error: (error) => {
+        console.error(error);
+        // Handle the error here
+      },
     });
   }
 
-  
   checkUsername() {
     const username = this.editProfileForm.get('username')?.value;
 
