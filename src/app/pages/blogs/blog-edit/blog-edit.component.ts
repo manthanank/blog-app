@@ -52,21 +52,28 @@ export class BlogEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.url[1].path;
-    this.blogsService.getBlog(this.id).subscribe((data: any) => {
-      this.blog = data;
-      // Check if the current user is the author of the blog
-      if (this.blog.authorId !== this.auth.getUserId()) {
-        this.router.navigate(['/']); // Redirect to home page
-        // Or show an error message
-      }
-      this.blogForm = this.form.group({
-        title: [this.blog.title, Validators.required],
-        desc: [this.blog.desc, Validators.required],
-        tags: [this.blog.tags, Validators.required],
-        content: [this.blog.content, Validators.required],
-        featured: [this.blog.featured],
-      });
-      // console.log(this.blog);
+    this.blogsService.getBlog(this.id).subscribe({
+      next: (data: any) => {
+        this.blog = data;
+        // Check if the current user is the author of the blog
+        if (this.blog.authorId !== this.auth.getUserId()) {
+          this.router.navigate(['/']); // Redirect to home page
+          // Or show an error message
+        } else {
+          this.blogForm = this.form.group({
+            title: [this.blog.title, Validators.required],
+            desc: [this.blog.desc, Validators.required],
+            tags: [this.blog.tags, Validators.required],
+            content: [this.blog.content, Validators.required],
+            featured: [this.blog.featured],
+          });
+          // console.log(this.blog);
+        }
+      },
+      error: (error: any) => {
+        console.error(error);
+        // Handle the error here, e.g. show an error message to the user
+      },
     });
   }
 
@@ -81,9 +88,15 @@ export class BlogEditComponent implements OnInit {
     };
     // console.log(data);
 
-    this.blogsService.updateBlog(this.id, data).subscribe((data: any) => {
-      console.log(data);
-      this.router.navigate(['/']);
+    this.blogsService.updateBlog(this.id, data).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this.router.navigate(['/']);
+      },
+      error: (error: any) => {
+        console.error(error);
+        // Handle the error here, e.g. show an error message to the user
+      },
     });
   }
 }

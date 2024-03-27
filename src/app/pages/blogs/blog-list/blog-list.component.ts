@@ -5,16 +5,23 @@ import { RouterLink } from '@angular/router';
 import { Blog } from '../../../core/models/blog.model';
 import { AuthService } from '../../../core/services/auth.service';
 import { Subscription } from 'rxjs';
-import { BreadcrumbsComponent } from "../../../shared/breadcrumbs/breadcrumbs.component";
+import { BreadcrumbsComponent } from '../../../shared/breadcrumbs/breadcrumbs.component';
 import { Store } from '@ngrx/store';
 import * as BlogsActions from '../../../core/store/blogs.actions';
-import { PaginationComponent } from "../../../shared/pagination/pagination.component";
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 @Component({
-    selector: 'app-blog-list',
-    standalone: true,
-    templateUrl: './blog-list.component.html',
-    styleUrl: './blog-list.component.scss',
-    imports: [NgFor, RouterLink, DatePipe, NgIf, BreadcrumbsComponent, PaginationComponent]
+  selector: 'app-blog-list',
+  standalone: true,
+  templateUrl: './blog-list.component.html',
+  styleUrl: './blog-list.component.scss',
+  imports: [
+    NgFor,
+    RouterLink,
+    DatePipe,
+    NgIf,
+    BreadcrumbsComponent,
+    PaginationComponent,
+  ],
 })
 export class BlogListComponent implements OnInit {
   private authStatusSubscription: Subscription = new Subscription();
@@ -30,19 +37,28 @@ export class BlogListComponent implements OnInit {
 
   ngOnInit() {
     this.currentUserId = this.auth.getUserId();
-    this.authStatusSubscription = this.auth
-      .getAuthStatusListener()
-      .subscribe((isAuthenticated) => {
+    this.authStatusSubscription = this.auth.getAuthStatusListener().subscribe({
+      next: (isAuthenticated) => {
         this.isLoggedIn = isAuthenticated;
-      });
+      },
+      error: (error) => {
+        // Handle error here
+        console.error('Error occurred:', error);
+      },
+    });
     // Check authentication status on component initialization
     this.isLoggedIn = this.auth.getIsAuth();
     this.store.dispatch(BlogsActions.loadBlogs());
-    this.store.select('blogs').subscribe((data: any) => {
-      // console.log(data);
-      this.blogs = data.blogs.posts;
-      this.loading = data.loading;
-      this.error = data.error;
+    this.store.select('blogs').subscribe({
+      next: (data: any) => {
+        this.blogs = data.blogs.posts;
+        this.loading = data.loading;
+        this.error = data.error;
+      },
+      error: (error) => {
+        // Handle error here
+        console.error('Error occurred:', error);
+      },
     });
   }
 

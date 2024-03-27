@@ -14,7 +14,6 @@ import { Subscription } from 'rxjs';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-
   private authStatusSubscription: Subscription = new Subscription();
   latestBlogs: LatestBlogs[] = [];
   isLoggedIn: boolean = false;
@@ -28,20 +27,31 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.currentUserId = this.auth.getUserId();
-    this.authStatusSubscription = this.auth
-      .getAuthStatusListener()
-      .subscribe((isAuthenticated) => {
+    this.authStatusSubscription = this.auth.getAuthStatusListener().subscribe({
+      next: (isAuthenticated) => {
         this.isLoggedIn = isAuthenticated;
-      });
+      },
+      error: (error) => {
+        console.error(
+          'Error occurred while getting authentication status:',
+          error
+        );
+      },
+    });
     // Check authentication status on component initialization
     this.isLoggedIn = this.auth.getIsAuth();
 
     this.isLoadingLatestBlogs = true;
     this.isLoadingRecentBlogs = true;
-    this.blogsService.getLatestBlogs().subscribe((data: any) => {
-      this.latestBlogs = data;
-      // console.log(this.latestBlogs);
-      this.isLoadingLatestBlogs = false;
+    this.blogsService.getLatestBlogs().subscribe({
+      next: (data: any) => {
+        this.latestBlogs = data;
+        this.isLoadingLatestBlogs = false;
+      },
+      error: (error: any) => {
+        console.error('Error occurred while fetching latest blogs:', error);
+        this.isLoadingLatestBlogs = false;
+      },
     });
   }
 

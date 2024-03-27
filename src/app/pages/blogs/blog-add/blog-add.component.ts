@@ -37,13 +37,17 @@ export class BlogAddComponent {
     });
   }
 
-  ngOnInit(): void {}
-
   onSubmit() {
     // console.log(this.blogForm.value);
-    this.blogService.addBlog(this.blogForm.value).subscribe((res) => {
-      //console.log('Blog added successfully!');
-      this.route.navigate(['']);
+    this.blogService.addBlog(this.blogForm.value).subscribe({
+      next: (res) => {
+        // console.log('Blog added successfully!');
+        this.route.navigate(['']);
+      },
+      error: (error) => {
+        console.error('Error adding blog:', error);
+        // Handle the error here, e.g. show an error message to the user
+      },
     });
   }
 }

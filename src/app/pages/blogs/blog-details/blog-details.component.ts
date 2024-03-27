@@ -5,14 +5,13 @@ import { Blog } from '../../../core/models/blog.model';
 import { DatePipe, NgFor } from '@angular/common';
 import { Location } from '@angular/common';
 @Component({
-    selector: 'app-blog-details',
-    standalone: true,
-    templateUrl: './blog-details.component.html',
-    styleUrl: './blog-details.component.scss',
-    imports: [NgFor, DatePipe]
+  selector: 'app-blog-details',
+  standalone: true,
+  templateUrl: './blog-details.component.html',
+  styleUrl: './blog-details.component.scss',
+  imports: [NgFor, DatePipe],
 })
 export class BlogDetailsComponent {
-  
   blog: Blog = {
     _id: '',
     title: '',
@@ -23,7 +22,7 @@ export class BlogDetailsComponent {
     createdAt: '',
     __v: 0,
     featured: false,
-    tags: []
+    tags: [],
   };
   id: string = '';
 
@@ -33,9 +32,15 @@ export class BlogDetailsComponent {
 
   ngOnInit() {
     this.id = this.route.snapshot.url[1].path;
-    this.blogsService.getBlog(this.id).subscribe((data: any) => {
-      this.blog = data;
-      // console.log(this.blog);
+    this.blogsService.getBlog(this.id).subscribe({
+      next: (data: any) => {
+        this.blog = data;
+        // console.log(this.blog);
+      },
+      error: (error: any) => {
+        console.error('An error occurred while fetching the blog:', error);
+        // Handle the error here, e.g. display an error message to the user
+      },
     });
   }
 
