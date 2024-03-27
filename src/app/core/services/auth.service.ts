@@ -92,17 +92,21 @@ export class AuthService {
   }
 
   updateProfile(data: any) {
-    return this.http
-      .put(`${apiUrl}/profile/${this.userId}`, data)
-      .subscribe((res: any) => {
+    return this.http.put(`${apiUrl}/profile/${this.userId}`, data).subscribe({
+      next: (res: any) => {
         // console.log(res);
         this.router.navigate(['/profile']);
-      });
+      },
+      error: (error) => {
+        console.error('Error updating profile:', error);
+        // Handle the error here, e.g. display an error message to the user
+      },
+    });
   }
 
   register(user: Auth) {
-    this.http.post(`${apiUrl}/register`, user).subscribe(
-      (res: any) => {
+    return this.http.post(`${apiUrl}/register`, user).subscribe({
+      next: (res: any) => {
         const token = res.token;
         this.token = token;
         if (token) {
@@ -129,11 +133,11 @@ export class AuthService {
           this.router.navigate(['/home']);
         }
       },
-      (error) => {
+      error: (error) => {
         this.errorMsg = error.error.message;
         this.authStatusListener.next(false);
-      }
-    );
+      },
+    });
   }
 
   forgorPassword(email: string) {
@@ -200,8 +204,8 @@ export class AuthService {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('userId', userId);
-    localStorage.setItem('userName', this.userName);
-    localStorage.setItem('name', this.name);
+    localStorage.setItem('userName', userName);
+    localStorage.setItem('name', name);
   }
 
   private clearAuthData() {
