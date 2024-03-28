@@ -31,6 +31,17 @@ exports.getAllPosts = async (req, res) => {
     }
 };
 
+// Get all blog posts by username
+exports.getAllPostsByUsername = async (req, res) => {
+    try {
+        const username = req.params.username;
+        const posts = await BlogPost.find({ author: username });
+        res.json(posts);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
 // Get latest blog posts
 exports.getLatestPosts = async (req, res) => {
     try {
@@ -41,10 +52,32 @@ exports.getLatestPosts = async (req, res) => {
     }
 };
 
+// Get latest blog posts by username
+exports.getLatestPostsByUsername = async (req, res) => {
+    try {
+        const username = req.params.username;
+        const posts = await BlogPost.find({ author: username }).sort({ createdAt: -1 });
+        res.json(posts);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
 // get featured blog posts
 exports.getFeaturedPosts = async (req, res) => {
     try {
         const posts = await BlogPost.find({ featured: true });
+        res.json(posts);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+// get featured blog posts by username
+exports.getFeaturedPostsByUsername = async (req, res) => {
+    try {
+        const username = req.params.username;
+        const posts = await BlogPost.find({ author: username, featured: true });
         res.json(posts);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -188,6 +221,33 @@ exports.updatePost = async (req, res) => {
     }
 };
 
+// Update a blog post by username
+exports.updatePostByUsername = async (req, res) => {
+    try {
+        const post = await BlogPost.findOne({ slug: req.params.slug });
+        if (!post) {
+            return res.status(404).json({ message: 'Blog post not found' });
+        }
+        
+        // Check if the current user is the creator of the post
+        if (post.author !== req.user.username) {
+            return res.status(403).json({ message: 'You are not authorized to update this post' });
+        }
+        
+        post.slug = req.body.title.toLowerCase().split(' ').join('-');
+        post.title = req.body.title;
+        post.desc = req.body.desc;
+        post.content = req.body.content;
+        post.tags = req.body.tags;
+        post.featured = req.body.featured;
+        
+        const updatedPost = await post.save();
+        res.json(updatedPost);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+};
+
 // Delete a blog post
 exports.deletePost = async (req, res) => {
     try {
@@ -196,6 +256,20 @@ exports.deletePost = async (req, res) => {
             return res.status(404).json({ message: 'Blog post not found' });
         }
         await BlogPost.deleteOne({ _id: req.params.id }); // Use deleteOne method to delete the blog post
+        res.json({ message: 'Blog post deleted' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+// Delete a blog post by username
+exports.deletePostByUsername = async (req, res) => {
+    try {
+        const post = await BlogPost.findOne({ slug: req.params.slug });
+        if (!post) {
+            return res.status(404).json({ message: 'Blog post not found' });
+        }
+        await BlogPost.deleteOne({ slug: req.params.slug }); // Use deleteOne method to delete the blog post
         res.json({ message: 'Blog post deleted' });
     } catch (err) {
         res.status(500).json({ message: err.message });

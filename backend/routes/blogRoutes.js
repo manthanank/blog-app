@@ -11,6 +11,13 @@ const auth = require('../middlewares/auth');
 router.get('/blogs', blogController.getAllPosts);
 
 /**
+ * @route GET /:username/blogs
+ * @desc Get all posts by username
+ * @access Public
+ */
+router.get('/:username/blogs', blogController.getAllPostsByUsername);
+
+/**
  * @route GET /blogs/latest
  * @desc Get all latest posts in descending order
  * @access Public
@@ -18,11 +25,25 @@ router.get('/blogs', blogController.getAllPosts);
 router.get('/blogs/latest', blogController.getLatestPosts);
 
 /**
+ * @route GET /:username/latest
+ * @desc Get latest posts by username
+ * @access Public
+ */
+router.get('/:username/latest', blogController.getLatestPostsByUsername);
+
+/**
  * @route GET /blogs/featured
  * @desc Get featured posts
  * @access Public
  */
 router.get('/blogs/featured', blogController.getFeaturedPosts);
+
+/**
+ * @route GET /:username/featured
+ * @desc Get featured posts by username
+ * @access Public
+ */
+router.get('/:username/featured', blogController.getFeaturedPostsByUsername);
 
 /**
  * @route GET /blogs/featured/:userId
@@ -95,10 +116,24 @@ router.get('/blogs/search', blogController.searchPosts);
 router.put('/blogs/:id', auth, blogController.updatePost);
 
 /**
+ * @route PUT /:username/:id
+ * @desc Update a post by username
+ * @access Private
+ */
+router.put('/:username/:id', auth, blogController.updatePostByUsername);
+
+/**
  * @route DELETE /blogs/:id
  * @desc Delete a post by ID
  * @access Private
  */
 router.delete('/blogs/:id', auth, blogController.deletePost);
+
+/**
+ * @route DELETE /:username/:id
+ * @desc Delete a post by username
+ * @access Private
+ */
+router.delete('/:username/:id', auth, blogController.deletePostByUsername);
 
 module.exports = router;
