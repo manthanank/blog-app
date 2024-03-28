@@ -1,7 +1,7 @@
-<div class="container mx-auto px-8 sm:px-8 lg:px-60 m-2">
+<div class="container mx-auto px-8 sm:px-8 lg:px-60 mt-2">
     <app-breadcrumbs [breadcrumbs]="[{name: 'Home', url: '/'}]" [active]="'Blogs'"></app-breadcrumbs>
     <h2 class="text-2xl font-bold mb-4">All Blogs</h2>
-    <div class="featured-blogs" *ngIf="!loading">
+    <div class="all-blogs" *ngIf="!loading">
         <div class="blog grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
             <div class="bg-white rounded-lg shadow-md p-4" *ngFor="let blog of blogs">
                 <h3 class="text-xl font-semibold mb-2"><a [routerLink]="[blog._id]">{{blog.title}}</a></h3>
@@ -23,10 +23,11 @@
             </div>
         </div>
     </div>
-</div>
 
+    <div class="bg-white rounded-lg shadow-md p-4" *ngIf="blogs.length === 0 && !loading">
+        <p>No blogs found.</p>
+    </div>
 
-<div class="container mx-auto px-8 sm:px-8 lg:px-60 m-2">
     <div class="loading-card" *ngIf="loading">
         <div class="bg-white rounded-lg shadow-md p-4">
             <div class="animate-pulse">

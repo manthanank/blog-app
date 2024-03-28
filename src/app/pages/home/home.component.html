@@ -22,9 +22,11 @@
             </div>
         </div>
     </div>
-</div>
 
-<div class="container mx-auto px-8 sm:px-8 lg:px-60 m-2">
+    <div class="bg-white rounded-lg shadow-md p-4" *ngIf="latestBlogs.length === 0 && !isLoadingLatestBlogs">
+        <p>No blogs found.</p>
+    </div>
+
     <div class="loading-card" *ngIf="isLoadingLatestBlogs">
         <div class="bg-white rounded-lg shadow-md p-4">
             <div class="animate-pulse">
@@ -36,10 +38,8 @@
             </div>
         </div>
     </div>
-</div>
 
-<div class="container mx-auto px-8 sm:px-8 lg:px-60 m-4 text-center">
-    <div class="all-blogs">
-        <button class="text-blue-500 hover:text-blue-700" routerLink="blogs">All Blogs</button>
+    <div class="all-blogs text-center m-1" *ngIf="!isLoadingLatestBlogs">
+        <a class="text-blue-500 hover:text-blue-700" routerLink="blogs">All Blogs</a>
     </div>
 </div>
