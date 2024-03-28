@@ -120,6 +120,20 @@ exports.getProfile = async (req, res) => {
     }
 }
 
+// simple get profile by username function
+exports.getProfileByUsername = async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username }).select('-password');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
 // Function to generate a random token
 const generateToken = () => {
     return crypto.randomBytes(20).toString('hex');
@@ -195,6 +209,25 @@ exports.resetPassword = async (req, res) => {
 exports.updateProfile = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        user.firstName = req.body.firstName;
+        user.lastName = req.body.lastName;
+        user.email = req.body.email;
+        user.username = req.body.username;
+        await user.save();
+        res.json(user);
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
+// simple update profile by username function
+exports.updateProfileByUsername = async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
