@@ -2,14 +2,14 @@ import { Component, inject } from '@angular/core';
 import { BlogsService } from '../../../core/services/blogs.service';
 import { ActivatedRoute } from '@angular/router';
 import { Blog } from '../../../core/models/blog.model';
-import { DatePipe, NgFor } from '@angular/common';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Location } from '@angular/common';
 @Component({
   selector: 'app-blog-details',
   standalone: true,
   templateUrl: './blog-details.component.html',
   styleUrl: './blog-details.component.scss',
-  imports: [NgFor, DatePipe],
+  imports: [NgFor, DatePipe, NgIf],
 })
 export class BlogDetailsComponent {
   blog: Blog = {
@@ -25,6 +25,7 @@ export class BlogDetailsComponent {
     tags: [],
   };
   id: string = '';
+  loading : boolean = false;
 
   blogsService = inject(BlogsService);
   route = inject(ActivatedRoute);
@@ -32,8 +33,10 @@ export class BlogDetailsComponent {
 
   ngOnInit() {
     this.id = this.route.snapshot.url[1].path;
+    this.loading = true;
     this.blogsService.getBlog(this.id).subscribe({
       next: (data: any) => {
+        this.loading = false;
         this.blog = data;
         // console.log(this.blog);
       },
