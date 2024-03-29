@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { FeaturedBlogs, RecentBlogs } from '../models/blog.model';
+import { FeaturedBlogs } from '../models/blog.model';
 
 const apiUrl = environment.apiUrl;
 
@@ -33,16 +33,6 @@ export class BlogsService {
     return this.http.get<FeaturedBlogs>(`${apiUrl}/blogs/latest`);
   }
 
-  // get recent blogs
-  getRecentBlogs() {
-    return this.http.get<RecentBlogs>(`${apiUrl}/blogs/recent`);
-  }
-
-  // get recent blogs by author
-  getRecentBlogsByAuthor(author: string) {
-    return this.http.get<RecentBlogs>(`${apiUrl}/blogs/recent/${author}`);
-  }
-
   // get blog by id
   getBlog(id: string) {
     return this.http.get(`${apiUrl}/blogs/${id}`);
@@ -51,6 +41,11 @@ export class BlogsService {
   // get blog by author
   getBlogByAuthor(author: string) {
     return this.http.get(`${apiUrl}/blogs/author/${author}`);
+  }
+
+  // get blog by username
+  getBlogByUsername(username: string) {
+    return this.http.get(`${apiUrl}/blogs/${username}`);
   }
 
   // add blog

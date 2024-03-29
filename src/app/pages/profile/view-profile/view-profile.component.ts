@@ -6,6 +6,7 @@ import { NgFor, DatePipe, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BreadcrumbsComponent } from '../../../shared/breadcrumbs/breadcrumbs.component';
 
+export type Blogs = Blog[];
 export interface Profile {
   _id: string;
   username: string;
@@ -15,7 +16,6 @@ export interface Profile {
   __v: number;
 }
 
-export type Blogs = Blog[];
 
 export interface Blog {
   _id: string;
@@ -43,6 +43,7 @@ export class ViewProfileComponent implements OnInit {
   isLoggedIn: boolean = false;
   auth = inject(AuthService);
   currentUserId: string = '';
+  currentUserName: string = '';
   blogsService = inject(BlogsService);
   profile: Profile = {
     _id: '',
@@ -56,9 +57,7 @@ export class ViewProfileComponent implements OnInit {
   isLoading: boolean = false;
   isLoadingProfile: boolean = false;
   isLoadingFeaturedBlogs: boolean = false;
-  isLoadingRecentBlogs: boolean = false;
   featuredBlogs: Blogs = [];
-  recentBlogs: Blogs = [];
 
   constructor() {}
 
@@ -66,6 +65,7 @@ export class ViewProfileComponent implements OnInit {
     this.isLoading = true;
     this.isLoadingProfile = true;
     this.currentUserId = this.auth.getUserId();
+    this.currentUserName = this.auth.getUserName();
     this.authStatusSubscription = this.auth.getAuthStatusListener().subscribe({
       next: (isAuthenticated: boolean) => {
         this.isLoggedIn = isAuthenticated;
@@ -87,7 +87,7 @@ export class ViewProfileComponent implements OnInit {
         this.isLoadingProfile = false;
       },
     });
-    this.blogsService.getBlogByAuthor(this.currentUserId).subscribe({
+    this.blogsService.getBlogByUsername(this.currentUserName).subscribe({
       next: (data: any) => {
         // console.log(data);
         this.blogs = data;
@@ -98,7 +98,7 @@ export class ViewProfileComponent implements OnInit {
         this.isLoading = false;
       },
     });
-    this.blogsService.getFeaturedBlogsByAuthor(this.currentUserId).subscribe({
+    this.blogsService.getFeaturedBlogsByUsername(this.currentUserId).subscribe({
       next: (data: any) => {
         this.featuredBlogs = data;
         // console.log(this.featuredBlogs);
@@ -107,17 +107,6 @@ export class ViewProfileComponent implements OnInit {
       error: (error: any) => {
         console.error('Error fetching featured blogs:', error);
         this.isLoadingFeaturedBlogs = false;
-      },
-    });
-    this.blogsService.getRecentBlogsByAuthor(this.currentUserId).subscribe({
-      next: (data: any) => {
-        this.recentBlogs = data;
-        // console.log(this.recentBlogs);
-        this.isLoadingRecentBlogs = false;
-      },
-      error: (error: any) => {
-        console.error('Error fetching recent blogs:', error);
-        this.isLoadingRecentBlogs = false;
       },
     });
   }

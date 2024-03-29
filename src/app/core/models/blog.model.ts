@@ -1,6 +1,5 @@
 export type Featured = FeaturedBlogs[];
 export type Latest = LatestBlogs[];
-export type Recent = RecentBlogs[];
 export interface Blogs {
   posts: Blog[];
 }
@@ -47,18 +46,4 @@ export interface LatestBlogs {
   featured: boolean;
   __v: number;
   slug?: string;
-}
-
-export interface RecentBlogs {
-  _id: string;
-  slug?: string;
-  title: string;
-  content: string;
-  desc: string;
-  author: string;
-  authorId: string;
-  tags: string[];
-  createdAt: string;
-  featured: boolean;
-  __v: number;
 }

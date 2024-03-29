@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
   latestBlogs: LatestBlogs[] = [];
   isLoggedIn: boolean = false;
   isLoadingLatestBlogs: boolean = false;
-  isLoadingRecentBlogs: boolean = false;
   auth = inject(AuthService);
   currentUserId: string = '';
   blogsService = inject(BlogsService);
@@ -42,7 +41,6 @@ export class HomeComponent implements OnInit {
     this.isLoggedIn = this.auth.getIsAuth();
 
     this.isLoadingLatestBlogs = true;
-    this.isLoadingRecentBlogs = true;
     this.blogsService.getLatestBlogs().subscribe({
       next: (data: any) => {
         this.latestBlogs = data;
