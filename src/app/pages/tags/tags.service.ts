@@ -14,11 +14,11 @@ export class TagsService {
 
   // get all tags
   getTags() {
-    return this.http.get(`${apiUrl}/blogs/tags`);
+    return this.http.get(`${apiUrl}/tags`);
   }
   
   // get blog by tag
   getBlogByTag(tag: string) {
-    return this.http.get(`${apiUrl}/blogs/tags/${tag}`);
+    return this.http.get(`${apiUrl}/tags/${tag}`);
   }
 }

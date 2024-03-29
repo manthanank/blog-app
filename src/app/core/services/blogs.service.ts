@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { FeaturedBlogs, RecentBlogs } from '../models/blog.model';
@@ -16,6 +16,11 @@ export class BlogsService {
   // get featured blogs
   getFeaturedBlogs() {
     return this.http.get<FeaturedBlogs>(`${apiUrl}/blogs/featured`);
+  }
+
+  // get featured blogs by username
+  getFeaturedBlogsByUsername(username: string) {
+    return this.http.get<FeaturedBlogs>(`${apiUrl}/blogs/featured/${username}`);
   }
 
   // get featured blogs by author
