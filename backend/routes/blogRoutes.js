@@ -11,13 +11,6 @@ const auth = require('../middlewares/auth');
 router.get('/blogs', blogController.getAllPosts);
 
 /**
- * @route GET /:username/blogs
- * @desc Get all posts by username
- * @access Public
- */
-router.get('/:username/blogs', blogController.getAllPostsByUsername);
-
-/**
  * @route GET /blogs/latest
  * @desc Get all latest posts in descending order
  * @access Public
@@ -25,11 +18,18 @@ router.get('/:username/blogs', blogController.getAllPostsByUsername);
 router.get('/blogs/latest', blogController.getLatestPosts);
 
 /**
- * @route GET /:username/latest
+ * @route GET /blogs/:username
+ * @desc Get all posts by username
+ * @access Public
+ */
+router.get('/blogs/:username', blogController.getAllPostsByUsername);
+
+/**
+ * @route GET /blogs/latest/:username
  * @desc Get latest posts by username
  * @access Public
  */
-router.get('/:username/latest', blogController.getLatestPostsByUsername);
+router.get('/blogs/latest/:username', blogController.getLatestPostsByUsername);
 
 /**
  * @route GET /blogs/featured
@@ -39,25 +39,25 @@ router.get('/:username/latest', blogController.getLatestPostsByUsername);
 router.get('/blogs/featured', blogController.getFeaturedPosts);
 
 /**
- * @route GET /:username/featured
- * @desc Get featured posts by username
- * @access Public
- */
-router.get('/:username/featured', blogController.getFeaturedPostsByUsername);
-
-/**
- * @route GET /blogs/featured/:userId
- * @desc Get featured posts of a user
- * @access Public
- */
-router.get('/blogs/featured/:userId', blogController.getFeaturedPostsByUser);
-
-/**
  * @route GET /blogs/recent
  * @desc Get recent posts
  * @access Public
  */
 router.get('/blogs/recent', blogController.getRecentPosts);
+
+/**
+ * @route GET /blogs/featured/:userId
+ * @desc Get featured posts of a user
+ * @access Public
+*/
+router.get('/blogs/featured/:userId', blogController.getFeaturedPostsByUser);
+
+/**
+ * @route GET /blogs/featured/:username
+ * @desc Get featured posts by username
+ * @access Public
+ */
+router.get('/blogs/featured/:username', blogController.getFeaturedPostsByUsername);
 
 /**
  * @route GET /blogs/recent/:userId
@@ -67,11 +67,11 @@ router.get('/blogs/recent', blogController.getRecentPosts);
 router.get('/blogs/recent/:userId', blogController.getRecentPostsByUser);
 
 /**
- * @route GET /blogs/tags
- * @desc Get all tags
+ * @route GET /blogs/recent/:username
+ * @desc Get recent posts of a user
  * @access Public
  */
-router.get('/blogs/tags', blogController.getAllTags);
+router.get('/blogs/recent/:username', blogController.getRecentPostsByUsername);
 
 /**
  * @route GET /blogs/:id
@@ -79,13 +79,6 @@ router.get('/blogs/tags', blogController.getAllTags);
  * @access Public
  */
 router.get('/blogs/:id', blogController.getPostById);
-
-/**
- * @route GET /blogs/tags/:tag
- * @desc Get posts by tag
- * @access Public
- */
-router.get('/blogs/tags/:tag', blogController.getPostsByTag);
 
 /**
  * @route GET /blogs/author/:authorId
@@ -102,6 +95,13 @@ router.get('/blogs/author/:authorId', blogController.getPostsByAuthor);
 router.post('/blogs', auth, blogController.createPost);
 
 /**
+ * @route POST /blogs/:username
+ * @desc Create a new post by username
+ * @access Private
+ */
+router.post('/blogs/:username', auth, blogController.createPostByUsername);
+
+/**
  * @route GET /blogs/search
  * @desc Search posts by title or content
  * @access Public
@@ -116,11 +116,11 @@ router.get('/blogs/search', blogController.searchPosts);
 router.put('/blogs/:id', auth, blogController.updatePost);
 
 /**
- * @route PUT /:username/:id
+ * @route PUT /blogs/:username
  * @desc Update a post by username
  * @access Private
  */
-router.put('/:username/:id', auth, blogController.updatePostByUsername);
+router.put('/blogs/:username', auth, blogController.updatePostByUsername);
 
 /**
  * @route DELETE /blogs/:id
@@ -130,10 +130,10 @@ router.put('/:username/:id', auth, blogController.updatePostByUsername);
 router.delete('/blogs/:id', auth, blogController.deletePost);
 
 /**
- * @route DELETE /:username/:id
+ * @route DELETE /blogs/:username
  * @desc Delete a post by username
  * @access Private
  */
-router.delete('/:username/:id', auth, blogController.deletePostByUsername);
+router.delete('/blogs/:username', auth, blogController.deletePostByUsername);
 
 module.exports = router;

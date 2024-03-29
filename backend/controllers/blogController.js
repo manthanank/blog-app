@@ -52,21 +52,31 @@ exports.getLatestPosts = async (req, res) => {
     }
 };
 
-// Get latest blog posts by username
-exports.getLatestPostsByUsername = async (req, res) => {
+// get featured blog posts
+exports.getFeaturedPosts = async (req, res) => {
     try {
-        const username = req.params.username;
-        const posts = await BlogPost.find({ author: username }).sort({ createdAt: -1 });
+        const posts = await BlogPost.find({ featured: true });
         res.json(posts);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 };
 
-// get featured blog posts
-exports.getFeaturedPosts = async (req, res) => {
+// Get recent blog posts
+exports.getRecentPosts = async (req, res) => {
     try {
-        const posts = await BlogPost.find({ featured: true });
+        const posts = await BlogPost.find().sort({ createdAt: -1 }).limit(3);
+        res.json(posts);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+// Get latest blog posts by username
+exports.getLatestPostsByUsername = async (req, res) => {
+    try {
+        const username = req.params.username;
+        const posts = await BlogPost.find({ author: username }).sort({ createdAt: -1 });
         res.json(posts);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -106,10 +116,11 @@ exports.getRecentPostsByUser = async (req, res) => {
     }
 };
 
-// Get recent blog posts
-exports.getRecentPosts = async (req, res) => {
+// Get recent blog posts by username
+exports.getRecentPostsByUsername = async (req, res) => {
     try {
-        const posts = await BlogPost.find().sort({ createdAt: -1 }).limit(3);
+        const username = req.params.username;
+        const posts = await BlogPost.find({ author: username }).sort({ createdAt: -1 }).limit(3);
         res.json(posts);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -141,27 +152,6 @@ exports.getPostsByAuthor = async (req, res) => {
     }
 }
 
-// Get all tags
-exports.getAllTags = async (req, res) => {
-    try {
-        const tags = await BlogPost.distinct('tags');
-        res.json(tags);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
-
-// Get blog posts by tag
-exports.getPostsByTag = async (req, res) => {
-    try {
-        const tag = req.params.tag;
-        const posts = await BlogPost.find({ tags: tag });
-        res.json(posts);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
-
 // Add search route
 exports.searchPosts = async (req, res) => {
     try {
@@ -175,6 +165,27 @@ exports.searchPosts = async (req, res) => {
 
 // Create a new blog post
 exports.createPost = async (req, res) => {
+    const post = new BlogPost({
+        slug: req.body.title.toLowerCase().split(' ').join('-'),
+        title: req.body.title,
+        desc: req.body.desc,
+        content: req.body.content,
+        author: req.body.author,
+        tags: req.body.tags,
+        createdAt: req.body.createdAt,
+        featured: req.body.featured,
+        authorId: req.body.authorId
+    });
+    try {
+        const newPost = await post.save();
+        res.status(201).json(newPost);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+};
+
+// Create a new blog post by username
+exports.createPostByUsername = async (req, res) => {
     const post = new BlogPost({
         slug: req.body.title.toLowerCase().split(' ').join('-'),
         title: req.body.title,
