@@ -18,6 +18,13 @@ router.get('/blogs', blogController.getAllPosts);
 router.get('/blogs/latest', blogController.getLatestPosts);
 
 /**
+ * @route GET /blogs/featured
+ * @desc Get featured posts
+ * @access Public
+ */
+router.get('/blogs/featured', blogController.getFeaturedPosts);
+
+/**
  * @route GET /blogs/:username
  * @desc Get all posts by username
  * @access Public
@@ -32,20 +39,6 @@ router.get('/blogs/:username', blogController.getAllPostsByUsername);
 router.get('/blogs/latest/:username', blogController.getLatestPostsByUsername);
 
 /**
- * @route GET /blogs/featured
- * @desc Get featured posts
- * @access Public
- */
-router.get('/blogs/featured', blogController.getFeaturedPosts);
-
-/**
- * @route GET /blogs/recent
- * @desc Get recent posts
- * @access Public
- */
-router.get('/blogs/recent', blogController.getRecentPosts);
-
-/**
  * @route GET /blogs/featured/:userId
  * @desc Get featured posts of a user
  * @access Public
@@ -58,20 +51,6 @@ router.get('/blogs/featured/:userId', blogController.getFeaturedPostsByUser);
  * @access Public
  */
 router.get('/blogs/featured/:username', blogController.getFeaturedPostsByUsername);
-
-/**
- * @route GET /blogs/recent/:userId
- * @desc Get recent posts of a user
- * @access Public
- */
-router.get('/blogs/recent/:userId', blogController.getRecentPostsByUser);
-
-/**
- * @route GET /blogs/recent/:username
- * @desc Get recent posts of a user
- * @access Public
- */
-router.get('/blogs/recent/:username', blogController.getRecentPostsByUsername);
 
 /**
  * @route GET /blogs/:id

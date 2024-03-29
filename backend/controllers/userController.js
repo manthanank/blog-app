@@ -37,6 +37,7 @@ exports.login = async (req, res) => {
                 token: token,
                 expiresIn: 3600,
                 userId: user._id,
+                username: user.username,
                 name: user.firstName + ' ' + user.lastName,
                 email: user.email
             }
