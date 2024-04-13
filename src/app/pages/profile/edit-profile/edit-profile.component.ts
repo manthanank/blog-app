@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   FormControl,
   FormGroup,
@@ -9,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { UsersService } from '../../../core/services/users.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -22,7 +23,9 @@ export class EditProfileComponent {
   usernameTaken: any;
 
   authService = inject(AuthService);
+  user = inject(UsersService);
   router = inject(Router);
+  route = inject(ActivatedRoute);
 
   constructor() {
     this.editProfileForm = new FormGroup({
@@ -34,22 +37,24 @@ export class EditProfileComponent {
   }
 
   ngOnInit() {
-    this.authService.getUserDetails().subscribe({
-      next: (profile: any) => {
-        this.editProfileForm = new FormGroup({
-          firstName: new FormControl(profile.firstName, Validators.required),
-          lastName: new FormControl(profile.lastName, Validators.required),
-          email: new FormControl(profile.email, [
-            Validators.required,
-            Validators.email,
-          ]),
-          username: new FormControl(profile.username, Validators.required),
-        });
-      },
-      error: (error) => {
-        console.error(error);
-        // Handle the error here
-      },
+    this.route.params.subscribe((params: any) => {
+      this.user.getUserDetails(params.id).subscribe({
+        next: (profile: any) => {
+          this.editProfileForm = new FormGroup({
+            firstName: new FormControl(profile.firstName, Validators.required),
+            lastName: new FormControl(profile.lastName, Validators.required),
+            email: new FormControl(profile.email, [
+              Validators.required,
+              Validators.email,
+            ]),
+            username: new FormControl(profile.username, Validators.required),
+          });
+        },
+        error: (error) => {
+          console.error(error);
+          // Handle the error here
+        },
+      });
     });
   }
 

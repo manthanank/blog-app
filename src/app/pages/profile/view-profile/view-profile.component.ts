@@ -5,6 +5,7 @@ import { BlogsService } from '../../../core/services/blogs.service';
 import { NgFor, DatePipe, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BreadcrumbsComponent } from '../../../shared/breadcrumbs/breadcrumbs.component';
+import { UsersService } from '../../../core/services/users.service';
 
 export type Blogs = Blog[];
 export interface Profile {
@@ -40,11 +41,14 @@ export interface Blog {
 })
 export class ViewProfileComponent implements OnInit {
   private authStatusSubscription: Subscription = new Subscription();
-  isLoggedIn: boolean = false;
+  
   auth = inject(AuthService);
+  user = inject(UsersService);
+  blogsService = inject(BlogsService);
+  
+  isLoggedIn: boolean = false;
   currentUserId: string = '';
   currentUserName: string = '';
-  blogsService = inject(BlogsService);
   profile: Profile = {
     _id: '',
     username: '',
@@ -76,7 +80,7 @@ export class ViewProfileComponent implements OnInit {
     });
     // Check authentication status on component initialization
     this.isLoggedIn = this.auth.getIsAuth();
-    this.auth.getUserDetails().subscribe({
+    this.user.getUserDetails(this.currentUserName).subscribe({
       next: (data: any) => {
         // console.log(data);
         this.profile = data;
@@ -98,10 +102,10 @@ export class ViewProfileComponent implements OnInit {
         this.isLoading = false;
       },
     });
-    this.blogsService.getFeaturedBlogsByUsername(this.currentUserId).subscribe({
+    this.blogsService.getFeaturedBlogsByUsername(this.currentUserName).subscribe({
       next: (data: any) => {
+        // console.log(data);
         this.featuredBlogs = data;
-        // console.log(this.featuredBlogs);
         this.isLoadingFeaturedBlogs = false;
       },
       error: (error: any) => {

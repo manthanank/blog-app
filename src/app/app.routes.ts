@@ -33,6 +33,11 @@ export const routes: Routes = [
       import('./pages/blogs/blog-list/blog-list.component').then((m) => m.BlogListComponent),
   },
   {
+    path: 'blogs/:id',
+    loadComponent: () =>
+      import('./pages/blogs/blog-details/blog-details.component').then((m) => m.BlogDetailsComponent),
+  },
+  {
     path: 'profile',
     canActivate: [AuthGuard],
     loadComponent: () =>
@@ -45,18 +50,13 @@ export const routes: Routes = [
       import('./pages/profile/edit-profile/edit-profile.component').then((m) => m.EditProfileComponent),
   },
   {
-    path: 'blogs/:id',
-    loadComponent: () =>
-      import('./pages/blogs/blog-details/blog-details.component').then((m) => m.BlogDetailsComponent),
-  },
-  {
     path: 'add',
     canActivate: [AuthGuard],
     loadComponent: () =>
       import('./pages/blogs/blog-add/blog-add.component').then((m) => m.BlogAddComponent),
   },
   {
-    path: 'edit/:id',
+    path: 'edit/:username',
     loadComponent: () =>
       import('./pages/blogs/blog-edit/blog-edit.component').then((m) => m.BlogEditComponent),
   },

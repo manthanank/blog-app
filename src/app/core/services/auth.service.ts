@@ -87,10 +87,6 @@ export class AuthService {
     );
   }
 
-  getUserDetails() {
-    return this.http.get(`${apiUrl}/profile/${this.userId}`);
-  }
-
   updateProfile(data: any) {
     return this.http.put(`${apiUrl}/profile/${this.userId}`, data).subscribe({
       next: (res: any) => {

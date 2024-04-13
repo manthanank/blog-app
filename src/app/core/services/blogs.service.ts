@@ -13,19 +13,9 @@ export class BlogsService {
 
   http = inject(HttpClient);
 
-  // get featured blogs
-  getFeaturedBlogs() {
-    return this.http.get<FeaturedBlogs>(`${apiUrl}/blogs/featured`);
-  }
-
   // get featured blogs by username
   getFeaturedBlogsByUsername(username: string) {
     return this.http.get<FeaturedBlogs>(`${apiUrl}/blogs/featured/${username}`);
-  }
-
-  // get featured blogs by author
-  getFeaturedBlogsByAuthor(author: string) {
-    return this.http.get<FeaturedBlogs>(`${apiUrl}/blogs/featured/${author}`);
   }
 
   // get latest blogs
