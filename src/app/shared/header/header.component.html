@@ -1,10 +1,15 @@
 <nav class="mt-1">
     <ul class="flex justify-center flex-wrap text-lg font-semibold mb-2">
-        <li><a routerLink="/" routerLinkActive="active-link underline" [routerLinkActiveOptions]={exact:true} class="px-4 py-2 hover:bg-gray-300">Home</a></li>
-        <li><a routerLink="/blogs" routerLinkActive="active-link underline" class="px-4 py-2 hover:bg-gray-300">Blogs</a></li>
-        <li><a routerLink="/tags" routerLinkActive="active-link underline" class="px-4 py-2 hover:bg-gray-300">Tags</a></li>
-        <li *ngIf="isLoggedIn"><a routerLink="/profile" routerLinkActive="active-link underline" class="px-4 py-2 hover:bg-gray-300">Profile</a></li>
-        <li *ngIf="!isLoggedIn"><a routerLink="/login" routerLinkActive="active-link underline" class="px-4 py-2 hover:bg-gray-300">Login</a></li>
+        <li><a routerLink="/" routerLinkActive="active-link underline hover:bg-gray-300"
+                [routerLinkActiveOptions]={exact:true} class="px-4 py-2 hover:bg-gray-300">Home</a></li>
+        <li><a routerLink="/blogs" routerLinkActive="active-link underline hover:bg-gray-300"
+                class="px-4 py-2 hover:bg-gray-300">Blogs</a></li>
+        <li><a routerLink="/tags" routerLinkActive="active-link underline hover:bg-gray-300"
+                class="px-4 py-2 hover:bg-gray-300">Tags</a></li>
+        <li *ngIf="isLoggedIn"><a routerLink="/profile" routerLinkActive="active-link underline hover:bg-gray-300"
+                class="px-4 py-2 hover:bg-gray-300">Profile</a></li>
+        <li *ngIf="!isLoggedIn"><a routerLink="/login" routerLinkActive="active-link underline hover:bg-gray-300"
+                class="px-4 py-2 hover:bg-gray-300">Login</a></li>
         <li *ngIf="isLoggedIn"><a routerLink="" (click)="logout()" class="px-4 py-2 hover:bg-gray-300">Logout</a></li>
     </ul>
 </nav>
