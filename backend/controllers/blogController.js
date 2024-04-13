@@ -41,16 +41,6 @@ exports.getLatestPosts = async (req, res) => {
     }
 };
 
-// get featured blog posts
-exports.getFeaturedPosts = async (req, res) => {
-    try {
-        const posts = await BlogPost.find({ featured: true });
-        res.json(posts);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
-
 // Get all blog posts by username
 exports.getAllPostsByUsername = async (req, res) => {
     try {
@@ -67,17 +57,6 @@ exports.getLatestPostsByUsername = async (req, res) => {
     try {
         const username = req.params.username;
         const posts = await BlogPost.find({ author: username }).sort({ createdAt: -1 });
-        res.json(posts);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
-
-// get featured blog posts by user
-exports.getFeaturedPostsByUser = async (req, res) => {
-    try {
-        const userId = req.params.userId;
-        const posts = await BlogPost.find({ authorId: userId, featured: true });
         res.json(posts);
     } catch (err) {
         res.status(500).json({ message: err.message });
