@@ -43,11 +43,7 @@ export class RegisterComponent {
     }
     this.authService.checkUsername(username).subscribe({
       next: (response: any) => {
-        if (response.available) {
-          this.usernameTaken = "Username is available";
-        } else {
-          this.usernameTaken = "Username is already taken";
-        }
+        this.usernameTaken = response.message;
       },
       error: (error) => {
         console.error(error);

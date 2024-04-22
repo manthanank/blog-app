@@ -28,9 +28,9 @@
                 class="error-message text-red-500">Username is required</div>
             <div *ngIf="registerForm.get('username')?.errors?.['minlength'] || registerForm.get('username')?.errors?.['maxlength']"
                 class="error-message text-red-500">Username should have between 4 and 20 characters</div>
-            <div *ngIf="usernameTaken == 'Username not available'" class="error-message text-red-500">Username is taken
+            <div *ngIf="usernameTaken === 'Username not available'" class="error-message text-red-500">Username is taken
             </div>
-            <div *ngIf="usernameTaken == 'Username available'" class="success-message text-green-500">Username is
+            <div *ngIf="usernameTaken === 'Username available'" class="success-message text-green-500">Username is
                 available</div>
         </div>
         <div class="mb-4">

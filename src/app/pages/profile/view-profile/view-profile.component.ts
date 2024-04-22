@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { BlogsService } from '../../../core/services/blogs.service';
 import { NgFor, DatePipe, NgIf } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BreadcrumbsComponent } from '../../../shared/breadcrumbs/breadcrumbs.component';
 import { UsersService } from '../../../core/services/users.service';
 
@@ -45,9 +45,9 @@ export class ViewProfileComponent implements OnInit {
   auth = inject(AuthService);
   user = inject(UsersService);
   blogsService = inject(BlogsService);
-  
+  route = inject(ActivatedRoute);
+  username: string = '';
   isLoggedIn: boolean = false;
-  currentUserId: string = '';
   currentUserName: string = '';
   profile: Profile = {
     _id: '',
@@ -66,10 +66,18 @@ export class ViewProfileComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    this.route.params.subscribe({
+      next: (params: any) => {
+        this.username = params.username;
+        this.loadDataForUsername(this.username);
+      },
+      error: (error: any) => {
+        console.error('Error fetching route params:', error);
+      },
+    });
     this.isLoading = true;
-    this.isLoadingProfile = true;
-    this.currentUserId = this.auth.getUserId();
     this.currentUserName = this.auth.getUserName();
+    // console.log('Current user name:', this.currentUserName);
     this.authStatusSubscription = this.auth.getAuthStatusListener().subscribe({
       next: (isAuthenticated: boolean) => {
         this.isLoggedIn = isAuthenticated;
@@ -78,11 +86,15 @@ export class ViewProfileComponent implements OnInit {
         console.error('Error subscribing to authentication status:', error);
       },
     });
-    // Check authentication status on component initialization
-    this.isLoggedIn = this.auth.getIsAuth();
-    this.user.getUserDetails(this.currentUserName).subscribe({
+  }
+  
+  loadDataForUsername(username: string) {
+    this.isLoadingProfile = true;
+    this.isLoadingFeaturedBlogs = true;
+  
+    // Fetch user details
+    this.user.getUserDetails(username).subscribe({
       next: (data: any) => {
-        // console.log(data);
         this.profile = data;
         this.isLoadingProfile = false;
       },
@@ -91,9 +103,10 @@ export class ViewProfileComponent implements OnInit {
         this.isLoadingProfile = false;
       },
     });
-    this.blogsService.getBlogByUsername(this.currentUserName).subscribe({
+  
+    // Fetch blogs
+    this.blogsService.getBlogByUsername(username).subscribe({
       next: (data: any) => {
-        // console.log(data);
         this.blogs = data;
         this.isLoading = false;
       },
@@ -102,9 +115,10 @@ export class ViewProfileComponent implements OnInit {
         this.isLoading = false;
       },
     });
-    this.blogsService.getFeaturedBlogsByUsername(this.currentUserName).subscribe({
+  
+    // Fetch featured blogs
+    this.blogsService.getFeaturedBlogsByUsername(username).subscribe({
       next: (data: any) => {
-        // console.log(data);
         this.featuredBlogs = data;
         this.isLoadingFeaturedBlogs = false;
       },
@@ -114,6 +128,7 @@ export class ViewProfileComponent implements OnInit {
       },
     });
   }
+  
 
   ngOnDestroy(): void {
     this.authStatusSubscription.unsubscribe();

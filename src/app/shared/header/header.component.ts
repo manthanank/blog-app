@@ -16,6 +16,7 @@ export class HeaderComponent {
   private authStatusSubscription: Subscription = new Subscription();
   
   isLoggedIn: boolean = false;
+  userName: string = '';
   auth = inject(AuthService);
 
   constructor() { }
@@ -23,9 +24,16 @@ export class HeaderComponent {
   ngOnInit(): void {
     this.authStatusSubscription = this.auth.getAuthStatusListener().subscribe(isAuthenticated => {
       this.isLoggedIn = isAuthenticated;
+      // console.log('Is Authenticated:', this.isLoggedIn);
+      this.userName = this.auth.getUserName();
+      // console.log('User Name:', this.userName);
     });
     // Check authentication status on component initialization
     this.isLoggedIn = this.auth.getIsAuth();
+    // console.log('Is Authenticated:', this.isLoggedIn);
+    // get user name
+    this.userName = this.auth.getUserName();
+    // console.log('User Name:', this.userName);
   }
 
   logout(){

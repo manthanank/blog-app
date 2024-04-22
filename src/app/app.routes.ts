@@ -38,7 +38,7 @@ export const routes: Routes = [
       import('./pages/blogs/blog-details/blog-details.component').then((m) => m.BlogDetailsComponent),
   },
   {
-    path: 'profile',
+    path: 'profile/:username',
     canActivate: [AuthGuard],
     loadComponent: () =>
       import('./pages/profile/view-profile/view-profile.component').then((m) => m.ViewProfileComponent),

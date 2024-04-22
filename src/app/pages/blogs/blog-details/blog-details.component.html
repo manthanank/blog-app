@@ -9,7 +9,7 @@
         
         <div class="blog-meta mt-2">
             <p class="text-gray-700">{{blog.desc}}</p>
-            <span class="text-gray-500">Author: {{blog.author}}</span> |
+            <span class="text-gray-500">Author: <a class="text-blue-500 hover:text-blue-700" [routerLink]="['/profile', blog.author]">{{blog.author}}</a></span> |
             <span class="text-gray-500">Published: {{blog.createdAt | date:'medium'}}</span>
 
             <div class="tags mt-2">

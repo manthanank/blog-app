@@ -1,8 +1,8 @@
 <div class="container mx-auto px-8 sm:px-8 lg:px-60 m-2">
     <app-breadcrumbs [breadcrumbs]="[{name: 'Home', url: '/'}]" [active]="'Profile'"></app-breadcrumbs>
-    <h2 class="text-2xl font-bold">Profile Details</h2>
+    <h2 class="text-2xl font-bold mb-2">Profile Details</h2>
 
-    <div class="add-blog-container flex justify-end">
+    <div class="add-blog-container flex justify-end" *ngIf="currentUserName === username">
         <a [routerLink]="'/edit-profile/' + currentUserName"
             class="bg-black-500 hover:underline font-bold p-2 rounded">Edit Profile</a>
     </div>
@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <div class="add-blog-container flex justify-end" *ngIf="!isLoadingProfile && profile">
+    <div class="add-blog-container flex justify-end" *ngIf="!isLoadingProfile && profile && currentUserName === username">
         <a routerLink="/add" class="bg-black-500 hover:underline font-bold p-2 rounded">Add Blog</a>
     </div>
 </div>
@@ -44,7 +44,7 @@
                 <h3 class="text-xl font-semibold mb-2"><a [routerLink]="['/blogs', blog._id]">{{blog.title}}</a></h3>
 
                 <div class="blog-meta text-gray-500 text-sm mb-2">
-                    <span>Author: {{blog.author}}</span> |
+                    <span>Author: <a class="text-blue-500 hover:text-blue-700" [routerLink]="['/profile', blog.author]">{{blog.author}}</a></span> |
                     <span>Published: {{blog.createdAt | date:'medium'}}</span>
                 </div>
 
@@ -86,7 +86,7 @@
                 <h3 class="text-xl font-semibold mb-2"><a [routerLink]="['/blogs', blog._id]">{{blog.title}}</a></h3>
 
                 <div class="blog-meta text-gray-500 text-sm mb-2">
-                    <span>Author: {{blog.author}}</span> |
+                    <span>Author: <a class="text-blue-500 hover:text-blue-700" [routerLink]="['/profile', blog.author]">{{blog.author}}</a></span> |
                     <span>Published: {{blog.createdAt | date:'medium'}}</span>
                 </div>
 

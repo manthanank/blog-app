@@ -35,7 +35,7 @@ export class BlogsService {
 
   // get blog by username
   getBlogByUsername(username: string) {
-    return this.http.get(`${apiUrl}/blogs/${username}`);
+    return this.http.get(`${apiUrl}/blogs/all/${username}`);
   }
 
   // add blog

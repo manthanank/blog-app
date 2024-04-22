@@ -6,7 +6,7 @@
                 <h3 class="text-xl font-semibold mb-2"><a [routerLink]="['blogs', blog._id]">{{blog.title}}</a></h3>
 
                 <div class="blog-meta text-gray-500 text-sm mb-2">
-                    <span>Author: {{blog.author}}</span> |
+                    <span>Author: <a class="text-blue-500 hover:text-blue-700" [routerLink]="['profile', blog.author]">{{blog.author}}</a></span> |
                     <span>Published: {{blog.createdAt | date:'medium'}}</span>
                 </div>
 
