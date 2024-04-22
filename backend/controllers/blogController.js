@@ -52,17 +52,6 @@ exports.getAllPostsByUsername = async (req, res) => {
     }
 };
 
-// Get latest blog posts by username
-exports.getLatestPostsByUsername = async (req, res) => {
-    try {
-        const username = req.params.username;
-        const posts = await BlogPost.find({ author: username }).sort({ createdAt: -1 });
-        res.json(posts);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
-
 // get featured blog posts by username
 exports.getFeaturedPostsByUsername = async (req, res) => {
     try {

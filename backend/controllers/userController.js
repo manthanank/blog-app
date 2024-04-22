@@ -4,65 +4,13 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const { sendEmail } = require('../utils/email');
 
-// simple login function
-exports.login = async (req, res) => {
-    try {
-        const { emailOrUsername, password } = req.body;
+const generateToken = () => {
+    return crypto.randomBytes(20).toString('hex');
+};
 
-        // Check if email/username and password are provided
-        if (!emailOrUsername || !password) {
-            return res.status(400).json({ message: 'Email/username and password are required' });
-        }
-
-        // Find user by email or username
-        const user = await User.findOne({ $or: [{ email: emailOrUsername }, { username: emailOrUsername }] });
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        // Check if the password is correct
-        const validPassword = await bcrypt.compare(password, user.password);
-        if (!validPassword) {
-            return res.status(401).json({ message: 'Invalid email/username or password' });
-        }
-
-        // Generate JWT token
-        const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
-
-        res.cookie('token', token, { httpOnly: true, secure: true });
-
-        res.status(200).json(
-            {
-                message: 'Login successful',
-                token: token,
-                expiresIn: 3600,
-                userId: user._id,
-                username: user.username,
-                name: user.firstName + ' ' + user.lastName,
-                email: user.email
-            }
-        );
-    } catch (err) {
-        // Handle unexpected errors
-        console.error(err);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-}
-
-// simple logout function
-exports.logout = async (req, res) => {
-    try {
-        res.cookie('token', '', { httpOnly: true, expires: new Date(0) });
-        res.status(200).json({ message: 'Logout successful' });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-}
-
-// simple register function
 exports.register = async (req, res) => {
     try {
-        const { email, firstName, lastName, password } = req.body;
+        const { email, firstName, lastName, password, username } = req.body;
 
         // Check if user already exists
         const user = await User.findOne({ email });
@@ -107,21 +55,59 @@ exports.register = async (req, res) => {
     }
 }
 
-// simple get profile function
-exports.getProfile = async (req, res) => {
+exports.login = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id).select('-password');
+        const { emailOrUsername, password } = req.body;
+
+        // Check if email/username and password are provided
+        if (!emailOrUsername || !password) {
+            return res.status(400).json({ message: 'Email/username and password are required' });
+        }
+
+        // Find user by email or username
+        const user = await User.findOne({ $or: [{ email: emailOrUsername }, { username: emailOrUsername }] });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        res.json(user);
+
+        // Check if the password is correct
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+            return res.status(401).json({ message: 'Invalid email/username or password' });
+        }
+
+        // Generate JWT token
+        const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+
+        res.cookie('token', token, { httpOnly: true, secure: true });
+
+        res.status(200).json(
+            {
+                message: 'Login successful',
+                token: token,
+                expiresIn: 3600,
+                userId: user._id,
+                username: user.username,
+                name: user.firstName + ' ' + user.lastName,
+                email: user.email
+            }
+        );
+    } catch (err) {
+        // Handle unexpected errors
+        console.error(err);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
-    catch (err) {
+}
+
+exports.logout = async (req, res) => {
+    try {
+        res.cookie('token', '', { httpOnly: true, expires: new Date(0) });
+        res.status(200).json({ message: 'Logout successful' });
+    } catch (err) {
         res.status(500).json({ message: err.message });
     }
 }
 
-// simple get profile by username function
 exports.getProfileByUsername = async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username }).select('-password');
@@ -135,12 +121,38 @@ exports.getProfileByUsername = async (req, res) => {
     }
 }
 
-// Function to generate a random token
-const generateToken = () => {
-    return crypto.randomBytes(20).toString('hex');
-};
+exports.updateProfileByUsername = async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        user.firstName = req.body.firstName;
+        user.lastName = req.body.lastName;
+        user.email = req.body.email;
+        user.username = req.body.username;
+        await user.save();
+        res.json(user);
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
 
-// simple forgot password function
+exports.checkUsernameAvailability = async (req, res) => {
+    try {
+        const username = req.params.username;
+        const user = await User.findOne({ username });
+        if (user) {
+            return res.json({ message: 'Username not available' });
+        }
+        res.json({ message: 'Username available' });
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
 exports.forgotPassword = async (req, res) => {
     const email = req.body.email;
     if (!email) {
@@ -173,7 +185,6 @@ exports.forgotPassword = async (req, res) => {
     }
 }
 
-// simple reset password function
 exports.resetPassword = async (req, res) => {
     // console.log(req.body);
     const email = req.body.email;
@@ -200,59 +211,6 @@ exports.resetPassword = async (req, res) => {
         user.resetPasswordExpires = undefined;
         await user.save();
         res.json({ message: 'Password reset' });
-    }
-    catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-}
-
-// simple update profile function
-exports.updateProfile = async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-        user.firstName = req.body.firstName;
-        user.lastName = req.body.lastName;
-        user.email = req.body.email;
-        user.username = req.body.username;
-        await user.save();
-        res.json(user);
-    }
-    catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-}
-
-// simple update profile by username function
-exports.updateProfileByUsername = async (req, res) => {
-    try {
-        const user = await User.findOne({ username: req.params.username });
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-        user.firstName = req.body.firstName;
-        user.lastName = req.body.lastName;
-        user.email = req.body.email;
-        user.username = req.body.username;
-        await user.save();
-        res.json(user);
-    }
-    catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-}
-
-// simple check username availability function
-exports.checkUsernameAvailability = async (req, res) => {
-    try {
-        const username = req.params.username;
-        const user = await User.findOne({ username });
-        if (user) {
-            return res.json({ message: 'Username not available' });
-        }
-        res.json({ message: 'Username available' });
     }
     catch (err) {
         res.status(500).json({ message: err.message });

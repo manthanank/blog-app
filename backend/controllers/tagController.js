@@ -1,6 +1,5 @@
 const BlogPost = require('../models/blogPost');
 
-// Get all tags
 exports.getAllTags = async (req, res) => {
     try {
         const tags = await BlogPost.distinct('tags');
@@ -10,7 +9,6 @@ exports.getAllTags = async (req, res) => {
     }
 };
 
-// Get blog posts by tag
 exports.getPostsByTag = async (req, res) => {
     try {
         const tag = req.params.tag;
