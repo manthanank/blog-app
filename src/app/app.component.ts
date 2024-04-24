@@ -13,5 +13,5 @@ import { FooterComponent } from './shared/footer/footer.component';
     imports: [RouterOutlet, HttpClientModule, HeaderComponent, FooterComponent, HeaderComponent]
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'blog-app';
 }
