@@ -3,6 +3,11 @@ import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
+    path: '',
+    loadComponent: () =>
+      import('./pages/home/home.component').then((m) => m.HomeComponent),
+  },
+  {
     path: 'login',
     loadComponent: () =>
       import('./pages/auth/login/login.component').then((m) => m.LoginComponent),
@@ -21,11 +26,6 @@ export const routes: Routes = [
     path: 'reset-password/:token/:email',
     loadComponent: () =>
       import('./pages/auth/reset-password/reset-password.component').then((m) => m.ResetPasswordComponent),
-  },
-  {
-    path: '',
-    loadComponent: () =>
-      import('./pages/home/home.component').then((m) => m.HomeComponent),
   },
   {
     path: 'blogs',
