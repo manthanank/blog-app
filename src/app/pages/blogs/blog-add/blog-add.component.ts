@@ -8,13 +8,13 @@ import {
 } from '@angular/forms';
 import { BlogsService } from '../../../core/services/blogs.service';
 import { Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-blog-add',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, NgFor],
   templateUrl: './blog-add.component.html',
   styleUrl: './blog-add.component.scss',
 })
