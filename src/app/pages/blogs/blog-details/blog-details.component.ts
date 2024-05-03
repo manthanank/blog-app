@@ -2,14 +2,14 @@ import { Component, inject } from '@angular/core';
 import { BlogsService } from '../../../core/services/blogs.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Blog } from '../../../core/models/blog.model';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Location } from '@angular/common';
 @Component({
   selector: 'app-blog-details',
   standalone: true,
   templateUrl: './blog-details.component.html',
   styleUrl: './blog-details.component.scss',
-  imports: [NgFor, DatePipe, NgIf, RouterLink],
+  imports: [NgFor, DatePipe, NgIf, RouterLink, NgClass],
 })
 export class BlogDetailsComponent {
   blog: Blog = {
