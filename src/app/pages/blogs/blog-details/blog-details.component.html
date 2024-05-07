@@ -17,9 +17,9 @@
                     *ngFor="let tag of blog.tags">{{tag}}</span>
             </div>
 
-            <div class="code-snippet mt-2" [ngClass]="{'height-auto': blog.content.length > 100}">
-                <textarea [innerHTML]="blog.content" class="w-full"></textarea>
-            </div>
+            <div class="mt-2">
+                <textarea [innerHTML]="blog.content" class="w-full overflow-hidden resize-none" [style.height.px]="calculateHeight()"></textarea>
+            </div>                      
         </div>
     </div>
 

@@ -26,6 +26,9 @@ export class BlogDetailsComponent {
   };
   id: string = '';
   loading : boolean = false;
+  content: string = '';
+  contentLength: number = 0;
+  lines : number = 0;
 
   blogsService = inject(BlogsService);
   route = inject(ActivatedRoute);
@@ -39,12 +42,25 @@ export class BlogDetailsComponent {
         this.loading = false;
         this.blog = data;
         // console.log(this.blog);
+        this.content = this.blog.content;
+        // console.log(this.content);
+        this.contentLength = this.content.length;
+        // console.log(this.contentLength);
+        this.lines = this.content.trim().split('\n').length;
+        // console.log(this.lines);
       },
       error: (error: any) => {
         console.error('An error occurred while fetching the blog:', error);
         // Handle the error here, e.g. display an error message to the user
       },
     });
+  }
+
+  calculateHeight(): number {
+    // Adjust this value according to your design and font size
+    const lineHeight = 24; // Height of one line in pixels
+    // Calculate height based on number of lines
+    return this.lines * lineHeight;
   }
 
   goBack() {
