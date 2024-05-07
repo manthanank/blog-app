@@ -57,10 +57,16 @@ export class BlogDetailsComponent {
   }
 
   calculateHeight(): number {
-    // Adjust this value according to your design and font size
-    const lineHeight = 24; // Height of one line in pixels
-    // Calculate height based on number of lines
-    return this.lines * lineHeight;
+    const baseLineHeight = 32; // Default line height
+    let adjustedLineHeight = baseLineHeight;
+
+    // Adjust line height based on conditions (e.g., number of lines, screen size)
+    if (this.lines > 10) {
+      adjustedLineHeight = baseLineHeight * 1.2; // Increase for longer content
+    } else if (window.innerWidth < 768) {
+      adjustedLineHeight = baseLineHeight * 0.8; // Decrease for smaller screens
+    }
+    return this.lines * adjustedLineHeight;
   }
 
   goBack() {
