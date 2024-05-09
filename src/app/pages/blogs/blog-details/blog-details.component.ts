@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Blog } from '../../../core/models/blog.model';
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Location } from '@angular/common';
+import { AuthService } from '../../../core/services/auth.service';
 @Component({
   selector: 'app-blog-details',
   standalone: true,
@@ -29,10 +30,11 @@ export class BlogDetailsComponent {
   content: string = '';
   contentLength: number = 0;
   lines : number = 0;
-
+  authorId: string = '';
   blogsService = inject(BlogsService);
   route = inject(ActivatedRoute);
   location = inject(Location);
+  auth = inject(AuthService);
 
   ngOnInit() {
     this.id = this.route.snapshot.url[1].path;
@@ -48,6 +50,8 @@ export class BlogDetailsComponent {
         // console.log(this.contentLength);
         this.lines = this.content.trim().split('\n').length;
         // console.log(this.lines);
+        this.authorId = this.blog.authorId;
+        // console.log(this.authorId);
       },
       error: (error: any) => {
         console.error('An error occurred while fetching the blog:', error);

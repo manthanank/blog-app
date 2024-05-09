@@ -56,7 +56,7 @@ export const routes: Routes = [
       import('./pages/blogs/blog-add/blog-add.component').then((m) => m.BlogAddComponent),
   },
   {
-    path: 'edit/:username',
+    path: 'edit/:id',
     loadComponent: () =>
       import('./pages/blogs/blog-edit/blog-edit.component').then((m) => m.BlogEditComponent),
   },
