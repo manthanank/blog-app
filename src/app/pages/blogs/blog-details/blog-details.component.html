@@ -3,6 +3,7 @@
     <div class="blog mt-4" *ngIf="!loading">
         <div class="add-blog-container flex justify-end" *ngIf="auth.getIsAuth() && authorId === auth.getUserId()">
             <a [routerLink]="['/edit', blog._id]" class="bg-black-500 hover:underline font-bold p-2 rounded">Edit Blog</a>
+            <button class="hover:underline font-bold p-2 rounded" (click)="deleteBlog()">Delete Blog</button>
         </div>
 
         <h3 class="text-2xl font-bold">{{blog.title}}</h3>

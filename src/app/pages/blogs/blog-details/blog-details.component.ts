@@ -73,6 +73,19 @@ export class BlogDetailsComponent {
     return this.lines * adjustedLineHeight;
   }
 
+  deleteBlog() {
+    this.blogsService.deleteBlog(this.id).subscribe({
+      next: (res) => {
+        // console.log('Blog deleted successfully!');
+        this.location.back();
+      },
+      error: (error) => {
+        console.error('Error deleting blog:', error);
+        // Handle the error here, e.g. show an error message to the user
+      },
+    });
+  }
+
   goBack() {
     this.location.back();
   }
