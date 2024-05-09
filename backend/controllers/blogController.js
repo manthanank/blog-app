@@ -80,7 +80,7 @@ exports.getPostById = async (req, res) => {
 exports.searchPosts = async (req, res) => {
     try {
         const query = req.query.q;
-        console.log(query);
+        // console.log(query);
         const posts = await BlogPost.find({ $text: { $search: query } });
         res.json(posts);
     } catch (err) {
