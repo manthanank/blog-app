@@ -109,8 +109,9 @@ exports.logout = async (req, res) => {
 }
 
 exports.getProfileByUsername = async (req, res) => {
+    const username = req.params.username;
     try {
-        const user = await User.findOne({ username: req.params.username }).select('-password');
+        const user = await User.findOne({ username: username }).select('-password');
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -123,14 +124,15 @@ exports.getProfileByUsername = async (req, res) => {
 
 exports.updateProfileByUsername = async (req, res) => {
     try {
+        const { firstName, lastName, email, username } = req.body;
         const user = await User.findOne({ username: req.params.username });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        user.firstName = req.body.firstName;
-        user.lastName = req.body.lastName;
-        user.email = req.body.email;
-        user.username = req.body.username;
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.email = email;
+        user.username = username;
         await user.save();
         res.json(user);
     }
@@ -186,10 +188,7 @@ exports.forgotPassword = async (req, res) => {
 }
 
 exports.resetPassword = async (req, res) => {
-    // console.log(req.body);
-    const email = req.body.email;
-    const token = req.body.token;
-    const password = req.body.password;
+    const { email, token, password } = req.body;
     if (!email || !token || !password) {
         return res.status(400).json({ message: 'Email, token, and password are required' });
     }
