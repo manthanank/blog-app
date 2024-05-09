@@ -42,6 +42,8 @@ const blogSchema = new mongoose.Schema({
   }
 });
 
+blogSchema.index({ title: 'text', tags: 'text', content: 'text' });
+
 // Create the Blog model using the blog schema
 const Blog = mongoose.model('Blog', blogSchema);
 

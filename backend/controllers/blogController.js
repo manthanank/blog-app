@@ -76,10 +76,11 @@ exports.getPostById = async (req, res) => {
     }
 };
 
-// Add search route
+// Search blog posts
 exports.searchPosts = async (req, res) => {
     try {
-        const query = req.params.query;
+        const query = req.query.q;
+        console.log(query);
         const posts = await BlogPost.find({ $text: { $search: query } });
         res.json(posts);
     } catch (err) {

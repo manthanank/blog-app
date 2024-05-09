@@ -5,10 +5,10 @@ const auth = require('../middlewares/auth');
 
 router.get('/blogs', blogController.getAllPosts);
 router.get('/blogs/latest', blogController.getLatestPosts);
+router.get('/blogs/search', blogController.searchPosts);
 router.get('/blogs/:id', blogController.getPostById);
 router.get('/blogs/all/:username', blogController.getAllPostsByUsername);
 router.get('/blogs/featured/:username', blogController.getFeaturedPostsByUsername);
-router.get('/blogs/search', blogController.searchPosts);
 router.post('/blogs', auth, blogController.createPost);
 router.put('/blogs/:id', auth, blogController.updatePost);
 router.delete('/blogs/:id', auth, blogController.deletePost);
