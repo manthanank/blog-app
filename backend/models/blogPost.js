@@ -39,6 +39,10 @@ const blogSchema = new mongoose.Schema({
   featured: {
     type: Boolean,
     default: false
+  },
+  visitCount: {
+    type: Number,
+    default: 0
   }
 });
 

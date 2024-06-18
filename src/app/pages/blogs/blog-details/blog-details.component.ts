@@ -26,10 +26,10 @@ export class BlogDetailsComponent {
     tags: [],
   };
   id: string = '';
-  loading : boolean = false;
+  loading: boolean = false;
   content: string = '';
   contentLength: number = 0;
-  lines : number = 0;
+  lines: number = 0;
   authorId: string = '';
   blogsService = inject(BlogsService);
   route = inject(ActivatedRoute);
@@ -58,6 +58,20 @@ export class BlogDetailsComponent {
         // Handle the error here, e.g. display an error message to the user
       },
     });
+
+    // Increment visit count if the blog has not been visited before
+    if (!localStorage.getItem('visited_blog_' + this.id)) {
+      localStorage.setItem('visited_blog_' + this.id, 'true');
+      this.blogsService.visitCount(this.id).subscribe({
+        next: (res) => {
+          // console.log('Blog visit count incremented successfully!');
+        },
+        error: (error) => {
+          console.error('Error incrementing blog visit count:', error);
+          // Handle the error here, e.g. show an error message to the user
+        },
+      });
+    }
   }
 
   calculateHeight(): number {

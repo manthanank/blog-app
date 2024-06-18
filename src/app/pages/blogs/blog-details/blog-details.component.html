@@ -2,16 +2,20 @@
     <a class="text-black font-bold" (click)="goBack()">&lt; Go Back</a>
     <div class="blog mt-4" *ngIf="!loading">
         <div class="add-blog-container flex justify-end" *ngIf="auth.getIsAuth() && authorId === auth.getUserId()">
-            <a [routerLink]="['/edit', blog._id]" class="bg-black-500 hover:underline font-bold p-2 rounded">Edit Blog</a>
+            <a [routerLink]="['/edit', blog._id]" class="bg-black-500 hover:underline font-bold p-2 rounded">Edit
+                Blog</a>
             <button class="hover:underline font-bold p-2 rounded" (click)="deleteBlog()">Delete Blog</button>
         </div>
 
         <h3 class="text-2xl font-bold">{{blog.title}}</h3>
-        
+
         <div class="blog-meta mt-2">
             <p class="text-gray-700">{{blog.desc}}</p>
-            <span class="text-gray-500">Author: <a class="text-blue-500 hover:text-blue-700" [routerLink]="['/profile', blog.author]">{{blog.author}}</a></span> |
+            <span class="text-gray-500">Author: <a class="text-blue-500 hover:text-blue-700"
+                    [routerLink]="['/profile', blog.author]">{{blog.author}}</a></span> |
             <span class="text-gray-500">Published: {{blog.createdAt | date:'medium'}}</span>
+            |
+            <span class="text-gray-500">Views: {{blog.visitCount}}</span>
 
             <div class="tags mt-2">
                 <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
@@ -19,8 +23,9 @@
             </div>
 
             <div class="mt-2">
-                <textarea [innerHTML]="blog.content" class="w-full overflow-hidden resize-none" [style.height.px]="calculateHeight()" readonly></textarea>
-            </div>                      
+                <textarea [innerHTML]="blog.content" class="w-full overflow-hidden resize-none"
+                    [style.height.px]="calculateHeight()" readonly></textarea>
+            </div>
         </div>
     </div>
 

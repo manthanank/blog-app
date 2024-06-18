@@ -110,6 +110,21 @@ exports.createPost = async (req, res) => {
     }
 };
 
+// Increment visit count
+exports.incrementVisitCount = async (req, res) => {
+    try {
+        const post = await BlogPost.findById(req.params.id);
+        if (!post) {
+            return res.status(404).json({ message: 'Blog post not found' });
+        }
+        post.visitCount += 1;
+        const updatedPost = await post.save();
+        res.json(updatedPost);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
 // Update a blog post
 exports.updatePost = async (req, res) => {
     try {

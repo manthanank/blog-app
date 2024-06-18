@@ -48,7 +48,13 @@ export class BlogsService {
     return this.http.put(`${apiUrl}/blogs/${id}`, data);
   }
 
+  // delete blog
   deleteBlog(id: string) {
     return this.http.delete(`${apiUrl}/blogs/${id}`);
+  }
+
+  // visitCount blog
+  visitCount(id: string) {
+    return this.http.put(`${apiUrl}/blogs/visit/${id}`, {});
   }
 }

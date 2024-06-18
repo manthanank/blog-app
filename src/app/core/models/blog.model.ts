@@ -18,6 +18,7 @@ export interface Blog {
   featured: boolean;
   slug?: string;
   tags: string[];
+  visitCount?: number;
 }
 
 export interface FeaturedBlogs {
@@ -32,6 +33,7 @@ export interface FeaturedBlogs {
   featured: boolean;
   __v: number;
   slug?: string;
+  visitCount?: number;
 }
 
 export interface LatestBlogs {
@@ -46,4 +48,5 @@ export interface LatestBlogs {
   featured: boolean;
   __v: number;
   slug?: string;
+  visitCount?: number;
 }
