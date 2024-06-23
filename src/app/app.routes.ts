@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -39,19 +39,18 @@ export const routes: Routes = [
   },
   {
     path: 'profile/:username',
-    // canActivate: [AuthGuard],
     loadComponent: () =>
       import('./pages/profile/view-profile/view-profile.component').then((m) => m.ViewProfileComponent),
   },
   {
     path: 'edit-profile/:id',
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./pages/profile/edit-profile/edit-profile.component').then((m) => m.EditProfileComponent),
   },
   {
     path: 'add',
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./pages/blogs/blog-add/blog-add.component').then((m) => m.BlogAddComponent),
   },
