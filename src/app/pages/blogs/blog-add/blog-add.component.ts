@@ -10,17 +10,18 @@ import { BlogsService } from '../../../core/services/blogs.service';
 import { Router } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
-
+import { EditorModule } from 'primeng/editor';
+import { ChipsModule } from 'primeng/chips';
 @Component({
   selector: 'app-blog-add',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, NgFor],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, NgFor, EditorModule, ChipsModule],
   templateUrl: './blog-add.component.html',
   styleUrl: './blog-add.component.scss',
 })
 export class BlogAddComponent {
   blogForm: FormGroup;
-
+  max = 3;
   blogService = inject(BlogsService);
   auth = inject(AuthService);
   route = inject(Router);

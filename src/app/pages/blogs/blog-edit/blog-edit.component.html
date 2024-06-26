@@ -21,7 +21,7 @@
 
                 <label for="tags">Tags</label>
                 <div class="form-group">
-                    <input type="text" class="form-control border border-gray-300 rounded-md p-2 w-full" id="tags" formControlName="tags">
+                    <p-chips id="tags" formControlName="tags" [max]="max" [variant]="'filled'" />
                     <div *ngIf="blogForm.get('tags')?.invalid && blogForm.get('tags')?.touched" class="alert alert-danger">
                         <div *ngIf="blogForm.get('tags')?.errors?.['required']">Tags is required</div>
                     </div>
@@ -34,10 +34,10 @@
                         <div *ngIf="blogForm.get('featured')?.errors?.['required']">Featured is required</div>
                     </div>
                 </div>
-
+                
                 <label for="content">Content</label>
                 <div class="form-group">
-                    <textarea class="form-control border border-gray-300 rounded-md p-2 w-full" id="content" formControlName="content"></textarea>
+                    <p-editor id="content" formControlName="content" [style]="{ height: '320px' }" />
                     <div *ngIf="blogForm.get('content')?.invalid && blogForm.get('content')?.touched" class="alert alert-danger">
                         <div *ngIf="blogForm.get('content')?.errors?.['required']">Content is required</div>
                     </div>

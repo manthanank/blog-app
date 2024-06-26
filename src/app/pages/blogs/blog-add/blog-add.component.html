@@ -21,7 +21,7 @@
 
                 <label for="tags" class="block mt-4">Tags</label>
                 <div class="form-group">
-                    <input type="text" class="form-control border border-gray-300 rounded-md p-2 w-full" id="tags" formControlName="tags">
+                    <p-chips id="tags" formControlName="tags" [max]="max" [variant]="'filled'" />
                     <div *ngIf="blogForm.get('tags')?.invalid && blogForm.get('tags')?.touched" class="alert alert-danger mt-2">
                         <div *ngIf="blogForm.get('tags')?.errors?.['required']" class="text-red-500">Tags is required</div>
                     </div>
@@ -37,14 +37,14 @@
 
                 <label for="content" class="block mt-4">Content</label>
                 <div class="form-group">
-                    <textarea class="form-control border border-gray-300 rounded-md p-2 w-full" id="content" formControlName="content"></textarea>
+                    <p-editor id="content" formControlName="content" [style]="{ height: '320px' }" />
                     <div *ngIf="blogForm.get('content')?.invalid && blogForm.get('content')?.touched" class="alert alert-danger mt-2">
                         <div *ngIf="blogForm.get('content')?.errors?.['required']" class="text-red-500">Content is required</div>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" [disabled]="blogForm.invalid">Add Blog</button>
+                    <button type="submit" class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2" [disabled]="blogForm.invalid">Add Blog</button>
                 </div>
             </form>
         </div>

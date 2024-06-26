@@ -1,7 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -12,11 +11,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Blog } from '../../../core/models/blog.model';
 import { AuthService } from '../../../core/services/auth.service';
 import { NgIf } from '@angular/common';
-
+import { EditorModule } from 'primeng/editor';
+import { ChipsModule } from 'primeng/chips';
 @Component({
   selector: 'app-blog-edit',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, EditorModule, ChipsModule],
   templateUrl: './blog-edit.component.html',
   styleUrl: './blog-edit.component.scss',
 })
@@ -39,6 +39,7 @@ export class BlogEditComponent implements OnInit {
     featured: false,
     tags: [],
   };
+  max = 3;
 
   constructor(private form: FormBuilder) {
     this.blogForm = this.form.group({
