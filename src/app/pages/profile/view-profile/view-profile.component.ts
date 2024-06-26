@@ -4,8 +4,9 @@ import { AuthService } from '../../../core/services/auth.service';
 import { BlogsService } from '../../../core/services/blogs.service';
 import { NgFor, DatePipe, NgIf } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { BreadcrumbsComponent } from '../../../shared/breadcrumbs/breadcrumbs.component';
 import { UsersService } from '../../../core/services/users.service';
+import { MenuItem } from 'primeng/api';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 export type Blogs = Blog[];
 export interface Profile {
@@ -35,7 +36,7 @@ export interface Blog {
 @Component({
   selector: 'app-view-profile',
   standalone: true,
-  imports: [NgFor, RouterLink, DatePipe, NgIf, BreadcrumbsComponent],
+  imports: [NgFor, RouterLink, DatePipe, NgIf, BreadcrumbModule],
   templateUrl: './view-profile.component.html',
   styleUrl: './view-profile.component.scss',
 })
@@ -62,10 +63,14 @@ export class ViewProfileComponent implements OnInit {
   isLoadingProfile: boolean = false;
   isLoadingFeaturedBlogs: boolean = false;
   featuredBlogs: Blogs = [];
+  items: MenuItem[] | undefined;
+  home: MenuItem | undefined;
 
   constructor() {}
 
   ngOnInit() {
+    this.items = [{ label: 'Profile' }];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
     this.route.params.subscribe({
       next: (params: any) => {
         this.username = params.username;

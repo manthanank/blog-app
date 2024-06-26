@@ -5,10 +5,11 @@ import { RouterLink } from '@angular/router';
 import { Blog } from '../../../core/models/blog.model';
 import { AuthService } from '../../../core/services/auth.service';
 import { Subscription } from 'rxjs';
-import { BreadcrumbsComponent } from '../../../shared/breadcrumbs/breadcrumbs.component';
 import { Store } from '@ngrx/store';
 import * as BlogsActions from '../../../core/store/blogs.actions';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { MenuItem } from 'primeng/api';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 @Component({
   selector: 'app-blog-list',
   standalone: true,
@@ -19,8 +20,8 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
     RouterLink,
     DatePipe,
     NgIf,
-    BreadcrumbsComponent,
     PaginationComponent,
+    BreadcrumbModule
   ],
 })
 export class BlogListComponent implements OnInit {
@@ -34,8 +35,12 @@ export class BlogListComponent implements OnInit {
   loading: boolean = false;
   error: any = null;
   totalBlogPosts: number = 100;
+  items: MenuItem[] | undefined;
+  home: MenuItem | undefined;
 
   ngOnInit() {
+    this.items = [{ label: 'Blogs' }];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
     this.currentUserId = this.auth.getUserId();
     this.authStatusSubscription = this.auth.getAuthStatusListener().subscribe({
       next: (isAuthenticated) => {

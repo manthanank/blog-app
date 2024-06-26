@@ -5,20 +5,21 @@ import { BlogsService } from '../../../core/services/blogs.service';
 import { Blog } from '../../../core/models/blog.model';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
-import { BreadcrumbsComponent } from '../../../shared/breadcrumbs/breadcrumbs.component';
 import { TagsService } from '../tags.service';
-
+import { MenuItem } from 'primeng/api';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 @Component({
   selector: 'app-tag-details',
   standalone: true,
   templateUrl: './tag-details.component.html',
   styleUrl: './tag-details.component.scss',
-  imports: [NgFor, DatePipe, RouterLink, NgIf, BreadcrumbsComponent],
+  imports: [NgFor, DatePipe, RouterLink, NgIf, BreadcrumbModule],
 })
 export class TagDetailsComponent {
   private authStatusSubscription: Subscription = new Subscription();
   blogs: Blog[] = [];
-
+  items: MenuItem[] | undefined;
+  home: MenuItem | undefined;
   blogsService = inject(BlogsService);
   tagsService = inject(TagsService);
   route = inject(ActivatedRoute);
@@ -28,6 +29,11 @@ export class TagDetailsComponent {
   auth = inject(AuthService);
 
   ngOnInit() {
+    this.route.params.subscribe((params) => {
+      this.id = params['tag'];
+    });
+    this.items = [{ label: 'Tags' }, { label: this.id }];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
     this.currentUserId = this.auth.getUserId();
     this.authStatusSubscription = this.auth.getAuthStatusListener().subscribe({
       next: (isAuthenticated) => {

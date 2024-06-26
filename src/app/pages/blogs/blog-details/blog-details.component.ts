@@ -5,12 +5,14 @@ import { Blog } from '../../../core/models/blog.model';
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Location } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
+import { MenuItem } from 'primeng/api';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 @Component({
   selector: 'app-blog-details',
   standalone: true,
   templateUrl: './blog-details.component.html',
   styleUrl: './blog-details.component.scss',
-  imports: [NgFor, DatePipe, NgIf, RouterLink, NgClass],
+  imports: [NgFor, DatePipe, NgIf, RouterLink, NgClass, BreadcrumbModule],
 })
 export class BlogDetailsComponent {
   blog: Blog = {
@@ -35,9 +37,13 @@ export class BlogDetailsComponent {
   route = inject(ActivatedRoute);
   location = inject(Location);
   auth = inject(AuthService);
+  items: MenuItem[] | undefined;
+  home: MenuItem | undefined;
 
   ngOnInit() {
     this.id = this.route.snapshot.url[1].path;
+    this.items = [{ label: 'Blogs' }, { label: 'Blog Details'}];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
     this.loading = true;
     this.blogsService.getBlog(this.id).subscribe({
       next: (data: any) => {
