@@ -6,10 +6,11 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subscription } from 'rxjs';
 import { ScrollTopModule } from 'primeng/scrolltop';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor, DatePipe, RouterLink, NgIf, ScrollTopModule],
+  imports: [NgFor, DatePipe, RouterLink, NgIf, ScrollTopModule, ButtonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

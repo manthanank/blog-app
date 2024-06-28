@@ -3,31 +3,32 @@ import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subscription } from 'rxjs';
-
+import { ToolbarModule } from 'primeng/toolbar';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgIf],
+  imports: [RouterLink, RouterLinkActive, NgIf, ToolbarModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-
   private authStatusSubscription: Subscription = new Subscription();
-  
+
   isLoggedIn: boolean = false;
   userName: string = '';
   auth = inject(AuthService);
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
-    this.authStatusSubscription = this.auth.getAuthStatusListener().subscribe(isAuthenticated => {
-      this.isLoggedIn = isAuthenticated;
-      // console.log('Is Authenticated:', this.isLoggedIn);
-      this.userName = this.auth.getUserName();
-      // console.log('User Name:', this.userName);
-    });
+    this.authStatusSubscription = this.auth
+      .getAuthStatusListener()
+      .subscribe((isAuthenticated) => {
+        this.isLoggedIn = isAuthenticated;
+        // console.log('Is Authenticated:', this.isLoggedIn);
+        this.userName = this.auth.getUserName();
+        // console.log('User Name:', this.userName);
+      });
     // Check authentication status on component initialization
     this.isLoggedIn = this.auth.getIsAuth();
     // console.log('Is Authenticated:', this.isLoggedIn);
@@ -36,7 +37,7 @@ export class HeaderComponent {
     // console.log('User Name:', this.userName);
   }
 
-  logout(){
+  logout() {
     this.auth.logout();
   }
 
