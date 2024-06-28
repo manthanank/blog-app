@@ -10,11 +10,17 @@ import {
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { FormBuilder } from '@angular/forms';
-
+import { FloatLabelModule } from 'primeng/floatlabel';
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, RouterLink],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
+    RouterLink,
+    FloatLabelModule,
+  ],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss',
 })
@@ -37,9 +43,9 @@ export class ResetPasswordComponent {
     this.resetPasswordForm = this.formBuilder.group({
       email: [this.email, [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]]
+      confirmPassword: ['', [Validators.required]],
     });
-    
+
     this.resetPasswordForm.setValidators(this.checkPasswords as ValidatorFn);
   }
 
@@ -47,7 +53,7 @@ export class ResetPasswordComponent {
     let pass = group.get('password')?.value;
     let confirmPass = group.get('confirmPassword')?.value;
 
-    return pass === confirmPass ? null : { notSame: true }
+    return pass === confirmPass ? null : { notSame: true };
   }
 
   ngOnInit(): void {
@@ -63,7 +69,11 @@ export class ResetPasswordComponent {
       return;
     }
     this.authService
-      .resetPassword(this.email, this.token, this.resetPasswordForm.value.password)
+      .resetPassword(
+        this.email,
+        this.token,
+        this.resetPasswordForm.value.password
+      )
       .subscribe({
         next: (data: any) => {
           if (data.message) {

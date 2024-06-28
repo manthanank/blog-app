@@ -9,11 +9,17 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { NgIf } from '@angular/common';
-
+import { FloatLabelModule } from 'primeng/floatlabel';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, NgIf],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink,
+    NgIf,
+    FloatLabelModule,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
@@ -27,18 +33,34 @@ export class RegisterComponent {
 
   constructor() {
     this.registerForm = new FormGroup({
-      firstName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
-      lastName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+      firstName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50),
+      ]),
+      lastName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50),
+      ]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
-      username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(20),
+      ]),
+      username: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(20),
+      ]),
     });
   }
 
   checkUsername() {
     const username = this.registerForm.get('username')?.value;
     if (!username) {
-      this.usernameTaken = "Username is required";
+      this.usernameTaken = 'Username is required';
       return;
     }
     this.authService.checkUsername(username).subscribe({

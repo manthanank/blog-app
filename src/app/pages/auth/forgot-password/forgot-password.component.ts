@@ -9,11 +9,17 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { RouterLink } from '@angular/router';
-
+import { FloatLabelModule } from 'primeng/floatlabel';
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, RouterLink],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
+    RouterLink,
+    FloatLabelModule,
+  ],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',
 })

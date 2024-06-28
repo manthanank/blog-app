@@ -12,10 +12,11 @@ import { NgFor, NgIf } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { EditorModule } from 'primeng/editor';
 import { ChipsModule } from 'primeng/chips';
+import { FloatLabelModule } from 'primeng/floatlabel';
 @Component({
   selector: 'app-blog-add',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, NgFor, EditorModule, ChipsModule],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, NgFor, EditorModule, ChipsModule, FloatLabelModule],
   templateUrl: './blog-add.component.html',
   styleUrl: './blog-add.component.scss',
 })

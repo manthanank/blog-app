@@ -13,10 +13,11 @@ import { AuthService } from '../../../core/services/auth.service';
 import { NgIf } from '@angular/common';
 import { EditorModule } from 'primeng/editor';
 import { ChipsModule } from 'primeng/chips';
+import { FloatLabelModule } from 'primeng/floatlabel';
 @Component({
   selector: 'app-blog-edit',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, EditorModule, ChipsModule],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, EditorModule, ChipsModule, FloatLabelModule],
   templateUrl: './blog-edit.component.html',
   styleUrl: './blog-edit.component.scss',
 })
