@@ -3,11 +3,10 @@ import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subscription } from 'rxjs';
-import { ToolbarModule } from 'primeng/toolbar';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgIf, ToolbarModule],
+  imports: [RouterLink, RouterLinkActive, NgIf],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
