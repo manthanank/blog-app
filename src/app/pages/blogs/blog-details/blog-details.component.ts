@@ -7,12 +7,13 @@ import { Location } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { ScrollTopModule } from 'primeng/scrolltop';
 @Component({
   selector: 'app-blog-details',
   standalone: true,
   templateUrl: './blog-details.component.html',
   styleUrl: './blog-details.component.scss',
-  imports: [NgFor, DatePipe, NgIf, RouterLink, NgClass, BreadcrumbModule],
+  imports: [NgFor, DatePipe, NgIf, RouterLink, NgClass, BreadcrumbModule, ScrollTopModule],
 })
 export class BlogDetailsComponent {
   blog: Blog = {
@@ -42,7 +43,7 @@ export class BlogDetailsComponent {
 
   ngOnInit() {
     this.id = this.route.snapshot.url[1].path;
-    this.items = [{ label: 'Blogs' }, { label: 'Blog Details'}];
+    this.items = [{ label: 'Blogs', routerLink:'/blogs' }, { label: 'Blog Details'}];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
     this.loading = true;
     this.blogsService.getBlog(this.id).subscribe({
@@ -91,9 +92,5 @@ export class BlogDetailsComponent {
         // Handle the error here, e.g. show an error message to the user
       },
     });
-  }
-
-  goBack() {
-    this.location.back();
   }
 }

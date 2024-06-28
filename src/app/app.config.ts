@@ -13,6 +13,7 @@ import {
 } from '@angular/common/http';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
+import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,5 +25,6 @@ export const appConfig: ApplicationConfig = {
     ),
     provideStore({ blogs: blogsReducer }),
     provideEffects([BlogsEffects]),
+    provideAnimationsAsync()
   ],
 };

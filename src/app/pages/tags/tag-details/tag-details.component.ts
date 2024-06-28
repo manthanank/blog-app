@@ -32,7 +32,7 @@ export class TagDetailsComponent {
     this.route.params.subscribe((params) => {
       this.id = params['tag'];
     });
-    this.items = [{ label: 'Tags' }, { label: this.id }];
+    this.items = [{ label: 'Tags', routerLink: '/tags' }, { label: this.id }];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
     this.currentUserId = this.auth.getUserId();
     this.authStatusSubscription = this.auth.getAuthStatusListener().subscribe({

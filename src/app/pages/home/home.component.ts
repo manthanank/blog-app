@@ -5,11 +5,11 @@ import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subscription } from 'rxjs';
-
+import { ScrollTopModule } from 'primeng/scrolltop';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor, DatePipe, RouterLink, NgIf],
+  imports: [NgFor, DatePipe, RouterLink, NgIf, ScrollTopModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

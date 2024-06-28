@@ -1,6 +1,5 @@
 <div class="container mx-auto px-8 sm:px-8 lg:px-60 m-2">
     <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
-    <a class="text-black font-bold" (click)="goBack()">&lt; Go Back</a>
     <div class="blog mt-4" *ngIf="!loading">
         <div class="add-blog-container flex justify-end" *ngIf="auth.getIsAuth() && authorId === auth.getUserId()">
             <a [routerLink]="['/edit', blog._id]" class="bg-black-500 hover:underline font-bold p-2 rounded">Edit
@@ -48,3 +47,5 @@
         </div>
     </div>
 </div>
+
+<p-scrollTop icon="pi pi-arrow-up" />
