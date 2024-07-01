@@ -7,7 +7,6 @@ import { AuthService } from '../../../core/services/auth.service';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as BlogsActions from '../../../core/store/blogs.actions';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 @Component({
@@ -20,7 +19,6 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     RouterLink,
     DatePipe,
     NgIf,
-    PaginationComponent,
     BreadcrumbModule
   ],
 })
