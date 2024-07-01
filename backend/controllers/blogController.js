@@ -34,8 +34,29 @@ exports.getAllPosts = async (req, res) => {
 // Get latest blog posts
 exports.getLatestPosts = async (req, res) => {
     try {
-        const posts = await BlogPost.find().sort({ createdAt: -1 });
-        res.json(posts);
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+
+        const results = {};
+
+        if (endIndex < await BlogPost.countDocuments().exec()) {
+            results.next = {
+                page: page + 1,
+                limit: limit
+            };
+        }
+
+        if (startIndex > 0) {
+            results.previous = {
+                page: page - 1,
+                limit: limit
+            };
+        }
+
+        results.posts = await BlogPost.find().sort({ createdAt: -1 }).limit(limit).skip(startIndex).exec();
+        res.json(results);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -45,8 +66,29 @@ exports.getLatestPosts = async (req, res) => {
 exports.getAllPostsByUsername = async (req, res) => {
     try {
         const username = req.params.username;
-        const posts = await BlogPost.find({ author: username });
-        res.json(posts);
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+
+        const results = {};
+
+        if (endIndex < await BlogPost.countDocuments({ author: username }).exec()) {
+            results.next = {
+                page: page + 1,
+                limit: limit
+            };
+        }
+
+        if (startIndex > 0) {
+            results.previous = {
+                page: page - 1,
+                limit: limit
+            };
+        }
+
+        results.posts = await BlogPost.find({ author: username }).sort({ createdAt: -1 }).limit(limit).skip(startIndex).exec();
+        res.json(results);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -56,7 +98,7 @@ exports.getAllPostsByUsername = async (req, res) => {
 exports.getFeaturedPostsByUsername = async (req, res) => {
     try {
         const username = req.params.username;
-        const posts = await BlogPost.find({ author: username, featured: true });
+        const posts = await BlogPost.find({ author: username, featured: true }).sort({ createdAt: -1 }).limit(3).exec();
         res.json(posts);
     } catch (err) {
         res.status(500).json({ message: err.message });

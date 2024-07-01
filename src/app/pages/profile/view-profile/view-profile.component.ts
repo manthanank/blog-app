@@ -7,31 +7,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UsersService } from '../../../core/services/users.service';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-
-export type Blogs = Blog[];
-export interface Profile {
-  _id: string;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  __v: number;
-}
-
-
-export interface Blog {
-  _id: string;
-  slug: string;
-  title: string;
-  desc: string;
-  content: string;
-  author: string;
-  authorId: string;
-  tags: string[];
-  createdAt: string;
-  featured: boolean;
-  __v: number;
-}
+import { User } from '../../../core/models/user.model';
+import { Blog } from '../../../core/models/blog.model';
 
 @Component({
   selector: 'app-view-profile',
@@ -50,7 +27,7 @@ export class ViewProfileComponent implements OnInit {
   username: string = '';
   isLoggedIn: boolean = false;
   currentUserName: string = '';
-  profile: Profile = {
+  profile: User = {
     _id: '',
     username: '',
     email: '',
@@ -58,11 +35,11 @@ export class ViewProfileComponent implements OnInit {
     lastName: '',
     __v: 0,
   };
-  blogs: Blogs = [];
+  blogs: Blog[] = [];
   isLoading: boolean = false;
   isLoadingProfile: boolean = false;
   isLoadingFeaturedBlogs: boolean = false;
-  featuredBlogs: Blogs = [];
+  featuredBlogs: Blog[] = [];
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
 
@@ -112,7 +89,7 @@ export class ViewProfileComponent implements OnInit {
     // Fetch blogs
     this.blogsService.getBlogByUsername(username).subscribe({
       next: (data: any) => {
-        this.blogs = data;
+        this.blogs = data.posts;
         this.isLoading = false;
       },
       error: (error: any) => {

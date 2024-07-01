@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { Tags } from '../../../core/models/blog.model';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TagsService } from '../tags.service';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { Tags } from '../../../core/models/tag.model';
 @Component({
   selector: 'app-tag-list',
   standalone: true,

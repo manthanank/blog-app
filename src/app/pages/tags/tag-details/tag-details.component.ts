@@ -51,7 +51,8 @@ export class TagDetailsComponent {
     this.id = this.route.snapshot.params['tag'];
     this.tagsService.getBlogByTag(this.id).subscribe({
       next: (data: any) => {
-        this.blogs = data;
+        // console.log('Blogs by tag:', data.posts);
+        this.blogs = data.posts;
       },
       error: (error: any) => {
         console.error('Error occurred while getting blogs by tag:', error);

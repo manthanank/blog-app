@@ -2,7 +2,7 @@
     <h2 class="text-2xl font-bold mb-4">Latest</h2>
     <div class="latest-blogs" *ngIf="!isLoadingLatestBlogs">
         <div class="blog grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
-            <div class="bg-white rounded-lg shadow-md p-4" *ngFor="let blog of latestBlogs">
+            <div class="bg-white rounded-lg shadow-md p-4" *ngFor="let blog of blogs">
                 <h3 class="text-xl font-semibold mb-2"><a [routerLink]="['blogs', blog._id]">{{blog.title}}</a></h3>
 
                 <div class="blog-meta text-gray-500 text-sm mb-2">
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow-md p-4" *ngIf="latestBlogs?.length === 0 && !isLoadingLatestBlogs">
+    <div class="bg-white rounded-lg shadow-md p-4" *ngIf="blogs?.length === 0 && !isLoadingLatestBlogs">
         <p>No blogs found.</p>
     </div>
 

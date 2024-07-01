@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { BlogsService } from '../../core/services/blogs.service';
-import { LatestBlogs } from '../../core/models/blog.model';
+import { Blog } from '../../core/models/blog.model';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
@@ -15,7 +15,7 @@ import { ScrollTopModule } from 'primeng/scrolltop';
 })
 export class HomeComponent implements OnInit {
   private authStatusSubscription: Subscription = new Subscription();
-  latestBlogs: LatestBlogs[] = [];
+  blogs: Blog[] = [];
   isLoggedIn: boolean = false;
   isLoadingLatestBlogs: boolean = false;
   auth = inject(AuthService);
@@ -43,7 +43,8 @@ export class HomeComponent implements OnInit {
     this.isLoadingLatestBlogs = true;
     this.blogsService.getLatestBlogs().subscribe({
       next: (data: any) => {
-        this.latestBlogs = data;
+        // console.log('Latest blogs:', data);
+        this.blogs = data.posts;
         this.isLoadingLatestBlogs = false;
       },
       error: (error: any) => {

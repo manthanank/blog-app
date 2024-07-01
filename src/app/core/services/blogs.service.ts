@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { FeaturedBlogs } from '../models/blog.model';
 
 const apiUrl = environment.apiUrl;
 
@@ -15,12 +14,12 @@ export class BlogsService {
 
   // get featured blogs by username
   getFeaturedBlogsByUsername(username: string) {
-    return this.http.get<FeaturedBlogs>(`${apiUrl}/blogs/featured/${username}`);
+    return this.http.get(`${apiUrl}/blogs/featured/${username}`);
   }
 
   // get latest blogs
   getLatestBlogs() {
-    return this.http.get<FeaturedBlogs>(`${apiUrl}/blogs/latest`);
+    return this.http.get(`${apiUrl}/blogs/latest`);
   }
 
   // get blog by id
