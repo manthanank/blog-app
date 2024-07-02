@@ -6,6 +6,7 @@ const router = express.Router();
 router.post('/register', userController.register);
 router.post('/login', userController.login);
 router.post('/logout', userController.logout);
+router.get('/users', userController.getUsers);
 router.get('/profile/:username', userController.getProfileByUsername);
 router.put('/profile/:username', userController.updateProfileByUsername);
 router.get('/check-username/:username', userController.checkUsernameAvailability);

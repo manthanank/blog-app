@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const { sendEmail } = require('../utils/email');
+const BlogPost = require('../models/blogPost');
 
 const generateToken = () => {
     return crypto.randomBytes(20).toString('hex');
@@ -44,6 +45,7 @@ exports.register = async (req, res) => {
                 token: token,
                 expiresIn: 3600,
                 userId: newUser._id,
+                userRole: newUser.role,
                 username: newUser.username,
                 email: newUser.email,
                 name: newUser.firstName + ' ' + newUser.lastName
@@ -87,6 +89,7 @@ exports.login = async (req, res) => {
                 token: token,
                 expiresIn: 3600,
                 userId: user._id,
+                userRole: user.role,
                 username: user.username,
                 name: user.firstName + ' ' + user.lastName,
                 email: user.email
@@ -107,6 +110,41 @@ exports.logout = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 }
+
+exports.getUsers = async (req, res) => {
+    try {
+        // Extract page and limit from query parameters, set default values if not provided
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10; // Default limit to 10 users per page
+
+        // Calculate the starting index
+        const startIndex = (page - 1) * limit;
+
+        // Get total count of users for pagination metadata
+        const totalUsers = await User.countDocuments();
+
+        // Modify the User.find() query to support pagination
+        const users = await User.find().select('-password').limit(limit).skip(startIndex);
+
+        // Get blog post counts for all users, same as before
+        const usersWithPosts = await Promise.all(users.map(async user => {
+            const postCount = await BlogPost.countDocuments({ author: user.username });
+            return { ...user._doc, postCount };
+        }));
+
+        // Calculate total pages
+        const totalPages = Math.ceil(totalUsers / limit);
+
+        // Return paginated result along with pagination details
+        res.json({
+            totalPages,
+            currentPage: page,
+            users: usersWithPosts,
+        });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
 
 exports.getProfileByUsername = async (req, res) => {
     const username = req.params.username;

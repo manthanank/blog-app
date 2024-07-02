@@ -6,6 +6,8 @@
                 class="px-4 py-2 hover:bg-gray-300">Blogs</a></li>
         <li><a routerLink="/tags" routerLinkActive="active-link underline hover:bg-gray-300"
                 class="px-4 py-2 hover:bg-gray-300">Tags</a></li>
+        <li *ngIf="isLoggedIn && isAdmin"><a routerLink="/users" routerLinkActive="active-link underline hover:bg-gray-300"
+                class="px-4 py-2 hover:bg-gray-300">Users</a></li>
         <li *ngIf="isLoggedIn"><a routerLink="/profile/{{userName}}" routerLinkActive="active-link underline hover:bg-gray-300"
                 class="px-4 py-2 hover:bg-gray-300">Profile</a></li>
         <li *ngIf="!isLoggedIn"><a routerLink="/login" routerLinkActive="active-link underline hover:bg-gray-300"

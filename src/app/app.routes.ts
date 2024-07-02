@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { roleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,12 @@ export const routes: Routes = [
       path: 'reset-password/:token/:email',
       loadComponent: () =>
         import('./pages/auth/reset-password/reset-password.component').then((m) => m.ResetPasswordComponent),
+    },
+    {
+      path: 'users',
+      canActivate: [roleGuard],
+      loadComponent: () =>
+        import('./pages/users/users-list/users-list.component').then((m) => m.UsersListComponent),
     },
     {
       path: 'blogs',

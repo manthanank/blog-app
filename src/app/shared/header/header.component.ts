@@ -14,6 +14,7 @@ export class HeaderComponent {
   private authStatusSubscription: Subscription = new Subscription();
 
   isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
   userName: string = '';
   auth = inject(AuthService);
 
@@ -25,12 +26,14 @@ export class HeaderComponent {
       .subscribe((isAuthenticated) => {
         this.isLoggedIn = isAuthenticated;
         // console.log('Is Authenticated:', this.isLoggedIn);
+        this.isAdmin = this.auth.getUserRole() === 'admin';
         this.userName = this.auth.getUserName();
         // console.log('User Name:', this.userName);
       });
     // Check authentication status on component initialization
     this.isLoggedIn = this.auth.getIsAuth();
     // console.log('Is Authenticated:', this.isLoggedIn);
+    this.isAdmin = this.auth.getUserRole() === 'admin';
     // get user name
     this.userName = this.auth.getUserName();
     // console.log('User Name:', this.userName);

@@ -14,6 +14,7 @@ export class AuthService {
   private token: string = '';
   private tokenTimer: any;
   private userId: string = '';
+  private userRole: string = '';
   private userName: string = '';
   private name: string = '';
   private authStatusListener = new Subject<boolean>();
@@ -36,6 +37,10 @@ export class AuthService {
 
   getUserId() {
     return this.userId;
+  }
+
+  getUserRole() {
+    return this.userRole;
   }
 
   getUserName() {
@@ -61,6 +66,7 @@ export class AuthService {
           this.setAuthTimer(expiresInDuration);
           this.isAuthenticated = true;
           this.userId = res.userId;
+          this.userRole = res.userRole;
           this.userName = res.username;
           this.name = res.name;
           this.authStatusListener.next(true);
@@ -73,6 +79,7 @@ export class AuthService {
             token,
             expirationDate,
             this.userId,
+            this.userRole,
             this.userName,
             this.name
           );
@@ -110,6 +117,7 @@ export class AuthService {
           this.setAuthTimer(expiresInDuration);
           this.isAuthenticated = true;
           this.userId = res.userId;
+          this.userRole = res.userRole;
           this.userName = res.username;
           this.name = res.name;
           this.authStatusListener.next(true);
@@ -122,6 +130,7 @@ export class AuthService {
             token,
             expirationDate,
             this.userId,
+            this.userRole,
             this.userName,
             this.name
           );
@@ -163,6 +172,7 @@ export class AuthService {
       this.token = authInformation.token;
       this.isAuthenticated = true;
       this.userId = authInformation.userId ? authInformation.userId : '';
+      this.userRole = authInformation.userRole ? authInformation.userRole : '';
       this.userName = authInformation.userName ? authInformation.userName : '';
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
@@ -176,6 +186,7 @@ export class AuthService {
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     this.userId = '';
+    this.userRole = '';
     this.userName = '';
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
@@ -194,12 +205,14 @@ export class AuthService {
     token: string,
     expirationDate: Date,
     userId: string,
+    userRole: string,
     userName: string,
     name: string
   ) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('userId', userId);
+    localStorage.setItem('userRole', userRole);
     localStorage.setItem('userName', userName);
     localStorage.setItem('name', name);
   }
@@ -208,6 +221,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId');
+    localStorage.removeItem('userRole');
     localStorage.removeItem('userName');
     localStorage.removeItem('name');
   }
@@ -216,6 +230,7 @@ export class AuthService {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expiration');
     const userId = localStorage.getItem('userId');
+    const userRole = localStorage.getItem('userRole');
     const userName = localStorage.getItem('userName');
     const name = localStorage.getItem('name');
     if (!token || !expirationDate) {
@@ -225,6 +240,7 @@ export class AuthService {
       token: token,
       expirationDate: new Date(expirationDate),
       userId: userId,
+      userRole: userRole,
       userName: userName,
       name: name,
     };
