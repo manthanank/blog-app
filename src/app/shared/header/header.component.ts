@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgIf],
+  imports: [RouterLink, RouterLinkActive, NgIf, NgFor],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -37,6 +37,12 @@ export class HeaderComponent {
     // get user name
     this.userName = this.auth.getUserName();
     // console.log('User Name:', this.userName);
+  }
+
+  menuVisible: boolean = false;
+
+  toggleMenu() {
+    this.menuVisible = !this.menuVisible;
   }
 
   logout() {

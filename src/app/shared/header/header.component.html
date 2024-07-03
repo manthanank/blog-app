@@ -3,16 +3,34 @@
                 <a routerLink="/" routerLinkActive="active-link underline" [routerLinkActiveOptions]={exact:true}
                         class="text-black text-3xl font-bold">Blogs</a>
                 <div class="flex items-center space-x-8 text-black text-lg">
+                        <div class="block lg:hidden md:hidden">
+                                <span class="pi pi-align-right" (click)="toggleMenu()"></span>
+                        </div>
                         <a routerLink="/blogs" routerLinkActive="active-link underline"
-                                class="hover:underline">Posts</a>
-                        <a routerLink="/tags" routerLinkActive="active-link underline" class="hover:underline">Tags</a>
+                                class="hover:underline hidden lg:block md:block">Posts</a>
+                        <a routerLink="/tags" routerLinkActive="active-link underline"
+                                class="hover:underline hidden lg:block md:block">Tags</a>
                         <a *ngIf="isLoggedIn && isAdmin" routerLink="/users" routerLinkActive="active-link underline"
-                                class="hover:underline">Users</a>
+                                class="hover:underline hidden lg:block md:block">Users</a>
                         <a *ngIf="isLoggedIn" routerLink="/profile/{{userName}}"
-                                routerLinkActive="active-link underline" class="hover:underline">Profile</a>
+                                routerLinkActive="active-link underline"
+                                class="hover:underline hidden lg:block md:block">Profile</a>
                         <a *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active-link underline"
-                                class="hover:underline">Login</a>
-                        <a *ngIf="isLoggedIn" routerLink="" (click)="logout()" class="hover:underline">Logout</a>
+                                class="hover:underline hidden lg:block md:block">Login</a>
+                        <a *ngIf="isLoggedIn" routerLink="" (click)="logout()"
+                                class="hover:underline hidden lg:block md:block">Logout</a>
                 </div>
+        </div>
+        <div [class.hidden]="!menuVisible"
+                class="flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-8">
+                <a routerLink="/blogs" routerLinkActive="active-link underline" class="hover:underline">Posts</a>
+                <a routerLink="/tags" routerLinkActive="active-link underline" class="hover:underline">Tags</a>
+                <a *ngIf="isLoggedIn && isAdmin" routerLink="/users" routerLinkActive="active-link underline"
+                        class="hover:underline">Users</a>
+                <a *ngIf="isLoggedIn" routerLink="/profile/{{userName}}" routerLinkActive="active-link underline"
+                        class="hover:underline">Profile</a>
+                <a *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active-link underline"
+                        class="hover:underline">Login</a>
+                <a *ngIf="isLoggedIn" routerLink="" (click)="logout()" class="hover:underline">Logout</a>
         </div>
 </nav>
