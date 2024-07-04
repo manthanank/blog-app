@@ -3,29 +3,8 @@ const BlogPost = require('../models/blogPost');
 // Get all blog posts
 exports.getAllPosts = async (req, res) => {
     try {
-        const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 10;
-        const startIndex = (page - 1) * limit;
-        const endIndex = page * limit;
-
-        const results = {};
-
-        if (endIndex < await BlogPost.countDocuments().exec()) {
-            results.next = {
-                page: page + 1,
-                limit: limit
-            };
-        }
-
-        if (startIndex > 0) {
-            results.previous = {
-                page: page - 1,
-                limit: limit
-            };
-        }
-
-        results.posts = await BlogPost.find().sort({ createdAt: -1 }).limit(limit).skip(startIndex).exec();
-        res.json(results);
+        const posts = await BlogPost.find().sort({ createdAt: -1 }).limit(10).exec();
+        res.json(posts);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -174,19 +153,19 @@ exports.updatePost = async (req, res) => {
         if (!post) {
             return res.status(404).json({ message: 'Blog post not found' });
         }
-        
+
         // Check if the current user is the creator of the post
         if (post.authorId !== req.user.id) {
             return res.status(403).json({ message: 'You are not authorized to update this post' });
         }
-        
+
         post.slug = req.body.title.toLowerCase().split(' ').join('-');
         post.title = req.body.title;
         post.desc = req.body.desc;
         post.content = req.body.content;
         post.tags = req.body.tags;
         post.featured = req.body.featured;
-        
+
         const updatedPost = await post.save();
         res.json(updatedPost);
     } catch (err) {

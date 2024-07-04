@@ -1,36 +1,26 @@
-<nav class="py-4 px-8 sm:px-6 lg:px-72">
+<nav class="py-4 px-8 sm:px-6 lg:px-72 border-b-2">
         <div class="container mx-auto flex justify-between items-center">
-                <a routerLink="/" routerLinkActive="active-link underline" [routerLinkActiveOptions]={exact:true}
+                <a routerLink="/" routerLinkActive="active-link underline" [routerLinkActiveOptions]="{ exact: true }"
                         class="text-black text-3xl font-bold">Blogs</a>
                 <div class="flex items-center space-x-8 text-black text-lg">
                         <div class="block lg:hidden md:hidden">
-                                <span class="pi pi-align-right" (click)="toggleMenu()"></span>
+                                <span [class]="menuVisible ? 'pi pi-times' : 'pi pi-align-right'"
+                                        (click)="toggleMenu()"></span>
                         </div>
-                        <a routerLink="/blogs" routerLinkActive="active-link underline"
-                                class="hover:underline hidden lg:block md:block">Posts</a>
-                        <a routerLink="/tags" routerLinkActive="active-link underline"
-                                class="hover:underline hidden lg:block md:block">Tags</a>
-                        <a *ngIf="isLoggedIn && isAdmin" routerLink="/users" routerLinkActive="active-link underline"
-                                class="hover:underline hidden lg:block md:block">Users</a>
-                        <a *ngIf="isLoggedIn" routerLink="/profile/{{userName}}"
-                                routerLinkActive="active-link underline"
-                                class="hover:underline hidden lg:block md:block">Profile</a>
-                        <a *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active-link underline"
-                                class="hover:underline hidden lg:block md:block">Login</a>
-                        <a *ngIf="isLoggedIn" routerLink="" (click)="logout()"
-                                class="hover:underline hidden lg:block md:block">Logout</a>
+                        <ng-container *ngFor="let link of links">
+                                <a *ngIf="link.condition" [routerLink]="link.path"
+                                        routerLinkActive="active-link underline"
+                                        class="hover:underline hidden lg:block md:block"
+                                        (click)="link.action ? link.action() : null">{{ link.label }}</a>
+                        </ng-container>
                 </div>
         </div>
         <div [class.hidden]="!menuVisible"
                 class="flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-8">
-                <a routerLink="/blogs" routerLinkActive="active-link underline" class="hover:underline">Posts</a>
-                <a routerLink="/tags" routerLinkActive="active-link underline" class="hover:underline">Tags</a>
-                <a *ngIf="isLoggedIn && isAdmin" routerLink="/users" routerLinkActive="active-link underline"
-                        class="hover:underline">Users</a>
-                <a *ngIf="isLoggedIn" routerLink="/profile/{{userName}}" routerLinkActive="active-link underline"
-                        class="hover:underline">Profile</a>
-                <a *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active-link underline"
-                        class="hover:underline">Login</a>
-                <a *ngIf="isLoggedIn" routerLink="" (click)="logout()" class="hover:underline">Logout</a>
+                <ng-container *ngFor="let link of links">
+                        <a *ngIf="link.condition" [routerLink]="link.path" routerLinkActive="active-link underline"
+                                class="hover:underline" (click)="hideMenu(); link.action ? link.action() : null">{{
+                                link.label }}</a>
+                </ng-container>
         </div>
 </nav>

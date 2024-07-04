@@ -12,36 +12,36 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent {
   private authStatusSubscription: Subscription = new Subscription();
-
+  menuVisible: boolean = false;
   isLoggedIn: boolean = false;
   isAdmin: boolean = false;
   userName: string = '';
   auth = inject(AuthService);
 
+  links: Array<any> = [];
+
   constructor() {}
 
   ngOnInit(): void {
-    this.authStatusSubscription = this.auth
-      .getAuthStatusListener()
-      .subscribe((isAuthenticated) => {
-        this.isLoggedIn = isAuthenticated;
-        // console.log('Is Authenticated:', this.isLoggedIn);
-        this.isAdmin = this.auth.getUserRole() === 'admin';
-        this.userName = this.auth.getUserName();
-        // console.log('User Name:', this.userName);
-      });
+    this.authStatusSubscription = this.auth.getAuthStatusListener().subscribe((isAuthenticated) => {
+      this.isLoggedIn = isAuthenticated;
+      this.isAdmin = this.auth.getUserRole() === 'admin';
+      this.userName = this.auth.getUserName();
+      this.updateLinks();
+    });
+
     // Check authentication status on component initialization
     this.isLoggedIn = this.auth.getIsAuth();
-    // console.log('Is Authenticated:', this.isLoggedIn);
     this.isAdmin = this.auth.getUserRole() === 'admin';
-    // get user name
     this.userName = this.auth.getUserName();
-    // console.log('User Name:', this.userName);
+    this.updateLinks();
   }
 
-  menuVisible: boolean = false;
-
   toggleMenu() {
+    this.menuVisible = !this.menuVisible;
+  }
+
+  hideMenu() {
     this.menuVisible = !this.menuVisible;
   }
 
@@ -51,5 +51,16 @@ export class HeaderComponent {
 
   ngOnDestroy(): void {
     this.authStatusSubscription.unsubscribe();
+  }
+
+  private updateLinks() {
+    this.links = [
+      { path: '/blogs', label: 'Posts', condition: true },
+      { path: '/tags', label: 'Tags', condition: true },
+      { path: '/users', label: 'Users', condition: this.isLoggedIn && this.isAdmin },
+      { path: `/profile/${this.userName}`, label: 'Profile', condition: this.isLoggedIn },
+      { path: '/login', label: 'Login', condition: !this.isLoggedIn },
+      { path: '', label: 'Logout', condition: this.isLoggedIn, action: () => this.logout() },
+    ];
   }
 }
