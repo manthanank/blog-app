@@ -89,7 +89,7 @@ export class ViewProfileComponent implements OnInit {
     // Fetch blogs
     this.blogsService.getBlogByUsername(username).subscribe({
       next: (data: any) => {
-        this.blogs = data.posts;
+        this.blogs = data;
         this.isLoading = false;
       },
       error: (error: any) => {
