@@ -32,14 +32,7 @@
         </div>
 
         <label for="featured" class="block mt-4">Featured</label>
-        <div class="mt-1 relative rounded-md">
-            <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" id="featured"
-                formControlName="featured">
-            <div *ngIf="blogForm.get('featured')?.invalid && blogForm.get('featured')?.touched"
-                class="mt-2 text-sm text-red-600">
-                <div *ngIf="blogForm.get('featured')?.errors?.['required']">Featured is required</div>
-            </div>
-        </div>
+        <p-checkbox formControlName="featured" [binary]="true" inputId="binary" variant="filled" />
 
         <label for="content" class="block mt-4">Content</label>
         <p-editor id="content" formControlName="content" [style]="{ height: '320px' }" />

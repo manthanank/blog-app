@@ -17,7 +17,7 @@ export class BlogsEffects {
           this.http.get(`${apiUrl}/blogs`, {
             params: {
               limit: action.limit.toString(), // Convert to string if necessary
-              offset: action.offset.toString(),
+              page: action.page.toString(),
               search: action.search
             }
           }).pipe(

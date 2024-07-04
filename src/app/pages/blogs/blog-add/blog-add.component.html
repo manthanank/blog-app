@@ -21,10 +21,8 @@
 
         <div class="mt-2">
             <div class="p-fluid">
-                <p-floatLabel>
-                    <p-chips id="tags" formControlName="tags" [max]="max" [variant]="'filled'" />
-                    <label for="tags">Tags</label>
-                </p-floatLabel>
+                <label for="tags">Tags</label>
+                <p-chips id="tags" formControlName="tags" [max]="max" [variant]="'filled'" />
             </div>
             <div *ngIf="blogForm.get('tags')?.invalid && blogForm.get('tags')?.touched" class="mt-2 text-red-500">
                 <div *ngIf="blogForm.get('tags')?.errors?.['required']">Tags are required</div>
@@ -32,14 +30,7 @@
         </div>
 
         <label for="featured" class="block mt-4">Featured</label>
-        <div class="mt-1 relative rounded-md">
-            <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" id="featured"
-                formControlName="featured">
-            <div *ngIf="blogForm.get('featured')?.invalid && blogForm.get('featured')?.touched"
-                class="mt-2 text-red-500">
-                <div *ngIf="blogForm.get('featured')?.errors?.['required']">Featured is required</div>
-            </div>
-        </div>
+        <p-checkbox formControlName="featured" [binary]="true" inputId="binary" variant="filled" />
 
         <label for="content" class="block mt-4">Content</label>
         <p-editor id="content" formControlName="content" [style]="{ height: '320px' }"></p-editor>
@@ -49,6 +40,6 @@
 
         <button type="submit"
             class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2"
-            [disabled]="blogForm.invalid">Add Blog</button>
+            [disabled]="!blogForm.value">Add Blog</button>
     </form>
 </div>

@@ -39,5 +39,11 @@
             </div>
         </div>
     </div>
+
+    <div class="flex justify-center gap-1 mt-4" *ngIf="!isLoadingLatestBlogs && blogs && blogs.length > 0">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" [routerLink]="['blogs']">
+            All Blogs <i class="pi pi-chevron-right"></i>
+        </button>
+    </div>
 </div>
 <p-scrollTop />

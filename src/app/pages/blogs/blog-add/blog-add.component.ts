@@ -13,10 +13,20 @@ import { AuthService } from '../../../core/services/auth.service';
 import { EditorModule } from 'primeng/editor';
 import { ChipsModule } from 'primeng/chips';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { CheckboxModule } from 'primeng/checkbox';
 @Component({
   selector: 'app-blog-add',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, NgFor, EditorModule, ChipsModule, FloatLabelModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
+    NgFor,
+    EditorModule,
+    ChipsModule,
+    FloatLabelModule,
+    CheckboxModule,
+  ],
   templateUrl: './blog-add.component.html',
   styleUrl: './blog-add.component.scss',
 })
@@ -26,6 +36,7 @@ export class BlogAddComponent {
   blogService = inject(BlogsService);
   auth = inject(AuthService);
   route = inject(Router);
+  checked: boolean = false;
 
   constructor() {
     this.blogForm = new FormGroup({
@@ -33,7 +44,7 @@ export class BlogAddComponent {
       desc: new FormControl('', Validators.required),
       tags: new FormControl('', Validators.required),
       content: new FormControl('', Validators.required),
-      featured: new FormControl('', Validators.required),
+      featured: new FormControl(this.checked),
       author: new FormControl(this.auth.getUserName()),
       authorId: new FormControl(this.auth.getUserId()),
     });

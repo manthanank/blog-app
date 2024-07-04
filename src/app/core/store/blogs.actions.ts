@@ -3,7 +3,7 @@ import { Blog } from '../models/blog.model';
 
 export const loadBlogs = createAction(
   '[Blogs Page] Load Blogs',
-  props<{ limit: number; offset: number; search: string }>()
+  props<{ limit: number; page: number; search: string }>()
 );
 
 export const loadBlogsSuccess = createAction(

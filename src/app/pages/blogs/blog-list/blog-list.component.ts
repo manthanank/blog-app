@@ -71,8 +71,8 @@ export class BlogListComponent implements OnInit {
   }
 
   loadBlogs(): void {
-    const offset = (this.currentPage - 1) * this.pageSize;
-    this.store.dispatch(BlogsActions.loadBlogs({ limit: this.pageSize, offset: offset, search: this.searchTerm }));
+    const page = this.currentPage;
+    this.store.dispatch(BlogsActions.loadBlogs({ limit: this.pageSize, page: page, search: this.searchTerm }));
   }
 
   searchBlogs(): void {
@@ -80,8 +80,13 @@ export class BlogListComponent implements OnInit {
     this.loadBlogs();
   }
 
-  onPageChange(event: any): void {
-    this.currentPage = event.page + 1; // Assuming the event provides 0-based page index
+  prevPage(){
+    this.currentPage--;
+    this.loadBlogs();
+  }
+
+  nextPage(){
+    this.currentPage++;
     this.loadBlogs();
   }
 

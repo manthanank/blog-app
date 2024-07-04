@@ -14,10 +14,19 @@ import { NgIf } from '@angular/common';
 import { EditorModule } from 'primeng/editor';
 import { ChipsModule } from 'primeng/chips';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { CheckboxModule } from 'primeng/checkbox';
 @Component({
   selector: 'app-blog-edit',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, EditorModule, ChipsModule, FloatLabelModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
+    EditorModule,
+    ChipsModule,
+    FloatLabelModule,
+    CheckboxModule,
+  ],
   templateUrl: './blog-edit.component.html',
   styleUrl: './blog-edit.component.scss',
 })
@@ -41,6 +50,7 @@ export class BlogEditComponent implements OnInit {
     tags: [],
   };
   max = 3;
+  checked: boolean = false;
 
   constructor(private form: FormBuilder) {
     this.blogForm = this.form.group({
