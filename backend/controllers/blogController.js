@@ -5,12 +5,20 @@ exports.getAllPosts = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
+        const searchQuery = req.query.search || "";
         const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
 
         const results = {};
 
-        if (endIndex < await BlogPost.countDocuments().exec()) {
+        // Create a search condition if a search query is provided
+        const searchCondition = searchQuery
+            ? { title: { $regex: new RegExp(searchQuery, "i") } }
+            : {};
+
+        const totalDocuments = await BlogPost.countDocuments(searchCondition).exec();
+
+        if (endIndex < totalDocuments) {
             results.next = {
                 page: page + 1,
                 limit: limit
@@ -24,7 +32,12 @@ exports.getAllPosts = async (req, res) => {
             };
         }
 
-        results.posts = await BlogPost.find().sort({ createdAt: -1 }).limit(limit).skip(startIndex).exec();
+        results.posts = await BlogPost.find(searchCondition)
+            .sort({ createdAt: -1 })
+            .limit(limit)
+            .skip(startIndex)
+            .exec();
+
         res.json(results);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -93,18 +106,6 @@ exports.getPostById = async (req, res) => {
             return res.status(404).json({ message: 'Blog post not found' });
         }
         res.json(post);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
-
-// Search blog posts
-exports.searchPosts = async (req, res) => {
-    try {
-        const query = req.query.q;
-        // console.log(query);
-        const posts = await BlogPost.find({ $text: { $search: query } });
-        res.json(posts);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }

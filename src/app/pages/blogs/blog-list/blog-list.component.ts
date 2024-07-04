@@ -9,6 +9,8 @@ import { Store } from '@ngrx/store';
 import * as BlogsActions from '../../../core/store/blogs.actions';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-blog-list',
   standalone: true,
@@ -19,7 +21,9 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     RouterLink,
     DatePipe,
     NgIf,
-    BreadcrumbModule
+    BreadcrumbModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
 })
 export class BlogListComponent implements OnInit {
@@ -32,9 +36,12 @@ export class BlogListComponent implements OnInit {
   store = inject(Store);
   loading: boolean = false;
   error: any = null;
-  totalBlogPosts: number = 100;
+  totalBlogPosts: number = 100; // This could be dynamic based on server response
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
+  searchTerm: string = '';
+  currentPage: number = 1;
+  pageSize: number = 10; // Default page size
 
   ngOnInit() {
     this.items = [{ label: 'Blogs' }];
@@ -45,28 +52,37 @@ export class BlogListComponent implements OnInit {
         this.isLoggedIn = isAuthenticated;
       },
       error: (error) => {
-        // Handle error here
         console.error('Error occurred:', error);
       },
     });
-    // Check authentication status on component initialization
     this.isLoggedIn = this.auth.getIsAuth();
-    this.store.dispatch(BlogsActions.loadBlogs());
+    this.loadBlogs();
     this.store.select('blogs').subscribe({
       next: (data: any) => {
         this.blogs = data.blogs.posts;
         this.loading = data.loading;
         this.error = data.error;
+        this.totalBlogPosts = data.blogs.totalPosts; // Assuming the response includes total posts
       },
       error: (error) => {
-        // Handle error here
         console.error('Error occurred:', error);
       },
     });
   }
 
-  loadBlogPosts(page: number): void {
-    // Load blog posts for the given page
+  loadBlogs(): void {
+    const offset = (this.currentPage - 1) * this.pageSize;
+    this.store.dispatch(BlogsActions.loadBlogs({ limit: this.pageSize, offset: offset, search: this.searchTerm }));
+  }
+
+  searchBlogs(): void {
+    this.currentPage = 1; // Reset to first page on search
+    this.loadBlogs();
+  }
+
+  onPageChange(event: any): void {
+    this.currentPage = event.page + 1; // Assuming the event provides 0-based page index
+    this.loadBlogs();
   }
 
   ngOnDestroy(): void {

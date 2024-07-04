@@ -30,5 +30,9 @@ export const blogsReducer = createReducer(
         ...state,
         error: action.error,
         loading: false,
+    })),
+    on(BlogsActions.searchBlogs, (state, action) => ({
+        ...state,
+        loading: true,
     }))
 );
