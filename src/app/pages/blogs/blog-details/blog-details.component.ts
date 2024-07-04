@@ -40,6 +40,7 @@ export class BlogDetailsComponent {
   auth = inject(AuthService);
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
+  showConfirmDialog = false;
 
   ngOnInit() {
     this.id = this.route.snapshot.url[1].path;
@@ -86,6 +87,7 @@ export class BlogDetailsComponent {
       next: (res) => {
         // console.log('Blog deleted successfully!');
         this.location.back();
+        this.showConfirmDialog = false;
       },
       error: (error) => {
         console.error('Error deleting blog:', error);
