@@ -5,7 +5,7 @@
                 <div class="flex items-center space-x-8 text-black text-lg">
                         <div class="block lg:hidden md:hidden">
                                 <span [class]="menuVisible ? 'pi pi-times' : 'pi pi-align-right'"
-                                        (click)="toggleMenu()"></span>
+                                        (click)="toggleMenu()" style="font-size: 1.5rem"></span>
                         </div>
                         <ng-container *ngFor="let link of links">
                                 <a *ngIf="link.condition" [routerLink]="link.path"
