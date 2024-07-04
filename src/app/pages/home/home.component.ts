@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
     this.blogsService.getLatestBlogs().subscribe({
       next: (data: any) => {
         // console.log('Latest blogs:', data);
-        this.blogs = data.posts;
+        this.blogs = data;
         this.isLoadingLatestBlogs = false;
       },
       error: (error: any) => {
