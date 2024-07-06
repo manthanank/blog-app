@@ -62,7 +62,8 @@ export class BlogListComponent implements OnInit {
         this.blogs = data.blogs.posts;
         this.loading = data.loading;
         this.error = data.error;
-        this.totalBlogPosts = data.blogs.totalPosts; // Assuming the response includes total posts
+        this.totalBlogPosts = data.blogs?.next?.total; // Assuming the response includes total posts
+        
       },
       error: (error) => {
         console.error('Error occurred:', error);
@@ -86,8 +87,11 @@ export class BlogListComponent implements OnInit {
   }
 
   nextPage(){
-    this.currentPage++;
-    this.loadBlogs();
+    const totalPages = Math.ceil(this.totalBlogPosts / this.pageSize);
+    if(this.currentPage < totalPages){
+      this.currentPage++;
+      this.loadBlogs();
+    }
   }
 
   ngOnDestroy(): void {

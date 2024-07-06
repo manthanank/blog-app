@@ -21,7 +21,8 @@ exports.getAllPosts = async (req, res) => {
         if (endIndex < totalDocuments) {
             results.next = {
                 page: page + 1,
-                limit: limit
+                limit: limit,
+                total: totalDocuments
             };
         }
 
