@@ -10,7 +10,6 @@ import { BlogsService } from '../../../core/services/blogs.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Blog } from '../../../core/models/blog.model';
 import { AuthService } from '../../../core/services/auth.service';
-import { NgIf } from '@angular/common';
 import { EditorModule } from 'primeng/editor';
 import { ChipsModule } from 'primeng/chips';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -21,7 +20,6 @@ import { CheckboxModule } from 'primeng/checkbox';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    NgIf,
     EditorModule,
     ChipsModule,
     FloatLabelModule,
@@ -72,12 +70,12 @@ export class BlogEditComponent implements OnInit {
           this.router.navigate(['/']); // Redirect to home page
           // Or show an error message
         } else {
-          this.blogForm = this.form.group({
-            title: [this.blog.title, Validators.required],
-            desc: [this.blog.desc, Validators.required],
-            tags: [this.blog.tags, Validators.required],
-            content: [this.blog.content, Validators.required],
-            featured: [this.blog.featured],
+          this.blogForm.patchValue({
+            title: this.blog.title,
+            desc: this.blog.desc,
+            tags: this.blog.tags,
+            content: this.blog.content,
+            featured: this.blog.featured,
           });
           // console.log(this.blog);
         }

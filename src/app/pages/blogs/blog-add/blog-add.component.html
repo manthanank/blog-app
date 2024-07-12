@@ -5,18 +5,26 @@
             <label for="title">Title</label>
             <input type="text" class="form-control border border-gray-300 rounded-md p-2 w-full" id="title"
                 formControlName="title">
-            <div *ngIf="blogForm.get('title')?.invalid && blogForm.get('title')?.touched" class="mt-2 text-red-500">
-                <div *ngIf="blogForm.get('title')?.errors?.['required']">Title is required</div>
+            @if (blogForm.get('title')?.invalid && blogForm.get('title')?.touched) {
+            <div class="mt-2 text-red-500">
+                @if (blogForm.get('title')?.errors?.['required']) {
+                <div>Title is required</div>
+                }
             </div>
+            }
         </div>
 
         <div class="mt-2">
             <label for="desc">Description</label>
             <input type="text" class="form-control border border-gray-300 rounded-md p-2 w-full" id="desc"
                 formControlName="desc">
-            <div *ngIf="blogForm.get('desc')?.invalid && blogForm.get('desc')?.touched" class="mt-2 text-red-500">
-                <div *ngIf="blogForm.get('desc')?.errors?.['required']">Description is required</div>
+            @if (blogForm.get('desc')?.invalid && blogForm.get('desc')?.touched) {
+            <div class="mt-2 text-red-500">
+                @if (blogForm.get('desc')?.errors?.['required']) {
+                <div>Description is required</div>
+                }
             </div>
+            }
         </div>
 
         <div class="mt-2">
@@ -24,9 +32,13 @@
                 <label for="tags">Tags</label>
                 <p-chips id="tags" formControlName="tags" [max]="max" [variant]="'filled'" />
             </div>
-            <div *ngIf="blogForm.get('tags')?.invalid && blogForm.get('tags')?.touched" class="mt-2 text-red-500">
-                <div *ngIf="blogForm.get('tags')?.errors?.['required']">Tags are required</div>
+            @if (blogForm.get('tags')?.invalid && blogForm.get('tags')?.touched) {
+            <div class="mt-2 text-red-500">
+                @if (blogForm.get('tags')?.errors?.['required']) {
+                <div>Tags are required</div>
+                }
             </div>
+            }
         </div>
 
         <label for="featured" class="block mt-4">Featured</label>
@@ -34,9 +46,13 @@
 
         <label for="content" class="block mt-4">Content</label>
         <p-editor id="content" formControlName="content" [style]="{ height: '320px' }"></p-editor>
-        <div *ngIf="blogForm.get('content')?.invalid && blogForm.get('content')?.touched" class="mt-2 text-red-500">
-            <div *ngIf="blogForm.get('content')?.errors?.['required']">Content is required</div>
+        @if (blogForm.get('content')?.invalid && blogForm.get('content')?.touched) {
+        <div class="mt-2 text-red-500">
+            @if (blogForm.get('content')?.errors?.['required']) {
+            <div>Content is required</div>
+            }
         </div>
+        }
 
         <button type="submit"
             class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2"

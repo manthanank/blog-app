@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { BlogsService } from '../../../core/services/blogs.service';
 import { Router } from '@angular/router';
-import { NgFor, NgIf } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { EditorModule } from 'primeng/editor';
 import { ChipsModule } from 'primeng/chips';
@@ -20,8 +19,6 @@ import { CheckboxModule } from 'primeng/checkbox';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    NgIf,
-    NgFor,
     EditorModule,
     ChipsModule,
     FloatLabelModule,

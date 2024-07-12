@@ -3,12 +3,14 @@
     <div class="featured-blogs">
         <h2 class="text-2xl font-bold mb-4">Tag: {{id}}</h2>
         <div class="blog grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
-            <div class="bg-white rounded-lg shadow-md p-4" *ngFor="let blog of blogs">
+            @for (blog of blogs; track $index) {
+            <div class="bg-white rounded-lg shadow-md p-4">
                 <h3 class="text-xl font-semibold mb-2"><a [routerLink]="['/blogs', blog._id]">{{blog.title}}</a></h3>
 
                 <div class="blog-meta text-gray-500 text-sm mb-2">
-                    <span>Author: <a class="text-blue-500 hover:text-blue-700" [routerLink]="['/profile', blog.author]">{{blog.author}}</a></span> |
-                    <span>Published: {{blog.createdAt | date:'medium'}}</span>
+                    <span><a class="text-blue-500 hover:text-blue-700"
+                            [routerLink]="['/profile', blog.author]">{{blog.author}}</a></span> |
+                    <span>{{blog.createdAt | date:'fullDate'}}</span> | <span>Views: {{blog.visitCount}}</span>
                 </div>
 
                 <div class="blog-desc mb-2">
@@ -16,9 +18,13 @@
                 </div>
 
                 <div class="tags">
-                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" *ngFor="let tag of blog.tags">{{tag}}</span>
+                    @for (tag of items; track $index) {
+                    <span
+                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{tag}}</span>
+                    }
                 </div>
             </div>
+            }
         </div>
     </div>
 </div>

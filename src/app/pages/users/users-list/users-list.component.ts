@@ -1,12 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { UsersService } from '../../../core/services/users.service';
-import { NgFor } from '@angular/common';
 import { User } from '../../../core/models/users.model';
 import { TableModule } from 'primeng/table';
 @Component({
   selector: 'app-users-list',
   standalone: true,
-  imports: [NgFor, TableModule],
+  imports: [TableModule],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.scss',
 })

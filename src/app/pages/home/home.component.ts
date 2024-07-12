@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { BlogsService } from '../../core/services/blogs.service';
 import { Blog } from '../../core/models/blog.model';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { ScrollTopModule } from 'primeng/scrolltop';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor, DatePipe, RouterLink, NgIf, ScrollTopModule],
+  imports: [DatePipe, RouterLink, ScrollTopModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

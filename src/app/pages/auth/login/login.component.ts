@@ -8,12 +8,11 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
-import { NgIf } from '@angular/common';
 import { FloatLabelModule } from 'primeng/floatlabel';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, NgIf, FloatLabelModule],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, FloatLabelModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -35,7 +34,9 @@ export class LoginComponent {
       return;
     }
 
-    this.authService
-      .login(this.loginForm.value.emailOrUsername, this.loginForm.value.password);
+    this.authService.login(
+      this.loginForm.value.emailOrUsername,
+      this.loginForm.value.password
+    );
   }
 }

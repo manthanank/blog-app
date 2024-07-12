@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
   FormControl,
@@ -13,13 +12,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    NgIf,
-    RouterLink,
-    FloatLabelModule,
-  ],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, FloatLabelModule],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',
 })

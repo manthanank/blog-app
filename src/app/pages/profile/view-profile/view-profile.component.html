@@ -2,18 +2,23 @@
     <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
     <h2 class="text-2xl font-bold mb-2">Profile Details</h2>
 
-    <div class="add-blog-container flex justify-end" *ngIf="currentUserName === username">
+    @if (currentUserName === username) {
+    <div class="add-blog-container flex justify-end">
         <a [routerLink]="'/edit-profile/' + currentUserName"
             class="bg-black-500 hover:underline font-bold p-2 rounded">Edit Profile</a>
     </div>
+    }
 
-    <div class="profile-details" *ngIf="!isLoadingProfile">
+    @if (!isLoadingProfile) {
+    <div class="profile-details">
         <p class="mb-2">UserName: {{ profile.username }}</p>
         <p class="mb-2">Name: {{ profile.firstName }} {{ profile.lastName }}</p>
         <p class="mb-2">Email: {{ profile.email }}</p>
     </div>
+    }
 
-    <div class="loading-card" *ngIf="isLoadingProfile">
+    @if (isLoadingProfile) {
+    <div class="loading-card">
         <div class="bg-white rounded-lg shadow-md p-4">
             <div class="animate-pulse">
                 <div class="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
@@ -24,27 +29,35 @@
             </div>
         </div>
     </div>
+    }
 
-    <div class="no-data-card" *ngIf="!isLoadingProfile && !profile">
+    @if (!isLoadingProfile && !profile) {
+    <div class="no-data-card">
         <div class="bg-white rounded-lg shadow-md p-4">
             <p>No profile found.</p>
         </div>
     </div>
+    }
 
-    <div class="add-blog-container flex justify-end" *ngIf="!isLoadingProfile && profile && currentUserName === username">
+    @if (!isLoadingProfile && profile && currentUserName === username) {
+    <div class="add-blog-container flex justify-end">
         <a routerLink="/add" class="bg-black-500 hover:underline font-bold p-2 rounded">Add Blog</a>
     </div>
+    }
 </div>
 
 <div class="container mx-auto px-8 sm:px-8 lg:px-60 mt-2">
     <h2 class="text-2xl font-bold mb-4">Featured</h2>
-    <div class="featured-blogs" *ngIf="!isLoadingFeaturedBlogs">
+    @if (!isLoadingFeaturedBlogs) {
+    <div class="featured-blogs">
         <div class="blog grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
-            <div class="bg-white rounded-lg shadow-md p-4" *ngFor="let blog of featuredBlogs">
+            @for (blog of featuredBlogs; track $index) {
+            <div class="bg-white rounded-lg shadow-md p-4">
                 <h3 class="text-xl font-semibold mb-2"><a [routerLink]="['/blogs', blog._id]">{{blog.title}}</a></h3>
 
                 <div class="blog-meta text-gray-500 text-sm mb-2">
-                    <span>Author: <a class="text-blue-500 hover:text-blue-700" [routerLink]="['/profile', blog.author]">{{blog.author}}</a></span> |
+                    <span>Author: <a class="text-blue-500 hover:text-blue-700"
+                            [routerLink]="['/profile', blog.author]">{{blog.author}}</a></span> |
                     <span>Published: {{blog.createdAt | date:'medium'}}</span>
                 </div>
 
@@ -53,19 +66,25 @@
                 </div>
 
                 <div class="tags">
+                    @for (tag of blog.tags; track $index) {
                     <span
-                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                        *ngFor="let tag of blog.tags">{{tag}}</span>
+                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{tag}}</span>
+                    }
                 </div>
             </div>
+            }
         </div>
     </div>
+    }
 
-    <div class="bg-white rounded-lg shadow-md p-4" *ngIf="featuredBlogs?.length === 0 && !isLoadingFeaturedBlogs">
+    @if (featuredBlogs.length === 0 && !isLoadingFeaturedBlogs) {
+    <div class="bg-white rounded-lg shadow-md p-4">
         <p>No blogs found.</p>
     </div>
+    }
 
-    <div class="loading-card" *ngIf="isLoadingFeaturedBlogs">
+    @if (isLoadingFeaturedBlogs) {
+    <div class="loading-card">
         <div class="bg-white rounded-lg shadow-md p-4">
             <div class="animate-pulse">
                 <div class="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
@@ -76,17 +95,21 @@
             </div>
         </div>
     </div>
+    }
 </div>
 
 <div class="container mx-auto px-8 sm:px-8 lg:px-60 mt-2">
     <h2 class="text-2xl font-bold mb-4">All Blogs</h2>
-    <div class="all-blogs" *ngIf="!isLoading">
+    @if (!isLoading) {
+    <div class="all-blogs">
         <div class="blog grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
-            <div class="bg-white rounded-lg shadow-md p-4" *ngFor="let blog of blogs">
+            @for (blog of blogs; track $index) {
+            <div class="bg-white rounded-lg shadow-md p-4">
                 <h3 class="text-xl font-semibold mb-2"><a [routerLink]="['/blogs', blog._id]">{{blog.title}}</a></h3>
 
                 <div class="blog-meta text-gray-500 text-sm mb-2">
-                    <span>Author: <a class="text-blue-500 hover:text-blue-700" [routerLink]="['/profile', blog.author]">{{blog.author}}</a></span> |
+                    <span>Author: <a class="text-blue-500 hover:text-blue-700"
+                            [routerLink]="['/profile', blog.author]">{{blog.author}}</a></span> |
                     <span>Published: {{blog.createdAt | date:'medium'}}</span>
                 </div>
 
@@ -95,19 +118,25 @@
                 </div>
 
                 <div class="tags">
+                    @for (tag of blog.tags; track $index) {
                     <span
-                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                        *ngFor="let tag of blog.tags">{{tag}}</span>
+                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{tag}}</span>
+                    }
                 </div>
             </div>
+            }
         </div>
     </div>
+    }
 
-    <div class="bg-white rounded-lg shadow-md p-4" *ngIf="blogs?.length === 0 && !isLoading">
+    @if (blogs.length === 0 && !isLoading) {
+    <div class="bg-white rounded-lg shadow-md p-4">
         <p>No blogs found.</p>
     </div>
+    }
 
-    <div class="loading-card" *ngIf="isLoading">
+    @if (isLoading) {
+    <div class="loading-card">
         <div class="bg-white rounded-lg shadow-md p-4">
             <div class="animate-pulse">
                 <div class="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
@@ -118,4 +147,5 @@
             </div>
         </div>
     </div>
+    }
 </div>

@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TagsService } from '../tags.service';
@@ -11,7 +10,7 @@ import { Tags } from '../../../core/models/tag.model';
   standalone: true,
   templateUrl: './tag-list.component.html',
   styleUrl: './tag-list.component.scss',
-  imports: [NgFor, RouterLink, NgIf, BreadcrumbModule],
+  imports: [RouterLink, BreadcrumbModule],
 })
 export class TagListComponent {
   tags: Tags = [];

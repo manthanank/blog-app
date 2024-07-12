@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
@@ -6,7 +5,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgIf, NgFor],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -23,12 +22,14 @@ export class HeaderComponent {
   constructor() {}
 
   ngOnInit(): void {
-    this.authStatusSubscription = this.auth.getAuthStatusListener().subscribe((isAuthenticated) => {
-      this.isLoggedIn = isAuthenticated;
-      this.isAdmin = this.auth.getUserRole() === 'admin';
-      this.userName = this.auth.getUserName();
-      this.updateLinks();
-    });
+    this.authStatusSubscription = this.auth
+      .getAuthStatusListener()
+      .subscribe((isAuthenticated) => {
+        this.isLoggedIn = isAuthenticated;
+        this.isAdmin = this.auth.getUserRole() === 'admin';
+        this.userName = this.auth.getUserName();
+        this.updateLinks();
+      });
 
     // Check authentication status on component initialization
     this.isLoggedIn = this.auth.getIsAuth();
@@ -57,10 +58,23 @@ export class HeaderComponent {
     this.links = [
       { path: '/blogs', label: 'Posts', condition: true },
       { path: '/tags', label: 'Tags', condition: true },
-      { path: '/users', label: 'Users', condition: this.isLoggedIn && this.isAdmin },
-      { path: `/profile/${this.userName}`, label: 'Profile', condition: this.isLoggedIn },
+      {
+        path: '/users',
+        label: 'Users',
+        condition: this.isLoggedIn && this.isAdmin,
+      },
+      {
+        path: `/profile/${this.userName}`,
+        label: 'Profile',
+        condition: this.isLoggedIn,
+      },
       { path: '/login', label: 'Login', condition: !this.isLoggedIn },
-      { path: '', label: 'Logout', condition: this.isLoggedIn, action: () => this.logout() },
+      {
+        path: '',
+        label: 'Logout',
+        condition: this.isLoggedIn,
+        action: () => this.logout(),
+      },
     ];
   }
 }

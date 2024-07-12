@@ -56,4 +56,11 @@ export class BlogsService {
   visitCount(id: string) {
     return this.http.put(`${apiUrl}/blogs/visit/${id}`, {});
   }
+
+  calculateReadingTime(text: string): string {
+    const wordsPerMinute = 200;
+    const textLength = text.split(' ').length;
+    const readingTime = Math.ceil(textLength / wordsPerMinute);
+    return `${readingTime} min read`;
+  }
 }

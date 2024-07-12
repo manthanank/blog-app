@@ -1,4 +1,4 @@
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BlogsService } from '../../../core/services/blogs.service';
@@ -13,7 +13,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
   standalone: true,
   templateUrl: './tag-details.component.html',
   styleUrl: './tag-details.component.scss',
-  imports: [NgFor, DatePipe, RouterLink, NgIf, BreadcrumbModule],
+  imports: [DatePipe, RouterLink, BreadcrumbModule],
 })
 export class TagDetailsComponent {
   private authStatusSubscription: Subscription = new Subscription();

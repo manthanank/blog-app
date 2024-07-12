@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
   FormGroup,
@@ -14,13 +13,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    NgIf,
-    RouterLink,
-    FloatLabelModule,
-  ],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, FloatLabelModule],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss',
 })

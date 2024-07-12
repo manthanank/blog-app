@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { BlogsService } from '../../../core/services/blogs.service';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Blog } from '../../../core/models/blog.model';
 import { AuthService } from '../../../core/services/auth.service';
@@ -17,13 +17,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './blog-list.component.html',
   styleUrl: './blog-list.component.scss',
   imports: [
-    NgFor,
     RouterLink,
     DatePipe,
-    NgIf,
     BreadcrumbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
 })
 export class BlogListComponent implements OnInit {
@@ -63,7 +61,6 @@ export class BlogListComponent implements OnInit {
         this.loading = data.loading;
         this.error = data.error;
         this.totalBlogPosts = data.blogs?.next?.total; // Assuming the response includes total posts
-        
       },
       error: (error) => {
         console.error('Error occurred:', error);
@@ -73,7 +70,13 @@ export class BlogListComponent implements OnInit {
 
   loadBlogs(): void {
     const page = this.currentPage;
-    this.store.dispatch(BlogsActions.loadBlogs({ limit: this.pageSize, page: page, search: this.searchTerm }));
+    this.store.dispatch(
+      BlogsActions.loadBlogs({
+        limit: this.pageSize,
+        page: page,
+        search: this.searchTerm,
+      })
+    );
   }
 
   searchBlogs(): void {
@@ -81,14 +84,14 @@ export class BlogListComponent implements OnInit {
     this.loadBlogs();
   }
 
-  prevPage(){
+  prevPage() {
     this.currentPage--;
     this.loadBlogs();
   }
 
-  nextPage(){
+  nextPage() {
     const totalPages = Math.ceil(this.totalBlogPosts / this.pageSize);
-    if(this.currentPage < totalPages){
+    if (this.currentPage < totalPages) {
       this.currentPage++;
       this.loadBlogs();
     }

@@ -8,13 +8,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NgIf } from '@angular/common';
 import { UsersService } from '../../../core/services/users.service';
 
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, NgIf],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.scss',
 })

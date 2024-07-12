@@ -2,18 +2,22 @@
     <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
     <h2 class="text-2xl font-bold">Tags</h2>
     <div class="tags flex flex-wrap mt-3">
-        <ng-container *ngIf="isLoading; else tagsContent">
-            <div class="text-center">
-                <p>Loading tags...</p>
-            </div>
-        </ng-container>
-        <ng-template #tagsContent>
-            <div class="tag" *ngFor="let tag of tags; let i = index">
-                <a [routerLink]="[tag]"
-                    class="inline-block px-3 py-1 mr-2 mb-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full hover:bg-gray-300">{{
-                    tag }}</a>
-            </div>
-            <p *ngIf="tags?.length === 0">No tags found.</p>
-        </ng-template>
+        @if (isLoading) {
+        <div class="text-center">
+            <p>Loading tags...</p>
+        </div>
+        }
+        @else {
+        @for (tag of tags; track $index) {
+        <div>
+            <a [routerLink]="[tag]"
+                class="inline-block px-3 py-1 mr-2 mb-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full hover:bg-gray-300">{{
+                tag }}</a>
+        </div>
+        }
+        @if (tags.length === 0) {
+        <p>No tags found.</p>
+        }
+        }
     </div>
 </div>

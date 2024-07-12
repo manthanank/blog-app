@@ -6,52 +6,69 @@
             <label for="firstName" class="block">First Name<span class="text-red-500">*</span></label>
             <input type="text" class="border border-gray-300 rounded-md p-2 w-full" id="firstName"
                 formControlName="firstName" required minlength="2" maxlength="30" />
-            <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched"
-                class="error-message text-red-500">First Name is required</div>
-            <div *ngIf="registerForm.get('firstName')?.errors?.['minlength'] || registerForm.get('firstName')?.errors?.['maxlength']"
-                class="error-message text-red-500">First Name should have between 2 and 30 characters</div>
+            @if (registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched) {
+            <div class="error-message text-red-500">First Name is required</div>
+            }
+            @if (registerForm.get('firstName')?.errors?.['minlength'] ||
+            registerForm.get('firstName')?.errors?.['maxlength']) {
+            <div class="error-message text-red-500">First Name should have between 2 and 30 characters</div>
+            }
         </div>
 
         <div class="mt-2">
             <label for="lastName" class="block">Last Name<span class="text-red-500">*</span></label>
             <input type="text" class="border border-gray-300 rounded-md p-2 w-full" id="lastName"
                 formControlName="lastName" required minlength="2" maxlength="30" />
-            <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched"
-                class="error-message text-red-500">Last Name is required</div>
-            <div *ngIf="registerForm.get('lastName')?.errors?.['minlength'] || registerForm.get('lastName')?.errors?.['maxlength']"
-                class="error-message text-red-500">Last Name should have between 2 and 30 characters</div>
+            @if (registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched) {
+            <div class="error-message text-red-500">Last Name is required</div>
+            }
+            @if (registerForm.get('lastName')?.errors?.['minlength'] ||
+            registerForm.get('lastName')?.errors?.['maxlength']) {
+            <div class="error-message text-red-500">Last Name should have between 2 and 30 characters</div>
+            }
         </div>
 
         <div class="mt-2">
             <label for="username" class="block">Username<span class="text-red-500">*</span></label>
             <input type="text" class="border border-gray-300 rounded-md p-2 w-full" id="username"
                 formControlName="username" (input)="checkUsername()" required minlength="4" maxlength="20" />
-            <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
-                class="error-message text-red-500">Username is required</div>
-            <div *ngIf="registerForm.get('username')?.errors?.['minlength'] || registerForm.get('username')?.errors?.['maxlength']"
-                class="error-message text-red-500">Username should have between 4 and 20 characters</div>
-            <div *ngIf="usernameTaken === 'Username not available'" class="error-message text-red-500">Username is taken
+            @if (registerForm.get('username')?.invalid && registerForm.get('username')?.touched) {
+            <div class="error-message text-red-500">Username is required</div>
+            }
+            @if (registerForm.get('username')?.errors?.['minlength'] ||
+            registerForm.get('username')?.errors?.['maxlength']) {
+            <div class="error-message text-red-500">Username should have between 4 and 20 characters</div>
+            }
+            @if (usernameTaken === 'Username not available') {
+            <div class="error-message text-red-500">Username is taken
             </div>
-            <div *ngIf="usernameTaken === 'Username available'" class="success-message text-green-500">Username is
+            }
+            @if (usernameTaken === 'Username available') {
+            <div class="success-message text-green-500">Username is
                 available</div>
+            }
         </div>
 
         <div class="mt-2">
             <label for="email" class="block">E-mail<span class="text-red-500">*</span></label>
             <input type="email" class="border border-gray-300 rounded-md p-2 w-full" id="email" formControlName="email"
                 required />
-            <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
-                class="error-message text-red-500">E-mail is required</div>
+            @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+            <div class="error-message text-red-500">E-mail is required</div>
+            }
         </div>
 
         <div class="mt-2">
             <label for="password" class="block">Password<span class="text-red-500">*</span></label>
             <input type="password" class="border border-gray-300 rounded-md p-2 w-full" id="password"
                 formControlName="password" required minlength="6" maxlength="20" />
-            <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
-                class="error-message text-red-500">Password is required</div>
-            <div *ngIf="registerForm.get('password')?.errors?.['minlength'] || registerForm.get('password')?.errors?.['maxlength']"
-                class="error-message text-red-500">Password should have between 6 and 20 characters</div>
+            @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+            <div class="error-message text-red-500">Password is required</div>
+            }
+            @if (registerForm.get('password')?.errors?.['minlength'] ||
+            registerForm.get('password')?.errors?.['maxlength']) {
+            <div class="error-message text-red-500">Password should have between 6 and 20 characters</div>
+            }
         </div>
 
         <div class="mt-4">

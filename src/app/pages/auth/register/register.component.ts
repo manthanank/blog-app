@@ -8,18 +8,11 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
-import { NgIf } from '@angular/common';
 import { FloatLabelModule } from 'primeng/floatlabel';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    RouterLink,
-    NgIf,
-    FloatLabelModule,
-  ],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, FloatLabelModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })

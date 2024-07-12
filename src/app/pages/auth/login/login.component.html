@@ -7,16 +7,18 @@
                     class="text-red-500">*</span></label>
             <input type="text" class="border border-gray-300 rounded-md p-2 w-full" id="emailOrUsername"
                 formControlName="emailOrUsername" />
-            <div *ngIf="loginForm.get('emailOrUsername')?.invalid && loginForm.get('emailOrUsername')?.touched"
-                class="error-message text-red-500">Username or E-mail is required</div>
+            @if (loginForm.get('emailOrUsername')?.invalid && loginForm.get('emailOrUsername')?.touched) {
+            <div class="error-message text-red-500">Username or E-mail is required</div>
+            }
         </div>
 
         <div class="mt-2">
             <label for="password" class="block mb-2">Password<span class="text-red-500">*</span></label>
             <input type="password" class="border border-gray-300 rounded-md p-2 w-full" id="password"
                 formControlName="password" />
-            <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
-                class="error-message text-red-500">Password is required</div>
+            @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+            <div class="error-message text-red-500">Password is required</div>
+            }
         </div>
 
         <div class="mt-4">

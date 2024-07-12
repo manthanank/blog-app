@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { BlogsService } from '../../../core/services/blogs.service';
-import { NgFor, DatePipe, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UsersService } from '../../../core/services/users.service';
 import { MenuItem } from 'primeng/api';
@@ -13,13 +13,13 @@ import { Blog } from '../../../core/models/blog.model';
 @Component({
   selector: 'app-view-profile',
   standalone: true,
-  imports: [NgFor, RouterLink, DatePipe, NgIf, BreadcrumbModule],
+  imports: [RouterLink, DatePipe, BreadcrumbModule],
   templateUrl: './view-profile.component.html',
   styleUrl: './view-profile.component.scss',
 })
 export class ViewProfileComponent implements OnInit {
   private authStatusSubscription: Subscription = new Subscription();
-  
+
   auth = inject(AuthService);
   user = inject(UsersService);
   blogsService = inject(BlogsService);
@@ -69,11 +69,11 @@ export class ViewProfileComponent implements OnInit {
       },
     });
   }
-  
+
   loadDataForUsername(username: string) {
     this.isLoadingProfile = true;
     this.isLoadingFeaturedBlogs = true;
-  
+
     // Fetch user details
     this.user.getUserDetails(username).subscribe({
       next: (data: any) => {
@@ -85,7 +85,7 @@ export class ViewProfileComponent implements OnInit {
         this.isLoadingProfile = false;
       },
     });
-  
+
     // Fetch blogs
     this.blogsService.getBlogByUsername(username).subscribe({
       next: (data: any) => {
@@ -97,7 +97,7 @@ export class ViewProfileComponent implements OnInit {
         this.isLoading = false;
       },
     });
-  
+
     // Fetch featured blogs
     this.blogsService.getFeaturedBlogsByUsername(username).subscribe({
       next: (data: any) => {
@@ -110,7 +110,6 @@ export class ViewProfileComponent implements OnInit {
       },
     });
   }
-  
 
   ngOnDestroy(): void {
     this.authStatusSubscription.unsubscribe();

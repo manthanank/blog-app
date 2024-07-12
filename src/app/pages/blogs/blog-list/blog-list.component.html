@@ -7,15 +7,17 @@
             [(ngModel)]="searchTerm" (input)="searchBlogs()" />
     </div>
 
-    <div class="all-blogs" *ngIf="!loading">
+    @if (!loading) {
+    <div class="all-blogs">
         <div class="blog grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
-            <div class="bg-white rounded-lg shadow-md p-4" *ngFor="let blog of blogs">
+            @for (blog of blogs; track $index) {
+            <div class="bg-white rounded-lg shadow-md p-4">
                 <h3 class="text-xl font-semibold mb-2"><a [routerLink]="[blog._id]">{{blog.title}}</a></h3>
 
                 <div class="blog-meta text-gray-500 text-sm mb-2">
-                    <span>Author: <a class="text-blue-500 hover:text-blue-700"
+                    <span><a class="text-blue-500 hover:text-blue-700"
                             [routerLink]="['/profile', blog.author]">{{blog.author}}</a></span> |
-                    <span>Published: {{blog.createdAt | date:'medium'}}</span> | <span>Views: {{blog.visitCount}}</span>
+                    <span>{{blog.createdAt | date:'fullDate'}}</span> | <span>Views: {{blog.visitCount}}</span>
                 </div>
 
                 <div class="blog-desc mb-2">
@@ -23,19 +25,25 @@
                 </div>
 
                 <div class="tags">
+                    @for (tag of blog.tags; track $index) {
                     <span
-                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                        *ngFor="let tag of blog.tags">{{tag}}</span>
+                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{tag}}</span>
+                    }
                 </div>
             </div>
+            }
         </div>
     </div>
+    }
 
-    <div class="bg-white rounded-lg shadow-md p-4" *ngIf="!loading && !blogs">
+    @if (!loading && !blogs) {
+    <div class="bg-white rounded-lg shadow-md p-4">
         <p>No blogs found.</p>
     </div>
+    }
 
-    <div class="loading-card" *ngIf="loading">
+    @if (loading) {
+    <div class="loading-card">
         <div class="bg-white rounded-lg shadow-md p-4">
             <div class="animate-pulse">
                 <div class="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
@@ -46,8 +54,10 @@
             </div>
         </div>
     </div>
+    }
 
-    <div class="flex justify-center gap-1 mt-4" *ngIf="!loading && blogs">
+    @if (!loading && blogs) {
+    <div class="flex justify-center gap-1 mt-4">
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="prevPage()"
             [disabled]="currentPage === 1">
             <i class="pi pi-chevron-left"></i>
@@ -57,4 +67,5 @@
             <i class="pi pi-chevron-right"></i>
         </button>
     </div>
+    }
 </div>

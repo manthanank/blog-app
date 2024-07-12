@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { BlogsService } from '../../../core/services/blogs.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Blog } from '../../../core/models/blog.model';
-import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Location } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { MenuItem } from 'primeng/api';
@@ -13,25 +13,13 @@ import { ScrollTopModule } from 'primeng/scrolltop';
   standalone: true,
   templateUrl: './blog-details.component.html',
   styleUrl: './blog-details.component.scss',
-  imports: [NgFor, DatePipe, NgIf, RouterLink, NgClass, BreadcrumbModule, ScrollTopModule],
+  imports: [DatePipe, RouterLink, BreadcrumbModule, ScrollTopModule],
 })
 export class BlogDetailsComponent {
-  blog: Blog = {
-    _id: '',
-    title: '',
-    desc: '',
-    content: '',
-    author: '',
-    authorId: '',
-    createdAt: '',
-    __v: 0,
-    featured: false,
-    tags: [],
-  };
+  blog: Blog = {} as Blog;
   id: string = '';
   loading: boolean = false;
   content: string = '';
-  contentLength: number = 0;
   lines: number = 0;
   authorId: string = '';
   blogsService = inject(BlogsService);
@@ -41,25 +29,24 @@ export class BlogDetailsComponent {
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
   showConfirmDialog = false;
+  readingTime: string = '';
 
   ngOnInit() {
     this.id = this.route.snapshot.url[1].path;
-    this.items = [{ label: 'Blogs', routerLink:'/blogs' }, { label: 'Blog Details'}];
+    this.items = [
+      { label: 'Blogs', routerLink: '/blogs' },
+      { label: 'Blog Details' },
+    ];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
     this.loading = true;
     this.blogsService.getBlog(this.id).subscribe({
       next: (data: any) => {
         this.loading = false;
         this.blog = data;
-        // console.log(this.blog);
         this.content = this.blog.content;
-        // console.log(this.content);
-        this.contentLength = this.content.length;
-        // console.log(this.contentLength);
+        this.readingTime = this.blogsService.calculateReadingTime(this.content);
         this.lines = this.content.trim().split('\n').length;
-        // console.log(this.lines);
         this.authorId = this.blog.authorId;
-        // console.log(this.authorId);
       },
       error: (error: any) => {
         console.error('An error occurred while fetching the blog:', error);
