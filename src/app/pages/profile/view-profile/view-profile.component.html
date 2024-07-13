@@ -5,7 +5,7 @@
     @if (currentUserName === username) {
     <div class="add-blog-container flex justify-end">
         <a [routerLink]="'/edit-profile/' + currentUserName"
-            class="bg-black-500 hover:underline font-bold p-2 rounded">Edit Profile</a>
+            class="bg-black-500 hover:underline font-bold p-2 rounded"><i class="pi pi-pen-to-square"></i></a>
     </div>
     }
 
@@ -41,7 +41,7 @@
 
     @if (!isLoadingProfile && profile && currentUserName === username) {
     <div class="add-blog-container flex justify-end">
-        <a routerLink="/add" class="bg-black-500 hover:underline font-bold p-2 rounded">Add Blog</a>
+        <a routerLink="/add" class="bg-black-500 hover:underline font-bold p-2 rounded"><i class="pi pi-plus"></i></a>
     </div>
     }
 </div>

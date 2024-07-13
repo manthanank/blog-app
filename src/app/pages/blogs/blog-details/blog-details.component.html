@@ -4,10 +4,12 @@
     <div class="blog mt-4">
         @if (auth.getIsAuth() && authorId === auth.getUserId()) {
         <div class="add-blog-container flex justify-end">
-            <a [routerLink]="['/edit', blog._id]" class="bg-black-500 hover:underline font-bold p-2 rounded">Edit
-                Blog</a>
-            <button class="hover:underline font-bold p-2 rounded" (click)="showConfirmDialog = true">Delete
-                Blog</button>
+            <a [routerLink]="['/edit', blog._id]" class="bg-black-500 hover:underline font-bold p-2 rounded"><i
+                    class="pi pi-pen-to-square"></i>
+            </a>
+            <button class="hover:underline font-bold p-2 rounded" (click)="showConfirmDialog = true"><i
+                    class="pi pi-trash"></i>
+            </button>
         </div>
         }
 
