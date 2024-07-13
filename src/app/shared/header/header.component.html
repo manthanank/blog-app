@@ -4,7 +4,7 @@
                         class="text-black text-3xl font-bold">Blogs</a>
                 <div class="flex items-center space-x-8 text-black text-lg">
                         <div class="block lg:hidden md:hidden">
-                                <span [class]="menuVisible ? 'pi pi-times' : 'pi pi-align-right'" (click)="toggleMenu()"
+                                <span [class]="menuVisible ? 'pi pi-times' : 'pi pi-bars'" (click)="toggleMenu()"
                                         style="font-size: 1.5rem"></span>
                         </div>
                         @for (link of links; track $index) {

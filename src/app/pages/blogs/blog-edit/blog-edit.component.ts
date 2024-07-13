@@ -35,18 +35,7 @@ export class BlogEditComponent implements OnInit {
   router = inject(Router);
   route = inject(ActivatedRoute);
   id: string = '';
-  blog: Blog = {
-    _id: '',
-    title: '',
-    desc: '',
-    content: '',
-    author: '',
-    authorId: '',
-    createdAt: '',
-    __v: 0,
-    featured: false,
-    tags: [],
-  };
+  blog: Blog = {} as Blog;
   max = 3;
   checked: boolean = false;
 
@@ -62,6 +51,10 @@ export class BlogEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.url[1].path;
+    this.fetchBlog();
+  }
+
+  fetchBlog() {
     this.blogsService.getBlog(this.id).subscribe({
       next: (data: any) => {
         this.blog = data;
@@ -70,7 +63,7 @@ export class BlogEditComponent implements OnInit {
           this.router.navigate(['/']); // Redirect to home page
           // Or show an error message
         } else {
-          this.blogForm.patchValue({
+          this.blogForm.setValue({
             title: this.blog.title,
             desc: this.blog.desc,
             tags: this.blog.tags,
