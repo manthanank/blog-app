@@ -8,6 +8,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ScrollTopModule } from 'primeng/scrolltop';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
   selector: 'app-blog-details',
   standalone: true,
@@ -26,10 +27,12 @@ export class BlogDetailsComponent {
   route = inject(ActivatedRoute);
   location = inject(Location);
   auth = inject(AuthService);
+  sanitizer = inject(DomSanitizer);
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
   showConfirmDialog = false;
   readingTime: string = '';
+  sanitizedContent: SafeHtml | null = null;
 
   ngOnInit() {
     this.id = this.route.snapshot.url[1].path;
@@ -44,6 +47,7 @@ export class BlogDetailsComponent {
         this.loading = false;
         this.blog = data;
         this.content = this.blog.content;
+        this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(this.content);
         this.readingTime = this.blogsService.calculateReadingTime(this.content);
         this.lines = this.content.trim().split('\n').length;
         this.authorId = this.blog.authorId;
