@@ -28,14 +28,11 @@
     <div class="lg:hidden">
         @for (user of users; track $index) {
         <div class="border border-gray-200 rounded-lg p-4 mb-4">
-            <div class="flex justify-between">
+            <div class="flex">
                 <div>
-                    <p class="font-bold">{{ user.firstName }} {{ user.lastName }}</p>
+                    <p class="font-bold">{{ user.firstName }} {{ user.lastName }} ({{ user.role.charAt(0).toUpperCase() + user.role.slice(1) }})</p>
                     <p class="text-gray-500">{{ user.email }}</p>
                     <p class="text-gray-500">{{ user.username }}</p>
-                </div>
-                <div>
-                    <p class="font-bold">{{ user.role.charAt(0).toUpperCase() + user.role.slice(1) }}</p>
                     <p class="text-gray-500">{{ user.postCount }} posts</p>
                 </div>
             </div>

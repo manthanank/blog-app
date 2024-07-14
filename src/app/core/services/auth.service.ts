@@ -88,7 +88,7 @@ export class AuthService {
         }
       },
       (error) => {
-        this.errorMsg = error.error.message;
+        this.errorMsg = error?.error?.message;
         this.authStatusListener.next(false);
       }
     );

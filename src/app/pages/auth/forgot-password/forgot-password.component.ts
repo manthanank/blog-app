@@ -43,6 +43,7 @@ export class ForgotPasswordComponent {
             this.message = data.message;
             setTimeout(() => {
               this.message = '';
+              this.forgotPasswordForm.reset();
             }, 2000);
           }
         },
