@@ -55,28 +55,43 @@ export class BlogListComponent implements OnInit {
     });
     this.isLoggedIn = this.auth.getIsAuth();
     this.loadBlogs();
-    this.store.select('blogs').subscribe({
-      next: (data: any) => {
-        this.blogs = data.blogs.posts;
-        this.loading = data.loading;
-        this.error = data.error;
-        this.totalBlogPosts = data.blogs?.next?.total; // Assuming the response includes total posts
-      },
-      error: (error) => {
-        console.error('Error occurred:', error);
-      },
-    });
+    // this.store.select('blogs').subscribe({
+    //   next: (data: any) => {
+    //     this.blogs = data.blogs.posts;
+    //     this.loading = data.loading;
+    //     this.error = data.error;
+    //     this.totalBlogPosts = data.blogs?.next?.total; // Assuming the response includes total posts
+    //   },
+    //   error: (error) => {
+    //     console.error('Error occurred:', error);
+    //   },
+    // });
   }
 
   loadBlogs(): void {
     const page = this.currentPage;
-    this.store.dispatch(
-      BlogsActions.loadBlogs({
-        limit: this.pageSize,
-        page: page,
-        search: this.searchTerm,
-      })
-    );
+    // this.store.dispatch(
+    //   BlogsActions.loadBlogs({
+    //     limit: this.pageSize,
+    //     page: page,
+    //     search: this.searchTerm,
+    //   })
+    // );
+    this.blogsService
+      .getAllBlogs(this.pageSize, page, this.searchTerm)
+      .subscribe({
+        next: (data: any) => {
+          this.blogs = data.posts;
+          this.loading = false;
+          this.error = null;
+          this.totalBlogPosts = data.blogs?.next?.total; // Assuming the response includes total posts
+        },
+        error: (error) => {
+          this.error = error;
+          this.loading = false;
+          console.error('Error occurred:', error);
+        },
+      });
   }
 
   searchBlogs(): void {
@@ -90,11 +105,16 @@ export class BlogListComponent implements OnInit {
   }
 
   nextPage() {
-    const totalPages = Math.ceil(this.totalBlogPosts / this.pageSize);
-    if (this.currentPage < totalPages) {
-      this.currentPage++;
-      this.loadBlogs();
+    // const totalPages = Math.ceil(this.totalBlogPosts / this.pageSize);
+    // if (this.currentPage < totalPages) {
+    //   this.currentPage++;
+    //   this.loadBlogs();
+    // }
+    if (this.blogs.length < this.pageSize) {
+      return;
     }
+    this.currentPage++;
+    this.loadBlogs();
   }
 
   ngOnDestroy(): void {

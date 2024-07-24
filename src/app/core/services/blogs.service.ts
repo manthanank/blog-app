@@ -17,6 +17,11 @@ export class BlogsService {
     return this.http.get(`${apiUrl}/blogs/featured/${username}`);
   }
 
+  // get all blogs
+  getAllBlogs(limit: number, page: number, search: string) {
+    return this.http.get(`${apiUrl}/blogs`, { params: { limit: limit.toString(), page: page.toString(), search } });
+  }
+
   // get latest blogs
   getLatestBlogs() {
     return this.http.get(`${apiUrl}/blogs/latest`);

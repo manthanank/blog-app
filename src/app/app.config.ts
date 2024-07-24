@@ -24,7 +24,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([authInterceptor, errorInterceptor])
     ),
     provideStore({ blogs: blogsReducer }),
-    provideEffects([BlogsEffects]),
+    // provideEffects([BlogsEffects]),
     provideAnimationsAsync()
   ],
 };
