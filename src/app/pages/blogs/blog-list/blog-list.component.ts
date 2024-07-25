@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 import * as BlogsActions from '../../../core/store/blogs.actions';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-blog-list',
@@ -20,7 +20,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RouterLink,
     DatePipe,
     BreadcrumbModule,
-    FormsModule,
     ReactiveFormsModule,
   ],
 })
@@ -37,7 +36,7 @@ export class BlogListComponent implements OnInit {
   totalBlogPosts: number = 100; // This could be dynamic based on server response
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
-  searchTerm: string = '';
+  searchTerm = new FormControl('');
   currentPage: number = 1;
   pageSize: number = 10; // Default page size
 
@@ -78,7 +77,7 @@ export class BlogListComponent implements OnInit {
     //   })
     // );
     this.blogsService
-      .getAllBlogs(this.pageSize, page, this.searchTerm)
+      .getAllBlogs(this.pageSize, page, this.searchTerm.value ?? '')
       .subscribe({
         next: (data: any) => {
           this.blogs = data.posts;

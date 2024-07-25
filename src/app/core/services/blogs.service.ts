@@ -18,7 +18,7 @@ export class BlogsService {
   }
 
   // get all blogs
-  getAllBlogs(limit: number, page: number, search: string) {
+  getAllBlogs(limit: number, page: number, search: string = '') {
     return this.http.get(`${apiUrl}/blogs`, { params: { limit: limit.toString(), page: page.toString(), search } });
   }
 
