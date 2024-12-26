@@ -6,6 +6,7 @@ const auth = require('../middlewares/auth');
 router.get('/blogs', blogController.getAllPosts);
 router.get('/blogs/latest', blogController.getLatestPosts);
 router.get('/blogs/:id', blogController.getPostById);
+router.get('/blogs/slug/:slug', blogController.getPostBySlug);
 router.get('/blogs/all/:username', blogController.getAllPostsByUsername);
 router.get('/blogs/featured/:username', blogController.getFeaturedPostsByUsername);
 router.post('/blogs', auth, blogController.createPost);

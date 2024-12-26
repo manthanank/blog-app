@@ -91,6 +91,19 @@ exports.getPostById = async (req, res) => {
     }
 };
 
+// get a blog post by slug
+exports.getPostBySlug = async (req, res) => {
+    try {
+        const post = await BlogPost.findOne({ slug: req.params.slug });
+        if (!post) {
+            return res.status(404).json({ message: 'Blog post not found' });
+        }
+        res.json(post);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
 // Create a new blog post
 exports.createPost = async (req, res) => {
     const post = new BlogPost({
