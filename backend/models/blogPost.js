@@ -43,6 +43,11 @@ const blogSchema = new mongoose.Schema({
   visitCount: {
     type: Number,
     default: 0
+  },
+  status: {
+    type: String,
+    enum: ['draft', 'published'],
+    default: 'published'
   }
 });
 

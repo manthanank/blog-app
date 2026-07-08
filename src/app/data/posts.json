@@ -1,0 +1,86 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Getting Started with Angular",
+      "content": "Angular is a powerful framework for building dynamic web applications, developed and maintained by Google. This component demonstrates basic Angular concepts like decorators, templates, and event binding.",
+      "author": "John Doe",
+      "postedDate": "2024-02-15",
+      "updatedDate": "2024-02-16",
+      "tags": ["angular", "typescript"]
+    },
+    {
+      "id": 2,
+      "title": "Tailwind CSS Tips and Tricks",
+      "content": "Tailwind CSS makes styling a breeze with its utility-first approach. The above code creates a responsive card that adapts its layout based on screen size.",
+      "author": "Jane Smith",
+      "postedDate": "2024-02-14",
+      "tags": ["css"]
+    },
+    {
+      "id": 3,
+      "title": "Mastering RxJS in Angular",
+      "content": "RxJS is essential for handling asynchronous operations in Angular. This example demonstrates filtering, transformation, and time-based operations with RxJS.",
+      "author": "John Doe",
+      "postedDate": "2024-03-01",
+      "updatedDate": "2024-03-02",
+      "tags": ["angular", "rxjs", "typescript"]
+    },
+    {
+      "id": 4,
+      "title": "Building a RESTful API with Node.js and Express",
+      "content": "Node.js and Express are a powerful combination for building RESTful APIs. This code sets up a server with basic GET and POST endpoints.",
+      "author": "Alice Johnson",
+      "postedDate": "2024-03-05",
+      "tags": ["nodejs", "express", "api"]
+    },
+    {
+      "id": 5,
+      "title": "Introduction to MongoDB Aggregation Framework",
+      "content": "MongoDB's aggregation framework is a powerful tool for data analysis. This pipeline filters completed orders, groups them by customer, and sorts by total amount.",
+      "author": "Jane Smith",
+      "postedDate": "2024-03-10",
+      "tags": ["mongodb", "database", "aggregation"]
+    },
+    {
+      "id": 6,
+      "title": "Understanding Angular's Change Detection",
+      "content": "Change detection in Angular ensures the UI is updated whenever the application state changes. Using OnPush strategy, Angular checks for changes only when the input property changes by reference.",
+      "author": "John Doe",
+      "postedDate": "2024-03-15",
+      "tags": ["angular", "performance"]
+    },
+    {
+      "id": 7,
+      "title": "Using Tailwind CSS with Angular",
+      "content": "Integrating Tailwind CSS in Angular projects is straightforward. First install Tailwind CSS, then configure it, and finally add Tailwind directives to your global CSS file. This setup allows you to start using Tailwind's utility classes in your Angular components.",
+      "author": "Jane Smith",
+      "postedDate": "2024-03-20",
+      "tags": ["angular", "css", "tailwindcss"]
+    },
+    {
+      "id": 8,
+      "title": "Building Real-Time Apps with WebSockets in Node.js",
+      "content": "WebSockets enable real-time communication between the client and server. This creates a WebSocket server that echoes messages sent by clients.",
+      "author": "Alice Johnson",
+      "postedDate": "2024-03-25",
+      "tags": ["nodejs", "websockets", "real-time"]
+    },
+    {
+      "id": 9,
+      "title": "Optimizing MongoDB Indexes for Query Performance",
+      "content": "Indexes in MongoDB can significantly speed up queries. Remember to analyze query performance using the explain() method to ensure indexes are being used efficiently.",
+      "author": "Jane Smith",
+      "postedDate": "2024-03-30",
+      "tags": ["mongodb", "performance", "database"]
+    },
+    {
+      "id": 10,
+      "title": "Exploring Angular's Dependency Injection System",
+      "content": "Angular's dependency injection (DI) system provides a way to manage service lifecycles and dependencies. Services can be provided at different levels and injected into components where needed.",
+      "author": "John Doe",
+      "postedDate": "2024-04-01",
+      "tags": ["angular", "typescript", "dependency injection"]
+    }
+  ]
+}

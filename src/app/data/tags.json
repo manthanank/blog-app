@@ -1,0 +1,34 @@
+{
+  "tags": [
+    {
+      "id": "angular",
+      "name": "Angular",
+      "color": "bg-red-100 text-red-800"
+    },
+    {
+      "id": "css",
+      "name": "CSS", 
+      "color": "bg-blue-100 text-blue-800"
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "color": "bg-blue-100 text-blue-800"
+    },
+    {
+      "id": "rxjs",
+      "name": "RxJS",
+      "color": "bg-pink-100 text-pink-800"
+    },
+    {
+      "id": "testing",
+      "name": "Testing",
+      "color": "bg-green-100 text-green-800"
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "color": "bg-purple-100 text-purple-800"
+    }
+  ]
+}

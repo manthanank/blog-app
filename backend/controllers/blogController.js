@@ -11,12 +11,13 @@ exports.getAllPosts = async (req, res) => {
 
         const results = {};
 
-        // Create a search condition if a search query is provided
+        // Create a search condition if a search query is provided, and filter by status === 'published'
         const searchCondition = searchQuery
-            ? { title: { $regex: new RegExp(searchQuery, "i") } }
-            : {};
+            ? { title: { $regex: new RegExp(searchQuery, "i") }, status: 'published' }
+            : { status: 'published' };
 
-        const totalDocuments = await BlogPost.countDocuments(searchCondition).exec();
+                const totalDocuments = await BlogPost.countDocuments(searchCondition).exec();
+        results.total = totalDocuments;
 
         if (endIndex < totalDocuments) {
             results.next = {
@@ -49,7 +50,7 @@ exports.getAllPosts = async (req, res) => {
 exports.getLatestPosts = async (req, res) => {
     try {
         // get the latest 10 blog posts
-        const posts = await BlogPost.find().sort({ createdAt: -1 }).limit(10).exec();
+        const posts = await BlogPost.find({ status: 'published' }).sort({ createdAt: -1 }).limit(10).exec();
         res.json(posts);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -115,7 +116,8 @@ exports.createPost = async (req, res) => {
         tags: req.body.tags,
         createdAt: req.body.createdAt,
         featured: req.body.featured,
-        authorId: req.body.authorId
+        authorId: req.body.authorId,
+        status: req.body.status || 'published'
     });
     try {
         const newPost = await post.save();
@@ -160,6 +162,7 @@ exports.updatePost = async (req, res) => {
         post.content = req.body.content;
         post.tags = req.body.tags;
         post.featured = req.body.featured;
+        post.status = req.body.status || post.status;
         
         const updatedPost = await post.save();
         res.json(updatedPost);

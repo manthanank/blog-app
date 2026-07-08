@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const blogRoutes = require('./routes/blogRoutes');
 const userRoutes = require('./routes/userRoutes');
 const tagRoutes = require('./routes/tagRoutes');
+const commentRoutes = require('./routes/commentRoutes');
 
 require("dotenv").config();
 
@@ -16,16 +17,21 @@ const dbUser = process.env.MONGODB_USER;
 const dbPassword = process.env.MONGODB_PASSWORD;
 
 // Connect to MongoDB
+const mongoUri = process.env.MONGODB_URI || 
+    (dbUser && dbPassword 
+        ? `mongodb+srv://${dbUser}:${dbPassword}@cluster0.re3ha3x.mongodb.net/blog-app` 
+        : 'mongodb://127.0.0.1:27017/blog-app');
+
 mongoose
     .connect(
-        `mongodb+srv://${dbUser}:${dbPassword}@cluster0.re3ha3x.mongodb.net/blog-app`,
-        { useNewUrlParser: true, useUnifiedTopology: true } // Add these options for MongoDB connection
+        mongoUri,
+        { useNewUrlParser: true, useUnifiedTopology: true }
     )
     .then(() => {
         console.log("Connected to MongoDB database!");
     })
     .catch((error) => {
-        console.error("Connection failed!", error); // Log the error for better debugging
+        console.error("Connection failed!", error);
     });
 
 app.use(
@@ -41,6 +47,7 @@ app.use(express.json());
 app.use('/api', userRoutes);
 app.use('/api', blogRoutes);
 app.use('/api', tagRoutes);
+app.use('/api', commentRoutes);
 
 // Define routes
 app.get('/', (req, res) => {
